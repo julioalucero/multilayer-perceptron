@@ -3,4 +3,5 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptronSimple'
 
-csv = PerceptorSimple::Csv.new('hola mundo')
+csv = PerceptorSimple::Csv.new('prueba.csv')
+csv.to_a
