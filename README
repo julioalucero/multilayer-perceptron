@@ -1,3 +1,7 @@
 Intelligence Computational
 
 1 - Perceptron Simple
+
+para correr el programa:
+  - posicionarse dentro de la carpeta '1 - Perceptron Simple/'
+  - correr el comando  > ruby -I lib/ bin/runner
