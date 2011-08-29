@@ -20,7 +20,8 @@ module PerceptorSimple
 
     def test(matrix)
       matrix.each do |training|
-        if calculate(training) == training.last
+        yd = training.last
+        if calculate(training) == yd
           p "dio bien"
         else
           p "dio mal"
@@ -29,8 +30,8 @@ module PerceptorSimple
     end
 
     def calculate(training)
-      yd = dot_product(training)
-      yd < 0 ? -1 : 1
+      y = dot_product(training)
+      y < 0 ? -1 : 1
     end
 
     def dot_product(training)
