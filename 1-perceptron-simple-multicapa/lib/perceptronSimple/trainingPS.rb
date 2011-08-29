@@ -26,6 +26,7 @@ module PerceptorSimple
           p "dio bien"
         else
           p "dio mal"
+          update(training)
         end
       end
     end
@@ -35,10 +36,34 @@ module PerceptorSimple
       y < 0 ? -1 : 1
     end
 
+    # w(n+1) = w(n) - u*x(n)
+    def update(training)
+      shift = constantProduct(training)
+      @w = subtractArray(shift)
+    end
+
     def dot_product(training)
       sum = 0
       @w.zip(training) { |a, b| sum += a * b }
       sum
+    end
+
+    # u * x(n)
+    def constantProduct(training)
+      shift = []
+      for i in 0..8
+        shift << training[i] * @u
+      end
+      shift
+    end
+
+    # w(n) - constantProduct
+    def subtractArray(shift)
+      wUpdate = []
+      for i in 0..8
+        wUpdate << @w[i] - shift[i]
+      end
+      wUpdate
     end
   end
 end
