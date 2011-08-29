@@ -17,5 +17,26 @@ module PerceptorSimple
       end
       randomArray
     end
+
+    def test(matrix)
+      matrix.each do |training|
+        if calculate(training) == training.last
+          p "dio bien"
+        else
+          p "dio mal"
+        end
+      end
+    end
+
+    def calculate(training)
+      yd = dot_product(training)
+      yd < 0 ? -1 : 1
+    end
+
+    def dot_product(training)
+      sum = 0
+      @w.zip(training) { |a, b| sum += a * b }
+      sum
+    end
   end
 end
