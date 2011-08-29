@@ -7,4 +7,3 @@ nInputs = 9
 file_path = 'prueba.csv'
 csv = PerceptorSimple::Csv.new(file_path)
 entrenamiento = PerceptorSimple::TrainingPS.new(nInputs)
-p entrenamiento.w
