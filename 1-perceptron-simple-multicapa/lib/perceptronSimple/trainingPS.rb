@@ -1,11 +1,12 @@
 module PerceptorSimple
   class TrainingPS
-    attr_accessor :nInputs, :w, :u
+    attr_accessor :nInputs, :w, :u, :tol
 
-    def initialize(nInputs, u)
+    def initialize(nInputs, u, tol)
       @nInputs = nInputs
       @w = initializeRandom
       @u = u
+      @tol = tol
     end
 
     def initializeRandom
@@ -47,7 +48,6 @@ module PerceptorSimple
     def constantProduct(training, yd)
       shift = []
       constant = @u/2 * (yd - training.last)
-      p constant
       for i in 0..8
         shift << training[i] * constant
       end
