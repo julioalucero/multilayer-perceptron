@@ -43,7 +43,7 @@ module PerceptorSimple
       sum
     end
 
-    # u * x(n)
+    # u/2 [yd - y(n)] * x(n)
     def constantProduct(training, yd)
       shift = []
       constant = @u/2 * (yd - training.last)
