@@ -21,13 +21,8 @@ module PerceptorSimple
 
     def test(matrix)
       matrix.each do |training|
-        yd = training.last
-        if calculate(training) == yd
-          p "dio bien"
-        else
-          p "dio mal"
-          update(training)
-        end
+        yd = calculate(training)
+        update(training, yd)
       end
     end
 
@@ -37,8 +32,8 @@ module PerceptorSimple
     end
 
     # w(n+1) = w(n) - u*x(n)
-    def update(training)
-      shift = constantProduct(training)
+    def update(training, yd)
+      shift = constantProduct(training, yd)
       @w = subtractArray(shift)
     end
 
@@ -49,10 +44,12 @@ module PerceptorSimple
     end
 
     # u * x(n)
-    def constantProduct(training)
+    def constantProduct(training, yd)
       shift = []
+      constant = @u/2 * (yd - training.last)
+      p constant
       for i in 0..8
-        shift << training[i] * @u
+        shift << training[i] * constant
       end
       shift
     end
