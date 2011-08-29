@@ -6,5 +6,5 @@ require 'perceptronSimple'
 nInputs = 9
 file_path = 'prueba.csv'
 csv = PerceptorSimple::Csv.new(file_path)
-entrenamiento = PerceptorSimple::TrainingPS.new(nInputs)
+entrenamiento = PerceptorSimple::TrainingPS.new(nInputs, 0.2)
 entrenamiento.test(csv.matrix)
