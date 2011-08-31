@@ -14,6 +14,7 @@ entrenamiento.test(csv_or.matrix)
 
 desviacion = 0.05
 cantidad = 20
-xpos = 1.0
-ypos = 1.0
-matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, xpos, ypos)
+matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0)
+matrixPrueba2 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0)
+matrixPrueba3 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0)
+matrixPrueba4 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0)
