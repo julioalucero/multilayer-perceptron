@@ -3,8 +3,11 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptronSimple'
 
-nInputs = 9
-file_path = 'prueba.csv'
-csv = PerceptorSimple::Csv.new(file_path)
+# Ejercicio 1
+
+nInputs = 2
+or_path = 'or.csv'
+csv_or = PerceptorSimple::Csv.new(or_path)
+
 entrenamiento = PerceptorSimple::TrainingPS.new(nInputs, 0.2)
-entrenamiento.test(csv.matrix)
+entrenamiento.test(csv_or.matrix)

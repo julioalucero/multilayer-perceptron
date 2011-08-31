@@ -47,7 +47,7 @@ module PerceptorSimple
     def constantProduct(training, yd)
       shift = []
       constant = @u/2 * (yd - training.last)
-      for i in 0..8
+      for i in 0..1
         shift << training[i] * constant
       end
       shift
@@ -56,7 +56,7 @@ module PerceptorSimple
     # w(n) - constantProduct
     def subtractArray(shift)
       wUpdate = []
-      for i in 0..8
+      for i in 0..1
         wUpdate << @w[i] - shift[i]
       end
       wUpdate
