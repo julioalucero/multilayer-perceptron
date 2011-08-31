@@ -11,3 +11,9 @@ csv_or = PerceptorSimple::Csv.new(or_path)
 
 entrenamiento = PerceptorSimple::TrainingPS.new(nInputs, 0.2)
 entrenamiento.test(csv_or.matrix)
+
+desviacion = 0.05
+cantidad = 20
+xpos = 1.0
+ypos = 1.0
+matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, xpos, ypos)
