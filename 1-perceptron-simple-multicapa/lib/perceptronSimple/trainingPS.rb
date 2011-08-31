@@ -1,12 +1,11 @@
 module PerceptorSimple
   class TrainingPS
-    attr_accessor :nInputs, :w, :u, :tol
+    attr_accessor :nInputs, :w, :u
 
-    def initialize(nInputs, u, tol)
+    def initialize(nInputs, u)
       @nInputs = nInputs
       @w = initializeRandom
       @u = u
-      @tol = tol
     end
 
     def initializeRandom
