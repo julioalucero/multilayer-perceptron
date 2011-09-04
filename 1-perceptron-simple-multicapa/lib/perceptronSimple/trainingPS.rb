@@ -1,39 +1,37 @@
 module PerceptorSimple
   class TrainingPS
-    attr_accessor :nInputs, :w, :u
+    attr_accessor :nInputs, :w, :umbral, :w0
 
-    def initialize(nInputs, u)
+    def initialize(nInputs, umbral)
       @nInputs = nInputs
       @w = initializeRandom
-      @u = u
+      @umbral = umbral
+      @w0 = 2 * 0.5 * rand - 0.5
     end
 
     def initializeRandom
-      i = 1
-      randomArray = []
-      random = Random.new
-      while i <= @nInputs do
-        randomArray << random.rand(0.5) * ((-1)**i)
-        i += 1
-      end
-      randomArray
+      # TODO debería saber solo cuantas entradas tienen
+      [2 * 0.5 * rand - 0.5, 2 * 0.5 * rand - 0.5]
     end
 
-    def test(matrix)
+    # recibe el array de entrenamiento.
+    # entrena y actualiza los pesos
+    def training(matrix)
       matrix.each do |training|
-        yd = calculate(training)
-        update(training, yd)
+        y = calculate(training)
+        update(training, y)
       end
     end
 
     def calculate(training)
       y = dot_product(training)
+      y = y - w0
       y < 0 ? -1 : 1
     end
 
-    # w(n+1) = w(n) - u*x(n)
-    def update(training, yd)
-      shift = constantProduct(training, yd)
+    # w(n+1) = w(n) - umbral*x(n)
+    def update(training, y)
+      shift = constantProduct(training, y)
       @w = subtractArray(shift)
     end
 
@@ -43,13 +41,14 @@ module PerceptorSimple
       sum
     end
 
-    # u/2 [yd - y(n)] * x(n)
+    # umbral/2 [yd - y(n)] * x(n)
     def constantProduct(training, yd)
       shift = []
-      constant = @u/2 * (yd - training.last)
+      constant = @umbral/2 * (yd - training.last)
       for i in 0..1
         shift << training[i] * constant
       end
+      @w0 = @w0 + @umbral * (yd - training.last) * -1
       shift
     end
 
