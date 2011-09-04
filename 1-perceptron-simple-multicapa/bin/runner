@@ -10,11 +10,39 @@ or_path = 'or.csv'
 csv_or = PerceptorSimple::Csv.new(or_path)
 
 entrenamiento = PerceptorSimple::TrainingPS.new(nInputs, 0.2)
-entrenamiento.test(csv_or.matrix)
+#entrenamiento.training(csv_or.matrix)
 
 desviacion = 0.05
 cantidad = 20
-matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0)
-matrixPrueba2 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0)
-matrixPrueba3 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0)
-matrixPrueba4 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0)
+matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0, 1)
+matrixPrueba2 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, 1)
+matrixPrueba3 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, 1)
+matrixPrueba4 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0, -1)
+
+matrixPruebas = matrixPrueba3.matrix +  matrixPrueba2.matrix +
+                matrixPrueba1.matrix +  matrixPrueba4.matrix +
+                csv_or.matrix
+
+matrixPruebas.shuffle!
+#csv_or.partition(matrixPruebas, 80,20)
+
+entrenamiento.training(matrixPruebas)
+
+pesos = entrenamiento.w
+w1 =  entrenamiento.w.first
+w2 =  entrenamiento.w.last
+
+puts "la pendiente es: #{w1/w2}"
+puts "la otra var. es: #{entrenamiento.w0/w2}"
+
+test1 = w1 * 1 + w2 * 1
+test2 = w1 * 1 + w2 * -1
+test3 = w1 * -1 + w2 * 1
+test4 = w1 * -1 + w2 * -1
+
+p test1
+p test2
+p test3
+p test4
+
+
