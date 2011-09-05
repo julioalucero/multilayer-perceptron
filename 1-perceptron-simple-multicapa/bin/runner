@@ -5,12 +5,10 @@ require 'perceptronSimple'
 
 # Ejercicio 1
 
-nInputs = 2
 or_path = 'or.csv'
 csv_or = PerceptorSimple::Csv.new(or_path)
 
-entrenamiento = PerceptorSimple::TrainingPS.new(nInputs, 0.2)
-#entrenamiento.training(csv_or.matrix)
+entrenamiento = PerceptorSimple::TrainingPS.new(2, 0.5, 1)
 
 desviacion = 0.05
 cantidad = 20
@@ -33,16 +31,4 @@ w1 =  entrenamiento.w.first
 w2 =  entrenamiento.w.last
 
 puts "la pendiente es: #{w1/w2}"
-puts "la otra var. es: #{entrenamiento.w0/w2}"
-
-test1 = w1 * 1 + w2 * 1
-test2 = w1 * 1 + w2 * -1
-test3 = w1 * -1 + w2 * 1
-test4 = w1 * -1 + w2 * -1
-
-p test1
-p test2
-p test3
-p test4
-
-
+puts "la otra var. es: #{entrenamiento.umbral/w2}"
