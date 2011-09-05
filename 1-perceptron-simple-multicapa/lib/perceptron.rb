@@ -1,5 +1,5 @@
 require 'perceptron/csv'
-require 'perceptron/trainingPS'
+require 'perceptron/neuron'
 require 'perceptron/randomCustomize'
 require 'matrix'
 

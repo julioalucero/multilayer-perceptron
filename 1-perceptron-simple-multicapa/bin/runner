@@ -8,7 +8,7 @@ require 'perceptron'
 or_path = 'or.csv'
 csv_or = Perceptor::Csv.new(or_path)
 
-entrenamiento = Perceptor::TrainingPS.new(2, 0.5, 1)
+entrenamiento = Perceptor::Neuron.new(2, 0.5, 1)
 
 desviacion = 0.05
 cantidad = 20

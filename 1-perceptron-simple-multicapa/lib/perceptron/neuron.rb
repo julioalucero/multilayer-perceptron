@@ -1,5 +1,5 @@
 module Perceptor
-  class TrainingPS
+  class Neuron
     attr_accessor :nInputs, :w, :nu, :umbral, :epocas
 
     def initialize(nInputs, nu, epocas)
