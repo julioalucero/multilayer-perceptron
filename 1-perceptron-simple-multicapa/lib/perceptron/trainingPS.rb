@@ -1,4 +1,4 @@
-module PerceptorSimple
+module Perceptor
   class TrainingPS
     attr_accessor :nInputs, :w, :nu, :umbral, :epocas
 

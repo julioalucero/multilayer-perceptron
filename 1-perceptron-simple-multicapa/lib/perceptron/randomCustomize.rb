@@ -1,4 +1,4 @@
-module PerceptorSimple
+module Perceptor
   class RandomCustomize
     attr_accessor :matrix
 

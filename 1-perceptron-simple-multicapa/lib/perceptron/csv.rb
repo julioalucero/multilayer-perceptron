@@ -1,4 +1,4 @@
-module PerceptorSimple
+module Perceptor
   class Csv
     attr_accessor :file_path, :matrix
 

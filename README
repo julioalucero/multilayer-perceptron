@@ -3,5 +3,5 @@ Intelligence Computational
 1 - Perceptron Simple
 
 para correr el programa:
-  - posicionarse dentro de la carpeta '1 - Perceptron Simple/'
+  - posicionarse dentro de la carpeta '1-perceptron-simple-multicapa'
   - correr el comando  > ruby -I lib/ bin/runner
