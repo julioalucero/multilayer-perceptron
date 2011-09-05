@@ -8,7 +8,7 @@ module PerceptorSimple
       if zpos == nil
         initialize2d(desviacion, cantidad, xpos, ypos, yd)
       else
-        initialize3d(desviacion, cantidad, xpos, ypos, zpos, yd)
+        initalize3d(desviacion, cantidad, xpos, ypos, zpos, yd)
       end
     end
 
@@ -21,6 +21,9 @@ module PerceptorSimple
         @matrix.push([xpos + 2 * desviacion * rand - desviacion, ypos + 2 * desviacion * rand - desviacion, yd])
       end
     end
+
+    # generar pares de numeros con una desviacion dada alrededor de una posicion
+    # dada por xpos, ypox y zpos.
 
     def initalize3d(desviacion, cantidad, xpos, ypos, zpos, yd)
       @matrix = Array.new
