@@ -12,10 +12,10 @@ entrenamiento = PerceptorSimple::TrainingPS.new(2, 0.5, 1)
 
 desviacion = 0.05
 cantidad = 20
-matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0, 1)
-matrixPrueba2 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, 1)
-matrixPrueba3 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, 1)
-matrixPrueba4 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0, -1)
+matrixPrueba1 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
+matrixPrueba2 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, nil,  1)
+matrixPrueba3 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil,  1)
+matrixPrueba4 = PerceptorSimple::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , -1)
 
 matrixPruebas = matrixPrueba3.matrix +  matrixPrueba2.matrix +
                 matrixPrueba1.matrix +  matrixPrueba4.matrix +
