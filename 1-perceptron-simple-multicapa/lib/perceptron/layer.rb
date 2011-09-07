@@ -20,7 +20,7 @@ module Perceptron
       for i in 0..@numNeuronas-1
         aux = Array.new
         for j in 0..@numEntradas - 1
-          aux << ( 2 * 0.5 - rand * 0.5 )
+          aux << ( 2 * 0.5 * rand - 0.5 )
         end
         @matrixWeights << aux
       end
@@ -40,11 +40,15 @@ module Perceptron
         for k in 0..(@entradas.length-1)
           sum = sum + matrixWeights[i][k] * @entradas[k]
         end
-        #sum=sigmoide(sum - umbral)
+        sum = sigmoide(sum, 1)
         y << sum
       end
       @salidas = y
       y
+    end
+
+    def sigmoide(y,a)
+      y= (1 -Math.exp(-a*y)) / (1 + Math.exp(-a*y))
     end
   end
 end
