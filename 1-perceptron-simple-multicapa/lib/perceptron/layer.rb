@@ -26,24 +26,26 @@ module Perceptron
       end
     end
 
-#    def guardarEntradas(entradas)
-#    	@entradas = entradas
-#    end
-#     
-#    	def calculateOuput(entradas)
-#    		guardarEntradas(entradas)
-#    		y=Array.new
-#    		for i in 0..(@numNeuronas-1)
-#    			sum=0
-#    			for k in 0..(@entradas.length-1)
-#    			sum = sum + matrixWeights[i][k]*@entradas[k]
-#    			end
-#    		#sum=sigmoide(sum - umbral)
-#    		y.push(sum) 
-#    		end
-#    		@salidas = y
-#    		y
-#    	end
+    # guardamos la entradas
+    def guardarEntradas(entradas)
+      @entradas = entradas
+    end
+
+    # realiza la operacion =>    < W . X > = y
+    def calculateOutput(entradas)
+      guardarEntradas(entradas)
+      y = Array.new
+      for i in 0..@numNeuronas-1
+        sum = 0
+        for k in 0..(@entradas.length-1)
+          sum = sum + matrixWeights[i][k] * @entradas[k]
+        end
+        #sum=sigmoide(sum - umbral)
+        y << sum
+      end
+      @salidas = y
+      y
+    end
 
   end
 end

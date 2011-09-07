@@ -16,3 +16,6 @@ p "------------------"
 p neuronalNetwork.vectorCapas
 p "------------------"
 p "------------------"
+layer.calculateOutput([1, 3])
+
+p layer
