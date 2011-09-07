@@ -13,8 +13,8 @@ module Perceptron
       @entradas = entradas
       @numNeuron = numNeuronas
       @cantIter = iteraciones
-      @indiceEntradas = initializeIndex()
-      @vectorCapas = initializeRed()
+      @indiceEntradas = initializeIndex
+      @vectorCapas = initializeRed
     end
 
     # recorre cada capa y guarda la cantidad de entradas que posee.
