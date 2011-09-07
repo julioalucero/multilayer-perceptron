@@ -1,3 +1,5 @@
+require 'gruff'
+
 module Perceptor
   class Neuron
     attr_accessor :nInputs, :w, :nu, :umbral, :epocas
@@ -22,11 +24,34 @@ module Perceptor
     # entrena y actualiza los pesos
     def training(matrix)
       @epocas.times do
+        contador = 0
         matrix.each do |training|
+          contador += 1
           y = calculate(training)
           update(training, y)
+          graficar(contador) if  contador.modulo(10) == 0
         end
       end
+    end
+
+    def graficar(k)
+      w1 =  @w.first
+      w2 =  @w.last
+      pendiente = w1/w2
+      ordenada  = @umbral/w2
+
+      g = Gruff::Line.new
+      g.title = "My Graph + #{k}"
+      g.labels = {0 => '-2', 1 => '-1', 2 => '0', 3 => '1', 4 => '2'}
+
+      y = Array.new
+      for i in 0..4 do
+        y[i] = ordenada - (pendiente * (i-2))
+      end
+
+      g.data("entrenamiento", y)
+      nombre = "prueba-#{k}.png"
+      g.write("images/+#{nombre}")
     end
 
     def calculate(training)
