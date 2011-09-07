@@ -36,5 +36,27 @@ module Perceptron
      end
      vectorCapas
    end
+
+   def trainingNetwork
+     @cantIter.times do
+       forwardPropagation
+     #  backPropagation
+     #  updateWeights
+     end
+   end
+
+   #recorrer el vector capas y calcular la salida y guarda las entradas
+   def forwardPropagation()
+     entradaAux = @entradas
+     entradaAux.delete(entradaAux.last) # Se elimina la última xq es la deseada
+     y = Array.new
+     for i in 0..(@vectorCapas.length-1)
+       y = @vectorCapas[i].calculateOutput(entradaAux)
+       entradaAux=y
+     end
+     #error=@entradas(i).last - y
+     #calcular el error si se satisface parar...
+     @salidas = y
+    end
   end
 end

@@ -46,6 +46,5 @@ module Perceptron
       @salidas = y
       y
     end
-
   end
 end
