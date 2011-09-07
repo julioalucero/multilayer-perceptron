@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'perceptron'
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Bienvenido al Ejercicio 3" + " " * 20 + "\n" +
+     " " * 20 + "   Perceptron Multicapa" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
