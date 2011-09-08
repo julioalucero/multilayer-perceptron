@@ -31,6 +31,12 @@ matrixPruebas.shuffle!
 csv_tabla2.matrix = matrixPruebas
 
 # Llamamos al metodo que crea los índices
+#
+# Ejercicio a)
 porcentaje = 80
-cantidadParticiones = 1
+cantidadParticiones = 5
+
+# Guarda en trainingIndices y testIndicies, 80% y 20% del total
+# respectivamente, indices al azar. Los guarda en arrays
+# Ej. [ [...] [...]  ....  [...]
 csv_tabla2.createIndices(porcentaje, cantidadParticiones)
