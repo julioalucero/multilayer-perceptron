@@ -33,10 +33,24 @@ csv_tabla2.matrix = matrixPruebas
 # Llamamos al metodo que crea los índices
 #
 # Ejercicio a)
-porcentaje = 80
-cantidadParticiones = 5
 
 # Guarda en trainingIndices y testIndicies, 80% y 20% del total
 # respectivamente, indices al azar. Los guarda en arrays
 # Ej. [ [...] [...]  ....  [...]
+porcentaje = 80
+cantidadParticiones = 5
 csv_tabla2.createIndices(porcentaje, cantidadParticiones)
+
+#p csv_tabla2.matrix[csv_tabla2.trainingIndices.first.first]
+#p csv_tabla2.trainingIndices.first
+
+# Creo una array para guardar los resultados
+
+particiones = Array.new
+for i in 0..4 do
+  prueba = Perceptor::Neuron.new(3, 0.5, 1)
+  prueba.trainingWithIndices(csv_tabla2.matrix, csv_tabla2.trainingIndices[i])
+  particiones << prueba
+end
+
+p particiones
