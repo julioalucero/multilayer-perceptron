@@ -2,7 +2,7 @@ require 'gruff'
 
 module Perceptor
   class Neuron
-    attr_accessor :nInputs, :w, :nu, :umbral, :epocas
+    attr_accessor :nInputs, :w, :nu, :umbral, :epocas, :error
 
     def initialize(nInputs, nu, epocas)
       @nInputs = nInputs
@@ -10,6 +10,7 @@ module Perceptor
       @umbral = 2 * 0.5 * rand - 0.5
       @epocas = epocas
       @w = initializeRandom
+      @error = Array.new
     end
 
     def initializeRandom
@@ -49,6 +50,7 @@ module Perceptor
         y[i] = ordenada - (pendiente * (i-2))
       end
 
+      g.data("ordenada", [0,0,0,0,0])
       g.data("entrenamiento", y)
       nombre = "prueba-#{k}.png"
       g.write("images/ejercicio1/#{nombre}")

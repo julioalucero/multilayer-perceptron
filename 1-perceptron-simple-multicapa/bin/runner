@@ -22,24 +22,13 @@ matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
 matrix.shuffle!
 
 
-# Divido entre la Matriz de Entrenamiento y Prueba
-# 80% entrenamiento, 20% pruebas
-matrixEntrenamientos = Array.new
-matrixPruebas = Array.new
-for i in 0..67
-  matrixEntrenamientos << matrix[i]
-end
-for i in 68..83
-  matrixPruebas << matrix[i]
-end
+neurona = Perceptor::Neuron.new(2, 0.5, 1)
+neurona.training(matrix)
 
-# Entreno
-entrenamiento = Perceptor::Neuron.new(2, 0.5, 1)
-entrenamiento.training(matrixEntrenamientos)
-#
-pesos = entrenamiento.w
-w1 =  entrenamiento.w.first
-w2 =  entrenamiento.w.last
+
+pesos = neurona.w
+w1 =    neurona.w.first
+w2 =    neurona.w.last
 
 puts "la pendiente es: #{w1/w2}"
-puts "la otra var. es: #{entrenamiento.umbral/w2}"
+puts "la otra var. es: #{neurona.umbral/w2}"
