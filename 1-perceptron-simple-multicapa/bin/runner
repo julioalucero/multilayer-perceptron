@@ -8,8 +8,6 @@ require 'perceptron'
 or_path = 'or.csv'
 csv_or = Perceptor::Csv.new(or_path)
 
-entrenamiento = Perceptor::Neuron.new(2, 0.5, 1)
-
 desviacion = 0.05
 cantidad = 20
 matrixPrueba1 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
@@ -17,15 +15,28 @@ matrixPrueba2 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, 
 matrixPrueba3 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil,  1)
 matrixPrueba4 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , -1)
 
-matrixPruebas = matrixPrueba3.matrix +  matrixPrueba2.matrix +
+matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
                 matrixPrueba1.matrix +  matrixPrueba4.matrix +
                 csv_or.matrix
 
-matrixPruebas.shuffle!
-#csv_or.partition(matrixPruebas, 80,20)
+matrix.shuffle!
 
-entrenamiento.training(matrixPruebas)
 
+# Divido entre la Matriz de Entrenamiento y Prueba
+# 80% entrenamiento, 20% pruebas
+matrixEntrenamientos = Array.new
+matrixPruebas = Array.new
+for i in 0..67
+  matrixEntrenamientos << matrix[i]
+end
+for i in 68..83
+  matrixPruebas << matrix[i]
+end
+
+# Entreno
+entrenamiento = Perceptor::Neuron.new(2, 0.5, 1)
+entrenamiento.training(matrixEntrenamientos)
+#
 pesos = entrenamiento.w
 w1 =  entrenamiento.w.first
 w2 =  entrenamiento.w.last

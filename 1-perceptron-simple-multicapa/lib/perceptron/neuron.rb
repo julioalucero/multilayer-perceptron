@@ -51,7 +51,7 @@ module Perceptor
 
       g.data("entrenamiento", y)
       nombre = "prueba-#{k}.png"
-      g.write("images/+#{nombre}")
+      g.write("images/ejercicio1/#{nombre}")
     end
 
     def calculate(training)
