@@ -1,6 +1,6 @@
 module Perceptron
   class NeuronalNetwork
-    attr_accessor  :capas, :entradas, :numNeuronas, :salidas, :vectorCapas, :indiceEntradas
+    attr_accessor  :capas, :entradas, :numNeuronas, :salidas, :vectorCapas, :indiceEntradas, :delta
 
     # @capas = numero de capas (contando todas)
     # @entradas = Contiene las entradas principales, vector.Ej. x = [x1, x2, x3, y]
@@ -40,14 +40,14 @@ module Perceptron
    def trainingNetwork
      @cantIter.times do
        forwardPropagation
-     #  backPropagation
+       backPropagation
      #  updateWeights
      end
    end
 
    #recorrer el vector capas y calcular la salida y guarda las entradas
    def forwardPropagation()
-     entradaAux = @entradas
+     entradaAux = @entradas.clone
      entradaAux.delete(entradaAux.last) # Se elimina la última xq es la deseada
      y = Array.new
      for i in 0..(@vectorCapas.length-1)
@@ -58,5 +58,23 @@ module Perceptron
      #calcular el error si se satisface parar...
      @salidas = y
     end
+
+   def backPropagation
+     @cantIter += 1
+     error = Array.new
+     # la idea es recorrer cada capa y calcular su oooomegaaa osea error
+     # @entradas es una matriz con todas las entradas,
+     # hay q ponerle un indice para llamar a la ultima de la fila
+     @delta = [@salidas.first-@entradas.last]
+     aux = @capas-1
+     error = @delta.clone
+     # @vectorCapas[aux].deltas = error
+     while aux > 0
+       # nota... 
+       @vectorCapas[aux].initializeDeltas(error, @vectorCapas[aux-1].numNeuronas)
+       error = @vectorCapas[aux].deltas
+       aux -= 1
+     end
+   end
   end
 end

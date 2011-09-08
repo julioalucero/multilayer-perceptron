@@ -8,10 +8,10 @@ puts "\n" + "*" * 80  + "\n" +
      " " * 20 + "   Perceptron Multicapa" + " " * 20 + "\n" +
      "*" * 80 + "\n"
 
-neuronalNetwork = Perceptron::NeuronalNetwork.new(2, [2, 5, -1], [2, 1], 1)
+neuronalNetwork = Perceptron::NeuronalNetwork.new(2, [2, 3, -1], [2, 1], 1)
 neuronalNetwork.trainingNetwork
 
 aux =  neuronalNetwork.vectorCapas
 p aux
-puts "*" * 30
-p neuronalNetwork.salidas
+puts "*" * 70
+p neuronalNetwork.delta
