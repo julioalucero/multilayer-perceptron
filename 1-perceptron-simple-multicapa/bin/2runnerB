@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'perceptron'
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Ejercicio 2 b" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
+
+or_path = 'tabla2b.csv'
+csv_tabla2 = Perceptor::Csv.new(or_path)

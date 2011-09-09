@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'perceptron'
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Ejercicio 2 a" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
+
+or_path = 'tabla2a.csv'
+csv_tabla2 = Perceptor::Csv.new(or_path)
+
+desviacion = 0.10
+cantidad = 124
+matrixPrueba1 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0, -1.0,  1)
+matrixPrueba2 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,  1.0,  1)
+matrixPrueba3 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0,  1.0, -1.0, -1)
+matrixPrueba4 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0,  1.0,  1.0,  1)
+matrixPrueba5 = Perceptor::RandomCustomize.new(desviacion, cantidad,  1.0, -1.0, -1.0, -1)
+matrixPrueba6 = Perceptor::RandomCustomize.new(desviacion, cantidad,  1.0, -1.0,  1.0, -1)
+matrixPrueba7 = Perceptor::RandomCustomize.new(desviacion, cantidad,  1.0,  1.0, -1.0,  1)
+matrixPrueba8 = Perceptor::RandomCustomize.new(desviacion, cantidad,  1.0,  1.0,  1.0, -1)
+
+matrixPruebas = matrixPrueba1.matrix +  matrixPrueba2.matrix + matrixPrueba3.matrix +
+                matrixPrueba4.matrix +  matrixPrueba5.matrix + matrixPrueba6.matrix +
+                matrixPrueba7.matrix +  matrixPrueba8.matrix + csv_tabla2.matrix
+
+matrixPruebas.shuffle!
+
+# asignamos nuestra matrixPruebas al objeto csv_tabla2
+csv_tabla2.matrix = matrixPruebas
+
+# Llamamos al metodo que crea los índices
+
+
+# Guarda en trainingIndices y testIndicies, 80% y 20% del total
+# respectivamente, indices al azar. Los guarda en arrays
+# Ej. [ [...] [...]  ....  [...]
+porcentaje = 80
+cantidadParticiones = 5
+csv_tabla2.createIndices(porcentaje, cantidadParticiones)
+
+#p csv_tabla2.matrix[csv_tabla2.trainingIndices.first.first]
+#p csv_tabla2.trainingIndices.first
+
+# Creo una array para guardar los resultados
+
+particiones = Array.new
+for i in 0..4 do
+  neurona = Perceptor::Neuron.new(3, 0.2, 1)
+  neurona.trainingWithIndices(csv_tabla2.matrix, csv_tabla2.trainingIndices[i])
+  neurona.test(csv_tabla2.matrix, csv_tabla2.testIndices[i])
+  particiones << neurona
+end
+
+sumaErrores = 0
+
+particiones.each do |epoca|
+  puts "Error: #{epoca.error.to_f / 200 * 100} %"
+  sumaErrores += epoca.error
+end
+puts "\n"
+puts "El promedio de error es: #{sumaErrores * 100 / 1000.0} %"
+puts "\n"
