@@ -17,7 +17,7 @@ module Perceptor
     def to_integers(array)
       matrizAuxiliar = Array.new
       array.each { |a|  matrizAuxiliar << a.split(',') }
-      matrizAuxiliar.each { |s| s.collect! { |x| x.to_i } }
+      matrizAuxiliar.each { |s| s.collect! { |x| x.to_f } }
     end
 
     # Crea los indices para lograr una partición aleatoria
