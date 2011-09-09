@@ -52,13 +52,13 @@ module Perceptron
     # realiza la operacion =>    < W . X > = y
     def calculateOutput(entradas)
       guardarEntradas(entradas)
-      y = Array.new
+      y  = Array.new
       for i in 0..@numNeuronas-1
         sum = 0
         for k in 0..(@entradas.length-1)
           sum = sum + matrixWeights[i][k] * @entradas[k]
         end
-        sum = sigmoide(sum, 1)
+        sum = sigmoide(sum-@umbral[i], 1)
         y << sum
       end
       @salidas = y
@@ -66,7 +66,22 @@ module Perceptron
     end
 
     def sigmoide(y,a)
-      y= (1 -Math.exp(-a*y)) / (1 + Math.exp(-a*y))
+      y= 1 / (1 + Math.exp(-a*y))
+    end
+
+    def dersig(y,a)
+      y= sigmoide(y,a) * (1-sigmoide(y,a))
+    end
+
+    def updateWeigt(deltas,nu)
+      for i in 0..(@matrixWeights.length-1)
+        for j in 0..(deltas.length-1)
+          @matrixWeights[i][j] = @matrixWeights[i][j] + nu * deltas[j] * @entradas[i]
+        end
+        for i in 0..(deltas.length - 1)
+          @umbral[i] -= nu * deltas[i]
+        end
+      end
     end
   end
 end
