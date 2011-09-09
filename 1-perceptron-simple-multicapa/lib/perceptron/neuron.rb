@@ -18,7 +18,7 @@ module Perceptor
       @nInputs.times do
          @w.push(2 * 0.5 * rand - 0.5)
       end
-      p @w
+      @w
     end
 
     # recibe el array de entrenamiento.
@@ -30,19 +30,35 @@ module Perceptor
           contador += 1
           y = calculate(training)
           update(training, y)
-          graficar(contador) if  contador.modulo(10) == 0
+          graficar(contador, "ejercicio1") if  contador.modulo(10) == 0
         end
       end
     end
 
-    def graficar(k)
+    def trainingWithIndices(matrix, indices)
+      @epocas.times do
+        contador = 0
+        while contador != 799
+          indice = indices[contador]
+          y = calculate(matrix[indice])
+          update(matrix[indice], y)
+          contador += 1
+        end
+      end
+    end
+
+    def graficar(k, ejercicio)
       w1 =  @w.first
       w2 =  @w.last
       pendiente = w1/w2
       ordenada  = @umbral/w2
 
       g = Gruff::Line.new
-      g.title = "My Graph + #{k}"
+      extra = rand(10)
+      title = "Graph" + k.to_s + extra.to_s
+      g.title = title
+      p title
+
       g.labels = {0 => '-2', 1 => '-1', 2 => '0', 3 => '1', 4 => '2'}
 
       y = Array.new
@@ -96,6 +112,21 @@ module Perceptor
         wUpdate << @w[i] + shift[i]
       end
       wUpdate
+    end
+
+    def test(matrix, indices)
+      contador = 0
+      @error = 0
+      while contador != 199
+        indice = indices[contador]
+        y = dot_product(matrix[indice])
+        y = y - @umbral
+        yd = matrix[indice].last
+        y = sigmoide(y, 1)
+        y = if (y > 0) then 1 else -1 end
+        @error += 1 if yd != y
+        contador += 1
+      end
     end
   end
 end
