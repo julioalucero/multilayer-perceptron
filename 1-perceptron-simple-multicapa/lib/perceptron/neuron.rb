@@ -2,7 +2,7 @@ require 'gruff'
 
 module Perceptor
   class Neuron
-    attr_accessor :nInputs, :w, :nu, :umbral, :epocas
+    attr_accessor :nInputs, :w, :nu, :umbral, :epocas, :error
 
     def initialize(nInputs, nu, epocas)
       @nInputs = nInputs
@@ -38,13 +38,11 @@ module Perceptor
       @epocas.times do
         contador = 0
         while contador != 799
-          contador += 1
-          indice = indices[contador-1]
+          indice = indices[contador]
           y = calculate(matrix[indice])
           update(matrix[indice], y)
-          puts "hola" if  contador == 799
+          contador += 1
         end
-        graficar(contador, "ejercicio2")
       end
     end
 
@@ -112,6 +110,21 @@ module Perceptor
         wUpdate << @w[i] + shift[i]
       end
       wUpdate
+    end
+
+    def test(matrix, indices)
+      contador = 0
+      @error = 0
+      while contador != 199
+        indice = indices[contador]
+        y = dot_product(matrix[indice])
+        y = y - @umbral
+        yd = matrix[indice].last
+        y = sigmoide(y, 1)
+        y = if (y > 0) then 1 else -1 end
+        @error += 1 if yd != y
+        contador += 1
+      end
     end
   end
 end

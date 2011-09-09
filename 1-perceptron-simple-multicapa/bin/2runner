@@ -48,9 +48,18 @@ csv_tabla2.createIndices(porcentaje, cantidadParticiones)
 
 particiones = Array.new
 for i in 0..4 do
-  prueba = Perceptor::Neuron.new(3, 0.5, 1)
-  prueba.trainingWithIndices(csv_tabla2.matrix, csv_tabla2.trainingIndices[i])
-  particiones << prueba
+  neurona = Perceptor::Neuron.new(3, 0.2, 1)
+  neurona.trainingWithIndices(csv_tabla2.matrix, csv_tabla2.trainingIndices[i])
+  neurona.test(csv_tabla2.matrix, csv_tabla2.testIndices[i])
+  particiones << neurona
 end
 
-p particiones
+sumaErrores = 0
+
+particiones.each do |epoca|
+  puts "Error: #{epoca.error.to_f / 200 * 100} %"
+  sumaErrores += epoca.error
+end
+puts "\n"
+puts "El promedio de error es: #{sumaErrores * 100 / 1000.0} %"
+puts "\n"
