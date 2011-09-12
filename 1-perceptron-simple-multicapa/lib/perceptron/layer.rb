@@ -24,7 +24,7 @@ module Perceptron
           aux << ( 2 * 0.5 * rand - 0.5 )
         end
         @matrixWeights << aux
-        @umbral << 2 * 0.5 * rand - 0.5 
+        @umbral << 2 * 0.5 * rand - 0.5
       end
     end
 
@@ -34,7 +34,7 @@ module Perceptron
     end
 
     #realiza el calculo omega = W.omegaCapaSuperior
-    def initializeDeltas(deltasCapaSuperior, numNeuronasAnterior)
+    def initializeDeltas(deltasCapaSuperior, numNeuronasAnterior, salidaAnterior)
       y = Array.new
       auxMatrixWeight = @matrixWeights.clone
       auxMatrixWeight = auxMatrixWeight.transpose
@@ -43,6 +43,7 @@ module Perceptron
         for k in 0..(deltasCapaSuperior.length-1)
           sum = sum + auxMatrixWeight[i][k] * deltasCapaSuperior[k]
         end
+        sum = sum * salidaAnterior[i] * (1.0 - salidaAnterior[i])
         y << sum
       end
       @deltas = y
@@ -74,9 +75,9 @@ module Perceptron
     end
 
     def updateWeigt(deltas,nu)
-      for i in 0..(@matrixWeights.length-1)
-        for j in 0..(deltas.length-1)
-          @matrixWeights[i][j] = @matrixWeights[i][j] + nu * deltas[j] * @entradas[i]
+      for i in 0..(@matrixWeights.first.length-1)
+        for j in 0..(@matrixWeights.length-1)
+          @matrixWeights[j][i] = @matrixWeights[j][i] + nu * deltas[j] * @entradas[i]
         end
         for i in 0..(deltas.length - 1)
           @umbral[i] -= nu * deltas[i]

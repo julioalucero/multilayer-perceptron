@@ -63,18 +63,18 @@ module Perceptron
     end
 
    def backPropagation(q)
-     @cantIter += 1
+  #   @cantIter += 1
      error = Array.new
      # la idea es recorrer cada capa y calcular su oooomegaaa osea error
      # @entradas es una matriz con todas las entradas,
      # hay q ponerle un indice para llamar a la ultima de la fila
-     @delta = [@salidas.first-@entradas[q].last]
+     @delta = [(@entradas[q].last - @salidas.first) * (@salidas.first * (1.0 - @salidas.first))]
      aux = @capas-1
      error = @delta.clone
      # @vectorCapas[aux].deltas = error
      while aux > 0
-       # nota... 
-       @vectorCapas[aux].initializeDeltas(error, @vectorCapas[aux-1].numNeuronas)
+       # nota...
+       @vectorCapas[aux].initializeDeltas(error, @vectorCapas[aux-1].numNeuronas, @vectorCapas[aux-1].salidas)
        error = @vectorCapas[aux].deltas
        aux -= 1
      end
@@ -86,6 +86,13 @@ module Perceptron
         @vectorCapas[i].updateWeigt(@vectorCapas[i+1].deltas, @nu)
       end
       @vectorCapas[@capas-1].updateWeigt(@delta, @nu)
+    end
+
+    def test(matrix)
+      @entradas = matrix
+      for q in 0..@entradas.length-1
+        forwardPropagation(q)
+     end
     end
   end
 end

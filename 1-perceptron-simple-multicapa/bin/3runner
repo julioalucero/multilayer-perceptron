@@ -28,9 +28,10 @@ for i in 2000..2499
   matrixTest << csv_tabla2.matrix[i]
 end
 
-neuronalNetwork = Perceptron::NeuronalNetwork.new(2, matrixEntrenamiento, [2, 1], 1, 0.5)
+neuronalNetwork = Perceptron::NeuronalNetwork.new(3, matrixEntrenamiento, [4, 2, 1], 50, 0.1)
 
 neuronalNetwork.trainingNetwork
-
 puts "*" * 70
+puts "*" * 70
+neuronalNetwork.test(matrixTest)
 
