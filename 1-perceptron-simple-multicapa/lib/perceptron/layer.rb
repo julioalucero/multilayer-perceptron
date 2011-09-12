@@ -1,6 +1,6 @@
 module Perceptron
   class Layer
-    attr_accessor :numNeuronas,:numeEntradas, :matrixWeights, :salidas, :entradas, :umbral, :deltas
+    attr_accessor :numNeuronas,:numeEntradas, :matrixWeights, :salidas, :entradas, :umbral, :deltas, :matrixMomentum, :vectorUmbral
 
     #  matrixWeights va a contener los pesos de cada neurona.
     #  Las filas corresponden a cada neurona.
@@ -12,6 +12,15 @@ module Perceptron
       @numEntradas = numEntradas
       @numNeuronas = numNeuronas
       initializeWeights
+      @matrixMomentum = Array.new
+      for i in 0..@matrixWeights.length-1
+        aux = Array.new
+        for j in 0..@matrixWeights[0].length-1
+          aux << 0
+        end
+        @matrixMomentum << aux
+      end
+      @vectorUmbral = []
     end
 
     # Inicializa al azar todos los pesos (w)
@@ -79,10 +88,34 @@ module Perceptron
         for j in 0..(@matrixWeights.length-1)
           @matrixWeights[j][i] = @matrixWeights[j][i] + nu * deltas[j] * @entradas[i]
         end
-        for i in 0..(deltas.length - 1)
-          @umbral[i] -= nu * deltas[i]
-        end
       end
+      for i in 0..(deltas.length - 1)
+        @umbral[i] += nu * deltas[i]
+      end
+    end
+
+    def updateWeigtWithMomentum(deltas,nu,alfa)
+      matrixAux = Array.new
+      matrixAux = @matrixMomentum.clone
+      vectorAux = Array.new
+      vectorAux = @vectorUmbral.clone
+      @matrixMomentum.clear
+      @vectorUmbral.clear
+      deltasM =[]
+      deltasU = []
+      for i in 0..(@matrixWeights.length-1)
+        for j in 0..(deltas.length-1)
+          deltasM << nu * deltas[j] * @entradas[i]
+          @matrixWeights[i][j] = @matrixWeights[i][j]  + (nu * deltas[j] * @entradas[i]) + alfa*matrixAux[i][j]
+          p "lo hago o no lo hago?"
+        end
+        @matrixMomentum << deltasM
+      end
+      for i in 0..(deltas.length - 1)
+        deltasU  << nu * deltas[i]
+        @umbral[i] = @umbral[i] - (nu * deltas[i]) + vectorAux[i]*alfa
+      end
+      @vectorUmbral = deltasU
     end
   end
 end

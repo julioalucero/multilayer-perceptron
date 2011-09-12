@@ -1,6 +1,6 @@
 module Perceptron
   class NeuronalNetwork
-    attr_accessor  :capas, :entradas, :numNeuronas, :salidas, :vectorCapas, :indiceEntradas, :delta, :nu
+    attr_accessor  :capas, :entradas, :numNeuronas, :salidas, :vectorCapas, :indiceEntradas, :delta, :nu, :momento
 
     # @capas = numero de capas (contando todas)
     # @entradas = Contiene las entradas principales, vector.Ej. x = [x1, x2, x3, y]
@@ -8,7 +8,7 @@ module Perceptron
     # @cantIter = Punto de corte, cantidad de entrenamientos.
     # @indiceEntradas = Cantidad de entradas en cada capa. Ej. [2, 3, 2].
     # @vectorCapas =  contiene el array con cada objeto Layer a utilizar
-    def initialize(capas, entradas, numNeuronas, iteraciones, nu)
+    def initialize(capas, entradas, numNeuronas, iteraciones, nu, momento)
       @capas = capas
       @entradas = entradas
       @numNeuron = numNeuronas
@@ -16,6 +16,7 @@ module Perceptron
       @indiceEntradas = initializeIndex
       @vectorCapas = initializeRed
       @nu = nu
+      @momento = momento
     end
 
     # recorre cada capa y guarda la cantidad de entradas que posee.
@@ -43,7 +44,7 @@ module Perceptron
        for q in 0..(@entradas.length-1)
          forwardPropagation(q)
          backPropagation(q)
-         updateWeights
+         updateWeights(@momento)
        end
      end
    end
@@ -80,18 +81,27 @@ module Perceptron
      end
    end
 
-    def updateWeights
+    def updateWeights(m)
       #actualizar dps la ultima capa con el delta que se calcula aca
-      for i in 0..(@capas-2)
-        @vectorCapas[i].updateWeigt(@vectorCapas[i+1].deltas, @nu)
+      if m then
+        for i in 0..(@capas-2)
+          @vectorCapas[i].updateWeigtWithMomentum(@vectorCapas[i+1].deltas, @nu, 0.5)
+        end
+        @vectorCapas[@capas-1].updateWeigtWithMomentum(@delta, @nu, 0.5)
+      else
+        for i in 0..(@capas-2)
+          @vectorCapas[i].updateWeigt(@vectorCapas[i+1].deltas, @nu)
+        end
+        @vectorCapas[@capas-1].updateWeigt(@delta, @nu)
       end
-      @vectorCapas[@capas-1].updateWeigt(@delta, @nu)
+
     end
 
     def test(matrix)
       @entradas = matrix
       for q in 0..@entradas.length-1
         forwardPropagation(q)
+        p @salidas
      end
     end
   end

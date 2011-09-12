@@ -8,4 +8,7 @@ puts "\n" + "*" * 80  + "\n" +
      "*" * 80 + "\n"
 
 or_path = 'iris.csv'
-iris = Perceptor::Csv.new(or_path)
+csv_iris = Perceptor::Csv.new(or_path)
+
+iris = Perceptron::NeuronalNetwork.new(2, csv_iris.matrix, [4, 3], 1, 0.1)
+p iris.salidas
