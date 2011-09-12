@@ -17,6 +17,10 @@ module Perceptron
       @vectorCapas = initializeRed
       @nu = nu
       @momento = momento
+      @delta = Array.new
+      for i in 0..@numNeuron.last-1
+        @delta << 0
+      end
     end
 
     # recorre cada capa y guarda la cantidad de entradas que posee.
@@ -69,14 +73,19 @@ module Perceptron
      # la idea es recorrer cada capa y calcular su oooomegaaa osea error
      # @entradas es una matriz con todas las entradas,
      # hay q ponerle un indice para llamar a la ultima de la fila
-     @delta = [(@entradas[q].last - @salidas.first) * (@salidas.first * (1.0 - @salidas.first))]
+
+     for i in 0..@numNeuron.last-1
+       @delta[i] = (@entradas[q].last - @salidas[i]) * (@salidas[i] * (1.0 - @salidas[i]))
+     end
+
      aux = @capas-1
+
      error = @delta.clone
      # @vectorCapas[aux].deltas = error
      while aux > 0
        # nota...
        @vectorCapas[aux].initializeDeltas(error, @vectorCapas[aux-1].numNeuronas, @vectorCapas[aux-1].salidas)
-       error = @vectorCapas[aux].deltas
+       #error = @vectorCapas[aux].deltas
        aux -= 1
      end
    end

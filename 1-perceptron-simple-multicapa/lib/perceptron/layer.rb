@@ -76,7 +76,7 @@ module Perceptron
     end
 
     def sigmoide(y,a)
-      y= 1 / (1 + Math.exp(-a*y))
+      y= (1 - Math.exp(-a*y)) / (1 + Math.exp(-a*y))
     end
 
     def dersig(y,a)
@@ -84,12 +84,12 @@ module Perceptron
     end
 
     def updateWeigt(deltas,nu)
-      for i in 0..(@matrixWeights.first.length-1)
+      for i in 0..(@entradas.length-1)
         for j in 0..(@matrixWeights.length-1)
           @matrixWeights[j][i] = @matrixWeights[j][i] + nu * deltas[j] * @entradas[i]
         end
       end
-      for i in 0..(deltas.length - 1)
+      for i in 0..(deltas.length-1)
         @umbral[i] += nu * deltas[i]
       end
     end
@@ -103,6 +103,7 @@ module Perceptron
       @vectorUmbral.clear
       deltasM =[]
       deltasU = []
+      p deltas
       for i in 0..(@matrixWeights.length-1)
         for j in 0..(deltas.length-1)
           deltasM << nu * deltas[j] * @entradas[i]
