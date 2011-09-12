@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'perceptron'
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Bienvenido al Ejercicio 4" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
+
+or_path = 'iris.csv'
+iris = Perceptor::Csv.new(or_path)
