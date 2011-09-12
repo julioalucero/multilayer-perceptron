@@ -11,10 +11,26 @@ puts "\n" + "*" * 80  + "\n" +
 or_path = 'concent.csv'
 csv_tabla2 = Perceptor::Csv.new(or_path)
 
-neuronalNetwork = Perceptron::NeuronalNetwork.new(2, csv_tabla2.matrix, [2, 1], 1, 0.5)
+porcentaje = 80
+cantidadParticiones = 1
+csv_tabla2.createIndices(porcentaje, cantidadParticiones)
+
+# random de la matrix
+csv_tabla2.matrix.shuffle!
+
+# guardamos los primeros 80%
+matrixEntrenamiento = Array.new
+for i in 0..1999
+  matrixEntrenamiento << csv_tabla2.matrix[i]
+end
+matrixTest = Array.new
+for i in 2000..2499
+  matrixTest << csv_tabla2.matrix[i]
+end
+
+neuronalNetwork = Perceptron::NeuronalNetwork.new(2, matrixEntrenamiento, [2, 1], 1, 0.5)
+
 neuronalNetwork.trainingNetwork
 
-aux =  neuronalNetwork.vectorCapas
-p aux
 puts "*" * 70
-p neuronalNetwork.delta
+
