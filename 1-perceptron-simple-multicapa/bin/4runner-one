@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'perceptron'
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Bienvenido al Ejercicio 4" + " " * 20 + "\n" +
+     " " * 20 + "leave-k-out" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
+
+or_path = 'iris.csv'
+csv_iris = Perceptor::Csv.new(or_path)
+
+#iris = Perceptron::NeuronalNetwork.new(2, csv_iris.matrix, [3, 3], 1, 0.1, false)
+#iris.trainingNetwork
+#p iris.salidas
