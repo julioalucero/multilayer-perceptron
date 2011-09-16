@@ -10,6 +10,21 @@ puts "\n" + "*" * 80  + "\n" +
 
 or_path = 'iris.csv'
 csv_iris = Perceptor::Csv.new(or_path)
+matrix = csv_iris.matrix
+
+matrix.shuffle!
+
+k = 10
+tamanio = matrix.count
+particiones = tamanio / k
+
+# En la matrix va recorriendo del modo leave-k-out
+# según el k que se eligio.
+particiones.times do |i|
+  test = matrix[(k*i)...(k*(i+1))]
+  entrenamiento =  matrix[0...(k*i)] + matrix[(k*(i+1))..tamanio]
+end
+
 
 #iris = Perceptron::NeuronalNetwork.new(2, csv_iris.matrix, [3, 3], 1, 0.1, false)
 #iris.trainingNetwork
