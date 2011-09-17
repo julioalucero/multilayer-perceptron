@@ -20,20 +20,20 @@ module Perceptron
         end
         @matrixMomentum << aux
       end
-      @vectorUmbral = []
+      @vectorUmbral = Array.new
     end
 
     # Inicializa al azar todos los pesos (w)
-    def initializeWeights()
+    def initializeWeights
       @matrixWeights = Array.new
       @umbral = Array.new
       for i in 0..@numNeuronas-1
         aux = Array.new
-        for j in 0..@numEntradas - 1
-          aux << ( 2 * 0.5 * rand - 0.5 )
+        for j in 0..@numEntradas-1
+          aux << (2*0.5*rand-0.5)
         end
         @matrixWeights << aux
-        @umbral << 2 * 0.5 * rand - 0.5
+        @umbral << (2*0.5*rand-0.5)
       end
     end
 
@@ -42,33 +42,30 @@ module Perceptron
       @entradas = entradas
     end
 
-    #realiza el calculo omega = W.omegaCapaSuperior
-    def initializeDeltas(deltasCapaSuperior, numNeuronasAnterior, salidaAnterior)
-      y = Array.new
-      auxMatrixWeight = @matrixWeights.clone
-      auxMatrixWeight = auxMatrixWeight.transpose
-      for i in 0..(numNeuronasAnterior-1)
-        sum = 0
-        for k in 0..(deltasCapaSuperior.length-1)
-          sum = sum + auxMatrixWeight[i][k] * deltasCapaSuperior[k]
-        end
-        sum = sum * salidaAnterior[i] * (1.0 - salidaAnterior[i])
-        y << sum
-      end
-      @deltas = y
+    #realiza el calculo delta
+    def initializeDeltas(deltasCapaSuperior,pesosCapaSuperior)
+    	aux=Array.new	
+	index = pesosCapaSuperior[0].length
+	for j in 0..(index-1)
+	sum=0
+		for k in 0..(deltasCapaSuperior.length-1)
+			sum+= pesosCapaSuperior[k][j]*deltasCapaSuperior[k]
+		end
+	aux << sum*(1.0+ @salidas[j])*(1.0-@salidas[j])	 
+	end
+	@deltas = aux    
     end
-
 
     # realiza la operacion =>    < W . X > = y
     def calculateOutput(entradas)
       guardarEntradas(entradas)
       y  = Array.new
-      for i in 0..@numNeuronas-1
+      for i in 0..(@numNeuronas-1)
         sum = 0
         for k in 0..(@entradas.length-1)
           sum = sum + matrixWeights[i][k] * @entradas[k]
         end
-        sum = sigmoide(sum-@umbral[i], 1)
+        sum = sigmoide(sum-@umbral[i], 30)
         y << sum
       end
       @salidas = y
@@ -76,25 +73,26 @@ module Perceptron
     end
 
     def sigmoide(y,a)
-      y= (1 - Math.exp(-a*y)) / (1 + Math.exp(-a*y))
+      #y= (1 - Math.exp(-a*y)) / (1 + Math.exp(-a*y))
+       y = (2.0 /( 1.0 - Math.exp(-a*y))) - 1.0
     end
 
     def dersig(y,a)
-      y= sigmoide(y,a) * (1-sigmoide(y,a))
+       y= 0.5 * (sigmoide(y,a)+1.0) * (sigmoide(y,a)-1.0)
     end
 
-    def updateWeigt(deltas,nu)
+    def updateWeigt(nu)
       for i in 0..(@entradas.length-1)
         for j in 0..(@matrixWeights.length-1)
-          @matrixWeights[j][i] = @matrixWeights[j][i] + nu * deltas[j] * @entradas[i]
+          @matrixWeights[j][i] = @matrixWeights[j][i] + (nu * @deltas[j] * @entradas[i])
         end
-      end
-      for i in 0..(deltas.length-1)
-        @umbral[i] += nu * deltas[i]
-      end
+      end 
+      for i in 0..(@deltas.length-1)
+        @umbral[i] = @umbral[i] + nu*deltas[i]
+      end	
     end
 
-    def updateWeigtWithMomentum(deltas,nu,alfa)
+    def updateWeigtWithMomentum(deltas,alfa)
       matrixAux = Array.new
       matrixAux = @matrixMomentum.clone
       vectorAux = Array.new
