@@ -67,13 +67,8 @@ module Perceptron
   end
 
 
-   def promErrores
-     suma = 0.0
-     for i in 0..(@error.length-1)
-     suma += @error[i]
-     end
-     suma = suma/(@error.length-1)
-     suma
+   def promErrores # por qué no prom_errores ?!!
+     @error.inject(0) { |accum, error| accum + error } / @error.length
    end
 
    #recorrer el vector capas y calcular la salida y guarda las entradas
