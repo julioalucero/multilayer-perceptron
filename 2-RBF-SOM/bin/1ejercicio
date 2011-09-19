@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'rbfSom'
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Ejercicio 1" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
