@@ -25,5 +25,6 @@ patrones.shuffle!
 
 k = 4
 rbfXor = RbfSom::Rbf.new(k, patrones)
+p rbfXor.centroides
 #rbfXor.entrenar
 
