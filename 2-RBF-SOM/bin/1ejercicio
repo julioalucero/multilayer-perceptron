@@ -17,10 +17,12 @@ matrixPrueba2 = RbfSom::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, nil
 matrixPrueba3 = RbfSom::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil,  -1)
 matrixPrueba4 = RbfSom::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , 1)
 
-matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
+patrones = matrixPrueba3.matrix +  matrixPrueba2.matrix +
                 matrixPrueba1.matrix +  matrixPrueba4.matrix +
                 csv_xor.matrix
 
-matrix.shuffle!
+patrones.shuffle!
 
-p matrix
+k = 4
+rbfXor = RbfSom::Rbf.new(k, patrones)
+p rbfXor.k
