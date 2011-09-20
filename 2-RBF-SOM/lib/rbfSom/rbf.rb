@@ -1,12 +1,12 @@
 module RbfSom
   class Rbf
-    attr_accessor :k, :patrones, :centroides
+    attr_accessor :k, :patrones, :centroides, :reasignaciones
 
     def initialize(k, patrones)
       @k = k
       @patrones = []
       @centroides = []
-      inicializarConjuntos(patrones)
+      @reasignaciones = true
       inicializarConjuntos(patrones)
     end
 
@@ -17,12 +17,17 @@ module RbfSom
     end
 
     def entrenar
-      calcularCentroides
-      reasignar
+      suma = 0
+      while @reasignaciones
+        @reasignaciones = false
+        calcularCentroides
+        reasignar
+      end
     end
 
     def calcularCentroides
       conjunto = []
+      @centroides = []
       @k.times do |i|
         conjunto = getConjunto(i)
         @centroides << media(conjunto)
@@ -31,7 +36,9 @@ module RbfSom
 
     def reasignar
       @patrones.each do | patron |
+        clase = patron[:clase]
         patron[:clase] = min_norma_euclidea(patron[:patron])
+        @reasignaciones = true if  clase != patron[:clase]
       end
     end
 
@@ -48,10 +55,10 @@ module RbfSom
       x = 0.0
       y = 0.0
       conjunto.each do  |patron|
-        x += patron.first
+        x += patron[0]
         y += patron[1]
       end
-      [x/conjunto.length, y/conjunto.length]
+      [(x/conjunto.count), (y/conjunto.count)]
     end
 
     # TODO luego debería hacerlo para n

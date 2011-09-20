@@ -26,4 +26,9 @@ patrones.shuffle!
 k = 4
 rbfXor = RbfSom::Rbf.new(k, patrones)
 rbfXor.entrenar
-p rbfXor.patrones
+
+p rbfXor.centroides
+p rbfXor.getConjunto(0).count
+p rbfXor.getConjunto(1).count
+p rbfXor.getConjunto(2).count
+p rbfXor.getConjunto(3).count
