@@ -7,13 +7,18 @@ module RbfSom
       @patrones = []
       @centroides = []
       inicializarConjuntos(patrones)
-      calcularCentroides
+      inicializarConjuntos(patrones)
     end
 
     def inicializarConjuntos(patrones)
       patrones.each do | patron |
         @patrones << { :patron => patron, :clase => rand(@k) }
       end
+    end
+
+    def entrenar
+      calcularCentroides
+      reasignar
     end
 
     def calcularCentroides
@@ -24,6 +29,12 @@ module RbfSom
       end
     end
 
+    def reasignar
+      @patrones.each do | patron |
+        patron[:clase] = min_norma_euclidea(patron[:patron])
+      end
+    end
+
     def getConjunto(k)
       conjunto = []
       @patrones.each do | patron |
@@ -31,10 +42,7 @@ module RbfSom
       end
       conjunto
     end
-#    def entrenar
-#      medias = calcularMedias
-#    end
-#
+
     # Luego va a tener q ser más generico, para n dimensiones
     def media(conjunto)
       x = 0.0
@@ -46,13 +54,14 @@ module RbfSom
       [x/conjunto.length, y/conjunto.length]
     end
 
-    def normaEuc(patron, centroide)
-      suma=0
-      for i in 0...patron.length
-        suma += patron[i]-centroide[i]
+    # TODO luego debería hacerlo para n
+    def min_norma_euclidea(patron)
+      distancias = []
+      @centroides.each do |centroide|
+        #TODO llamar a funcion norma_eclidea
+        distancias << ((patron[0] - centroide[0])**2) + ((patron[1] - centroide[1])**2)
       end
-      suma**2
+      distancias.index(distancias.min)
     end
-
   end
 end
