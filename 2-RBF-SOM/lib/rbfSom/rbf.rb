@@ -1,12 +1,13 @@
 module RbfSom
   class Rbf
-    attr_accessor :k, :patrones, :centroides, :reasignaciones
+    attr_accessor :k, :patrones, :centroides, :reasignaciones, :first
 
     def initialize(k, patrones)
       @k = k
       @patrones = []
       @centroides = []
       @reasignaciones = true
+      @first = true
       inicializarConjuntos(patrones)
     end
 
@@ -28,9 +29,32 @@ module RbfSom
     def calcularCentroides
       conjunto = []
       @centroides = []
-      @k.times do |i|
-        conjunto = getConjunto(i)
-        @centroides << media(conjunto)
+      if first then
+        patron = @patrones[rand(@patrones.length)][:patron]
+        @centroides << patron
+        contador = 1
+        while contador != @k
+          patron = @patrones[rand(@patrones.length)][:patron]
+          if esta_lejos?(patron) then
+             @centroides << patron
+             contador += 1
+          end
+        end
+        first = false
+      else
+        @k.times do |i|
+          conjunto = getConjunto(i)
+          @centroides << media(conjunto)
+        end
+      end
+    end
+
+    def esta_lejos?(patron)
+      distancias = norma_euclidea(patron)
+      if distancias.min < 0.5 then
+        false
+      else
+        true
       end
     end
 
@@ -69,6 +93,15 @@ module RbfSom
         distancias << ((patron[0] - centroide[0])**2) + ((patron[1] - centroide[1])**2)
       end
       distancias.index(distancias.min)
+    end
+
+    def norma_euclidea(patron)
+      distancias = []
+      @centroides.each do |centroide|
+        #TODO llamar a funcion norma_eclidea
+        distancias << ((patron[0] - centroide[0])**2) + ((patron[1] - centroide[1])**2)
+      end
+      distancias
     end
   end
 end
