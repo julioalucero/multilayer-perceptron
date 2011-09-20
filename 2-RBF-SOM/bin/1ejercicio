@@ -24,11 +24,9 @@ patrones = matrixPrueba3.matrix +  matrixPrueba2.matrix +
 patrones.shuffle!
 
 k = 4
-rbfXor = RbfSom::Rbf.new(k, patrones)
+rbfXor = RbfSom::Rbf.new(k, patrones, [4,2])
+rbfXor.calcular_centroides
+
 rbfXor.entrenar
 
-p rbfXor.centroides
-p rbfXor.getConjunto(0).count
-p rbfXor.getConjunto(1).count
-p rbfXor.getConjunto(2).count
-p rbfXor.getConjunto(3).count
+p rbfXor.pesosSalida

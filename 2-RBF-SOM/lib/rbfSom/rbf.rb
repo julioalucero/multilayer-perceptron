@@ -1,14 +1,17 @@
 module RbfSom
   class Rbf
-    attr_accessor :k, :patrones, :centroides, :reasignaciones, :first
+    attr_accessor :k, :patrones, :centroides, :reasignaciones, :first, :pesosSalida, :salidaOculta, :salida, :neuronas
 
-    def initialize(k, patrones)
+    def initialize(k, patrones, neuronas)
       @k = k
       @patrones = []
       @centroides = []
       @reasignaciones = true
       @first = true
+      @neuronas = neuronas
+      @pesosSalida = []
       inicializarConjuntos(patrones)
+      inicializar_pesos
     end
 
     def inicializarConjuntos(patrones)
@@ -17,7 +20,17 @@ module RbfSom
       end
     end
 
-    def entrenar
+    def inicializar_pesos
+      for i in 0...@neuronas.last
+        aux = []
+        for j in 0...@neuronas.first
+          aux << 2 * 0.05 * rand - 0.05
+        end
+        @pesosSalida << aux
+      end
+    end
+
+    def calcular_centroides
       suma = 0
       while @reasignaciones
         @reasignaciones = false
@@ -46,6 +59,12 @@ module RbfSom
           conjunto = getConjunto(i)
           @centroides << media(conjunto)
         end
+      end
+    end
+
+    def entrenar
+      @patrones.each do | patron |
+         patron[:patron]
       end
     end
 
