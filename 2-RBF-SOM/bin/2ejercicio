@@ -16,22 +16,28 @@ require 'rbfSom'
 
 #prueba 2D
 
-cant=50*50
-paso=2.0/50.0
-aux=[]
-i=0
+# TODO ¿esto no se usa?
+cant = 50 * 50
+
+paso = 2.0 / 50.0
+aux = []
+i = 0
 
 50.times do
-  aux << -1+i*paso
-  i+=1
+  aux << -1 + i * paso
+  i += 1
 end
+p "que es aux: "
+p aux
 
-patrones=[]
+patrones = []
 for i in 0...aux.count
   for k in 0...aux.count
-    patrones << [aux[i],aux[k]]
+    patrones << [aux[i], aux[k]]
   end
 end
+p "los patrones son :   "
+p patrones
 
 som = RbfSom::Som.new(patrones, 4 ,4 ,0.9 ,5)
 som.entrenamiento

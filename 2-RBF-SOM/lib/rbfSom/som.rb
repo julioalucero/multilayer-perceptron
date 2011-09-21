@@ -1,12 +1,13 @@
 module RbfSom
   class Som
-    attr_accessor :neuronas, :patrones, :sizeX ,:sizeY, :nu, :epocas, :salida ,:cantNeuronas ,:coefVecinos
+    attr_accessor :neuronas, :patrones, :sizeX ,:sizeY, :nu, :epocas
+    attr_accessor :salida ,:cantNeuronas ,:coefVecinos
 
     #reduccion del coeficiente @nu linealmente..          PODRIA SER EXPONENCIALMENTE o dejarlos fijo. ver opciones
     #reduccion del coeficiente @coefVecinos linealmente
 
 
-    def initialize(patrones,sizeX,sizeY,nu,epocas)
+    def initialize(patrones, sizeX, sizeY, nu, epocas)
       @patrones = patrones
       @sizeX = sizeX
       @sizeY = sizeY
@@ -37,7 +38,7 @@ module RbfSom
 
     def entrenamiento
       iter=1
-      p @neuronas
+      #p @neuronas
       @epocas.times do
 
      @patrones.each_index {|i|
@@ -52,7 +53,7 @@ module RbfSom
        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas.to_f)
        iter+=1
      end
-     p @neuronas
+     #p @neuronas
     end
 
     def distEuclidea(x1,x2)
