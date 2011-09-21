@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'rbfSom'
+
+#prueba 1D
+#v=[]
+
+#60.times do
+# v << [1 + 2*0.01*rand-0.01,1]
+# v << [-1 + 2*0.01*rand-0.01,-1]
+#end
+#v.shuffle!
+#som = Perceptron::Som.new(v, 1 , 2 ,0.9 ,50)
+#som.entrenamiento
+
+#prueba 2D
+
+cant=50*50
+paso=2.0/50.0
+aux=[]
+i=0
+
+50.times do
+  aux << -1+i*paso
+  i+=1
+end
+
+patrones=[]
+for i in 0...aux.count
+  for k in 0...aux.count
+    patrones << [aux[i],aux[k]]
+  end
+end
+
+som = RbfSom::Som.new(patrones, 4 ,4 ,0.9 ,5)
+som.entrenamiento
