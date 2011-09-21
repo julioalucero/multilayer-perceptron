@@ -27,6 +27,6 @@ k = 4
 rbfXor = RbfSom::Rbf.new(k, patrones, [4,2])
 rbfXor.calcular_centroides
 
-rbfXor.entrenar
+#rbfXor.entrenar
 
-p rbfXor.pesosSalida
+#p rbfXor.pesosSalida

@@ -1,6 +1,6 @@
 module RbfSom
   class Rbf
-    attr_accessor :k, :patrones, :centroides, :reasignaciones, :first, :pesosSalida, :salidaOculta, :salida, :neuronas
+    attr_accessor :k, :patrones, :centroides, :desviacion, :reasignaciones, :first, :pesosSalida, :salidaOculta, :salida, :neuronas
 
     def initialize(k, patrones, neuronas)
       @k = k
@@ -37,6 +37,7 @@ module RbfSom
         calcularCentroides
         reasignar
       end
+      calcular_desviacion
     end
 
     def calcularCentroides
@@ -63,9 +64,13 @@ module RbfSom
     end
 
     def entrenar
-      @patrones.each do | patron |
-         patron[:patron]
-      end
+      # recorremos todos los patrones
+        # recorremos los conjuntos
+          #  Calculas la salida de la capa oculta => ||X - u|| / sigma
+        #
+        # calcular la salida final con => la salida de recién * pesos + umbral
+        # actualizar los pesos
+      # end
     end
 
     def esta_lejos?(patron)
@@ -121,6 +126,31 @@ module RbfSom
         distancias << ((patron[0] - centroide[0])**2) + ((patron[1] - centroide[1])**2)
       end
       distancias
+    end
+
+    def activacion(r)
+      exp(-(r**2)/2)
+    end
+
+    def calcular_desviacion
+      conjunto = []
+      @desviacion = []
+      @k.times do |i|
+        conjunto = getConjunto(i)
+        @desviacion << desviacion(conjunto, i)
+      end
+    end
+
+    def desviacion(conjunto, i)
+      x = 0.0
+      y = 0.0
+      conjunto.each do  |patron|
+        x += (patron[0] - @centroides[i].first)**2.0
+        y += (patron[1] - @centroides[i].last)**2.0
+      end
+      n = conjunto.count
+      p [(x + y) / n]
+      [(x + y) / n]
     end
   end
 end
