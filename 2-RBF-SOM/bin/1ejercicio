@@ -10,7 +10,7 @@ puts "\n" + "*" * 80  + "\n" +
 xor_path = 'xor.csv'
 csv_xor = RbfSom::Csv.new(xor_path)
 
-desviacion = 0.05
+desviacion = 0.2
 cantidad = 20
 matrixPrueba1 = RbfSom::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
 matrixPrueba2 = RbfSom::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, nil,  -1)
@@ -26,6 +26,7 @@ patrones.shuffle!
 k = 4
 rbfXor = RbfSom::Rbf.new(k, patrones, [4,2])
 rbfXor.calcular_centroides
+rbfXor.entrenar
 
 #p rbfXor.centroides[0]
 ##p rbfXor.getConjunto(0)

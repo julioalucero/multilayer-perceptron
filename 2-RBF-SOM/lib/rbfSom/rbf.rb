@@ -1,6 +1,7 @@
 module RbfSom
   class Rbf
-    attr_accessor :k, :patrones, :centroides, :desviacion, :reasignaciones, :first, :pesosSalida, :salidaOculta, :salida, :neuronas
+    attr_accessor :k, :patrones, :centroides, :desviacion, :reasignaciones, :first
+    attr_accessor :pesosSalida, :salidaOculta, :salida, :neuronas ,:umbrales
 
     def initialize(k, patrones, neuronas)
       @k = k
@@ -10,6 +11,7 @@ module RbfSom
       @first = true
       @neuronas = neuronas
       @pesosSalida = []
+      @umbrales = []
       inicializarConjuntos(patrones)
       inicializar_pesos
     end
@@ -27,6 +29,7 @@ module RbfSom
           aux << 2 * 0.05 * rand - 0.05
         end
         @pesosSalida << aux
+        @umbrales << 2*0.05*rand-0.05
       end
     end
 
@@ -64,14 +67,42 @@ module RbfSom
     end
 
     def entrenar
-      # recorremos todos los patrones
-        # recorremos los conjuntos
-          #  Calculas la salida de la capa oculta => ||X - u|| / sigma
-        #
-        # calcular la salida final con => la salida de recién * pesos + umbral
-        # actualizar los pesos
-      # end
+      calcular_salidas_intermedias(@patrones.first[:patron][0...-1])
+      calcular_salida
+      actualizar_pesos
     end
+
+    def calcular_salidas_intermedias(patron)
+      auxiliar = []
+      @k.times do |i|
+        auxiliar << funcgausiana(dist_euclidea(patron,@centroides[i]) / @desviacion[i])
+      end
+      @salidasOculta = auxiliar
+      p @salidasOculta
+    end
+
+    def funcgausiana(r)
+     Math.exp(-(r**2)/2)
+    end
+
+    def calcular_salida
+      y = []
+      for i in 0...@neuronas.last
+        sum=0.0
+        for j in 0...@salidasOculta.count
+          sum +=  @pesosSalida[i][j] * @salidasOculta[j]
+        end
+        sum += @umbrales[i]
+        y << sum
+      end
+      @salidas = y
+      p @salidas
+    end
+
+    def actualizar_pesos
+      # todo 
+    end
+
 
     def esta_lejos?(patron)
       distancias = norma_euclidea(patron)
@@ -126,6 +157,12 @@ module RbfSom
         distancias << ((patron[0] - centroide[0])**2) + ((patron[1] - centroide[1])**2)
       end
       distancias
+    end
+
+    def dist_euclidea(patron, centroide)
+      suma = 0.0
+      patron.each_index { |i| suma += (patron[i] - centroide[i])**2.0}
+      Math.sqrt(suma)
     end
 
     def activacion(r)
