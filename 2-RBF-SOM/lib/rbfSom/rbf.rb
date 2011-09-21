@@ -45,12 +45,12 @@ module RbfSom
       @centroides = []
       if first then
         patron = @patrones[rand(@patrones.length)][:patron]
-        @centroides << patron
+        @centroides << patron[0...-1]
         contador = 1
         while contador != @k
           patron = @patrones[rand(@patrones.length)][:patron]
           if esta_lejos?(patron) then
-             @centroides << patron
+             @centroides << patron[0...-1]
              contador += 1
           end
         end
@@ -149,8 +149,9 @@ module RbfSom
         y += (patron[1] - @centroides[i].last)**2.0
       end
       n = conjunto.count
-      p [(x + y) / n]
-      [(x + y) / n]
+      x = x/n
+      y = y/n
+      Math.sqrt(x**2 + y**2)
     end
   end
 end
