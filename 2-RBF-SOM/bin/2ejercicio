@@ -6,7 +6,7 @@ require 'rbfSom'
 #prueba 1D
 v = []
 
-60.times do
+3.times do
  v << [-1 + rand * 2, -1 + rand * 2, rand > 0.5 ? 1 : -1]
 end
 
@@ -38,9 +38,9 @@ cant = 50 * 50
 #  end
 #end
 
-epocas_globales    = 7
+epocas_globales    = 1
 epocas_transicion  = 1
-epocas_ajuste_fino = 3
+epocas_ajuste_fino = 1
 
 epocas = [epocas_globales, epocas_transicion, epocas_ajuste_fino]
 

@@ -1,3 +1,5 @@
+require "gnuplot"
+
 module RbfSom
   class Som
     attr_accessor :neuronas, :patrones, :sizeX ,:sizeY, :nu, :epocas
@@ -27,7 +29,7 @@ module RbfSom
       for i in 0...@sizeX
         aux = []
         for j in 0...@sizeY # -2 porque la ultima es la deseada...
-          @neuronas << {:coord => [i,j], :pesos =>0}
+          @neuronas << {:coord => [i,j], :pesos => 0}
         end
       end
       @neuronas.each do | neurona |
@@ -103,7 +105,8 @@ module RbfSom
       index = busca_ganadora(aux) # te retorna la neurona ganadora
       vecinos= buscar_vecinos(index)
       vecinos << index # coloco las neuronas a actualizar, asi tengo todas en un vector
-      actualizar_pesos(vecinos,i)
+      actualizar_pesos(vecinos, i)
+      # graficar_puntos()
     end
 
     def distEuclidea(x1,x2)
@@ -145,6 +148,30 @@ module RbfSom
       for k in 0...tam
         # actualiza los pesos de c/neurona
         @neuronas[i][:pesos][k] += @nu * (@patrones[p][k] - @neuronas[i][:pesos][k])
+      end
+    end
+
+
+    def graficar_puntos(x1, y1)
+      p x1
+      p y1
+
+      Gnuplot.open do |gp|
+        Gnuplot::Plot.new( gp ) do |plot|
+          plot.xrange "[-1:1]"
+          plot.title  "Ejercicio-2"
+          plot.ylabel "y"
+          plot.xlabel "x"
+         # x1 = clase1.collect { |fila| fila.first}
+         # y1 = clase1.collect { |fila| fila.last }
+
+          plot.data = [
+            Gnuplot::DataSet.new( [x1,y1] ) do |ds|
+              ds.with = "circle"
+              ds.linewidth = 17
+            end
+          ]
+        end
       end
     end
   end
