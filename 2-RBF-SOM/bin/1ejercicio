@@ -29,9 +29,4 @@ rbfXor.entrenar
 
 rbfXor.test(csv_xor.matrix)
 
-#p rbfXor.centroides[0]
-##p rbfXor.getConjunto(0)
-##
-#p rbfXor.desviacion([[1,1]],0)
-
 p rbfXor.pesosSalida
