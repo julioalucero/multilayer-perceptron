@@ -42,23 +42,63 @@ module RbfSom
     def entrenamiento
       iter = 1
       #p @neuronas
-      @epocas.times do
 
+      # ORDENAMIENTO GLOBAL O TOPOLÓGICO
+      # An grande (aproximadamente medio mapa
+      # nu = grande (entre 0.7 y 0.9)
+      # duracion entre 500 y 1000 épocas
+
+      @epocas[0].times do
         @patrones.each_index do |i|
-          aux = @patrones[i].clone
-          aux.delete_at(aux.last)
-          index = busca_ganadora(aux) # te retorna la neurona ganadora
-          vecinos= buscar_vecinos(index)
-          vecinos << index # coloco las neuronas a actualizar, asi tengo todas en un vector
-          actualizar_pesos(vecinos,i)
+          entrenar(i)
         end
 
         # Se actualizan los coeficicientes
-        @nu = @nu * (1.0 - iter.to_f / @epocas.to_f)
-        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas.to_f)
+        @nu = @nu * (1.0 - iter.to_f / @epocas[0].to_f)
+        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[0].to_f)
         iter += 1
       end
-      # p @neuronas
+
+      # TRANSICIÓN
+      # An  se reduce linealmente hasta 1
+      # nu = se reduce linealmente o exponencialmene a 1
+      # duracion 1000 épocas aprox
+
+      @epocas[1].times do
+        @patrones.each_index do |i|
+          entrenar(i)
+        end
+
+        # Se actualizan los coeficicientes
+        @nu = @nu * (1.0 - iter.to_f / @epocas[1].to_f)
+        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[1].to_f)
+        iter += 1
+      end
+
+      # AJUSTE FINO  O CONVERGENCIA
+      # An = 0  solo se actualiza la ganadora
+      # nu = cte - entre 0.1 y 0.01
+      # duracion hasta convergencia (3000  épocas)
+      @epocas[2].times do
+        @patrones.each_index do |i|
+          entrenar(i)
+        end
+
+        # Se actualizan los coeficicientes
+        @nu = @nu * (1.0 - iter.to_f / @epocas[2].to_f)
+        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[2].to_f)
+        iter += 1
+      end
+      p iter
+    end
+
+    def entrenar(i)
+      aux = @patrones[i].clone
+      aux.delete_at(aux.last)
+      index = busca_ganadora(aux) # te retorna la neurona ganadora
+      vecinos= buscar_vecinos(index)
+      vecinos << index # coloco las neuronas a actualizar, asi tengo todas en un vector
+      actualizar_pesos(vecinos,i)
     end
 
     def distEuclidea(x1,x2)
