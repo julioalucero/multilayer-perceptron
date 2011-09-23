@@ -1,12 +1,13 @@
 module RbfSom
   class Rbf
     attr_accessor :k, :patrones, :centroides, :desviacion, :reasignaciones, :first
-    attr_accessor :pesosSalida, :salidaOculta, :salida, :neuronas ,:umbrales
+    attr_accessor :pesosSalida, :salidaOculta, :salida, :neuronas ,:umbrales, :nu
 
-    def initialize(k, patrones, neuronas)
+    def initialize(k, patrones, neuronas, nu)
       @k = k
       @patrones = []
       @centroides = []
+      @nu = nu
       @reasignaciones = true
       @first = true
       @neuronas = neuronas
@@ -67,18 +68,19 @@ module RbfSom
     end
 
     def entrenar
-      calcular_salidas_intermedias(@patrones.first[:patron][0...-1])
-      calcular_salida
-      actualizar_pesos
+      @patrones.each do | patron |
+        calcular_salida_intermedias(patron[:patron][0...-1])
+        calcular_salida
+        actualizar_pesos(patron[:patron].last)
+      end
     end
 
-    def calcular_salidas_intermedias(patron)
+    def calcular_salida_intermedias(patron)
       auxiliar = []
       @k.times do |i|
         auxiliar << func_gausiana(dist_euclidea(patron,@centroides[i]))
       end
-      @salidasOculta = auxiliar
-      p @salidasOculta
+      @salidaOculta = auxiliar
     end
 
     def func_gausiana(r)
@@ -89,17 +91,22 @@ module RbfSom
       y = []
       for i in 0...@neuronas.last
         sum=0.0
-        for j in 0...@salidasOculta.count
-          sum +=  @pesosSalida[i][j] * @salidasOculta[j]
+        for j in 0...@salidaOculta.count
+          sum +=  @pesosSalida[i][j] * @salidaOculta[j]
         end
         sum += @umbrales[i]
         y << sum
       end
-      @salidas = y
+      @salida = y
     end
 
-    def actualizar_pesos
-      # todo 
+    def actualizar_pesos(yd)
+      for i in 0...@pesosSalida.count
+        for j in 0...@pesosSalida[0].count
+          @pesosSalida[i][j] += -@nu * (@salida[i] - yd[i] ) * @salidaOculta[j]
+        end
+        @umbrales[i] += - @nu * (@salida[i] - yd[i] )
+      end
     end
 
 
