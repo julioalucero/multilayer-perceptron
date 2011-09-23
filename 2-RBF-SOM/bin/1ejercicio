@@ -30,3 +30,18 @@ rbfXor.entrenar
 rbfXor.test(csv_xor.matrix)
 
 p rbfXor.pesosSalida
+
+#  iris   #
+
+
+iris = 'iris.csv'
+iris = RbfSom::Csv.new(iris)
+
+patrones = iris.matrix.shuffle!
+
+kIris = 3
+iris = RbfSom::Rbf.new(3, patrones, [3,1], 0.5)
+iris.calcular_centroides
+iris.entrenar
+
+p iris.pesosSalida
