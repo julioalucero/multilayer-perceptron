@@ -54,8 +54,9 @@ module RbfSom
         end
 
         # Se actualizan los coeficicientes
-        @nu = @nu * (1.0 - iter.to_f / @epocas[0].to_f)
-        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[0].to_f)
+        # nu y @coefVecinos quedan constantes, la sgtes líneas no van
+        # @nu = @nu * (1.0 - iter.to_f / @epocas[0].to_f)
+        # @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[0].to_f)
         iter += 1
       end
 
@@ -63,6 +64,8 @@ module RbfSom
       # An  se reduce linealmente hasta 1
       # nu = se reduce linealmente o exponencialmene a 1
       # duracion 1000 épocas aprox
+      #
+      it = 1
 
       @epocas[1].times do
         @patrones.each_index do |i|
@@ -70,23 +73,25 @@ module RbfSom
         end
 
         # Se actualizan los coeficicientes
-        @nu = @nu * (1.0 - iter.to_f / @epocas[1].to_f)
-        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[1].to_f)
+        @nu = @nu * (1.0 - it.to_f / @epocas[1].to_f)
+        @coefVecinos = @coefVecinos * (1.0 - it.to_f/@epocas[1].to_f)
         iter += 1
+        it += 1
       end
 
       # AJUSTE FINO  O CONVERGENCIA
       # An = 0  solo se actualiza la ganadora
       # nu = cte - entre 0.1 y 0.01
       # duracion hasta convergencia (3000  épocas)
+      @nu = 0.05
+      @coefVecinos = 0
+
       @epocas[2].times do
         @patrones.each_index do |i|
           entrenar(i)
         end
 
         # Se actualizan los coeficicientes
-        @nu = @nu * (1.0 - iter.to_f / @epocas[2].to_f)
-        @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[2].to_f)
         iter += 1
       end
       p iter
