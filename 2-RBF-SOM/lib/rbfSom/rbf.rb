@@ -75,10 +75,19 @@ module RbfSom
       end
     end
 
+    def test(patrones)
+      patrones.each do | patron |
+        calcular_salida_intermedias(patron[0...-1])
+        calcular_salida
+        p "para el patron     #{patron}"
+        p "la salida  es:    #{@salida}"
+      end
+    end
+
     def calcular_salida_intermedias(patron)
       auxiliar = []
       @k.times do |i|
-        auxiliar << func_gausiana(dist_euclidea(patron,@centroides[i]))
+        auxiliar << func_gausiana(dist_euclidea(patron, @centroides[i]))
       end
       @salidaOculta = auxiliar
     end
@@ -103,9 +112,10 @@ module RbfSom
     def actualizar_pesos(yd)
       for i in 0...@pesosSalida.count
         for j in 0...@pesosSalida[0].count
-          @pesosSalida[i][j] += -@nu * (@salida[i] - yd[i] ) * @salidaOculta[j]
+          # TODO hacerlo para más salidas
+          @pesosSalida[i][j] += -@nu * (@salida[i] - yd ) * @salidaOculta[j]
         end
-        @umbrales[i] += - @nu * (@salida[i] - yd[i] )
+        @umbrales[i] += - @nu * (@salida[i] - yd )
       end
     end
 

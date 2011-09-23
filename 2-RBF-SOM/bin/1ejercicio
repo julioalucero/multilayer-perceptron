@@ -27,9 +27,11 @@ rbfXor = RbfSom::Rbf.new(k, patrones, [4,1], 0.5)
 rbfXor.calcular_centroides
 rbfXor.entrenar
 
+rbfXor.test(csv_xor.matrix)
+
 #p rbfXor.centroides[0]
 ##p rbfXor.getConjunto(0)
 ##
 #p rbfXor.desviacion([[1,1]],0)
-p rbfXor.pesosSalida
 
+p rbfXor.pesosSalida
