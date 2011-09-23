@@ -36,8 +36,6 @@ for i in 0...aux.count
     patrones << [aux[i], aux[k]]
   end
 end
-p "los patrones son :   "
-p patrones
 
 som = RbfSom::Som.new(patrones, 4 ,4 ,0.9 ,5)
 som.entrenamiento

@@ -40,7 +40,7 @@ module RbfSom
         calcularCentroides
         reasignar
       end
-      calcular_desviacion
+      #calcular_desviacion
     end
 
     def calcularCentroides
@@ -75,13 +75,13 @@ module RbfSom
     def calcular_salidas_intermedias(patron)
       auxiliar = []
       @k.times do |i|
-        auxiliar << funcgausiana(dist_euclidea(patron,@centroides[i]) / @desviacion[i])
+        auxiliar << func_gausiana(dist_euclidea(patron,@centroides[i]))
       end
       @salidasOculta = auxiliar
       p @salidasOculta
     end
 
-    def funcgausiana(r)
+    def func_gausiana(r)
      Math.exp(-(r**2)/2)
     end
 
@@ -96,7 +96,6 @@ module RbfSom
         y << sum
       end
       @salidas = y
-      p @salidas
     end
 
     def actualizar_pesos
