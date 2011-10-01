@@ -122,7 +122,7 @@ module RbfSom
           end
           plot.data = [
             Gnuplot::DataSet.new([pesos]) do |ds|
-              ds.with = "lines"
+              ds.with = "points"
               ds.linewidth = 2
             end
           ]
