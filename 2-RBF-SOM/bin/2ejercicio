@@ -3,46 +3,25 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'rbfSom'
 
-#prueba 1D
-v = []
-
-3.times do
- v << [-1 + rand * 2, -1 + rand * 2, rand > 0.5 ? 1 : -1]
-end
-
-patrones = v
-
-#som = Perceptron::Som.new(v, 1 , 2 ,0.9 ,50)
-#som.entrenamiento
-
 #prueba 2D
 
-# TODO ¿esto no se usa?
-cant = 50 * 50
+cantidad = 10.0
 
-#paso = 2.0 / 50.0
-#aux = []
-#i = 0
-#
-#50.times do
-#  aux << -1 + i * paso
-#  i += 1
-#end
-##p "que es aux: "
-##p aux
-#
-#patrones = []
-#for i in 0...aux.count
-#  for k in 0...aux.count
-#    patrones << [aux[i], aux[k]]
-#  end
-#end
+paso = 2.0 / cantidad
+aux = []
+i = 0
 
-epocas_globales    = 1
-epocas_transicion  = 1
-epocas_ajuste_fino = 1
+patrones = []
+for i in 0..cantidad
+  x = -1 +  i * paso
+  for k in 0..cantidad
+    y = 1 - k * paso
+    patrones << [x, y]
+  end
+end
 
-epocas = [epocas_globales, epocas_transicion, epocas_ajuste_fino]
+epocas = 1
 
 som = RbfSom::Som.new(patrones, 4 ,4 ,0.9 , epocas)
 som.entrenamiento
+
