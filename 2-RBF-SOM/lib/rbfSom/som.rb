@@ -23,6 +23,7 @@ module RbfSom
       @tamEntrada = @patrones[0].count - 1
       @coefVecinos = 0.2
       initializePesos
+      @contador = 0
     end
 
     def initializePesos
@@ -96,17 +97,17 @@ module RbfSom
         # Se actualizan los coeficicientes
         iter += 1
       end
-      p iter
     end
 
     def entrenar(i)
+      graficar_puntos(i) if @contador == 0
       aux = @patrones[i].clone
       aux.delete_at(aux.last)
       index = busca_ganadora(aux) # te retorna la neurona ganadora
       vecinos= buscar_vecinos(index)
       vecinos << index # coloco las neuronas a actualizar, asi tengo todas en un vector
       actualizar_pesos(vecinos, i)
-      # graficar_puntos()
+      @contador += 1
     end
 
     def distEuclidea(x1,x2)
@@ -152,23 +153,23 @@ module RbfSom
     end
 
 
-    def graficar_puntos(x1, y1)
-      p x1
-      p y1
-
+    def graficar_puntos(i)
       Gnuplot.open do |gp|
         Gnuplot::Plot.new( gp ) do |plot|
           plot.xrange "[-1:1]"
-          plot.title  "Ejercicio-2"
+          plot.yrange "[-1:1]"
           plot.ylabel "y"
           plot.xlabel "x"
-         # x1 = clase1.collect { |fila| fila.first}
-         # y1 = clase1.collect { |fila| fila.last }
 
+          pesos = []
+          @neuronas.each do |neurona|
+            p neurona
+            pesos << neurona[:pesos]
+          end
           plot.data = [
-            Gnuplot::DataSet.new( [x1,y1] ) do |ds|
-              ds.with = "circle"
-              ds.linewidth = 17
+            Gnuplot::DataSet.new([pesos]) do |ds|
+              ds.with = "points"
+              ds.linewidth = 2
             end
           ]
         end

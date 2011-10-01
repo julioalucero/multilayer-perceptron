@@ -16,11 +16,12 @@ for i in 0..cantidad
   x = -1 +  i * paso
   for k in 0..cantidad
     y = 1 - k * paso
-    patrones << [x, y]
+    patrones << [x, y, rand > 0.5 ? 1 : -1]
   end
 end
 
 epocas = 1
+p patrones
 
 som = RbfSom::Som.new(patrones, 4 ,4 ,0.9 , epocas)
 som.entrenamiento
