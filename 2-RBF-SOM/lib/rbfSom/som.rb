@@ -13,7 +13,7 @@ module RbfSom
     # @tamEntrada tiene la cantidad de entrada para todas las neuronas
 
     def initialize(patrones, sizeX, sizeY, nu, epocas)
-      @patrones = patrones
+      @patrones = patrones.shuffle!
       @sizeX = sizeX
       @sizeY = sizeY
       @nu = nu
@@ -21,7 +21,7 @@ module RbfSom
       @cantNeuronas = @sizeY * @sizeX
       @neuronas = Array.new
       @tamEntrada = @patrones[0].count - 1
-      @coefVecinos = 0.2
+      @coefVecinos = 0.1
       initializePesos
       @contador = 0
     end
@@ -44,70 +44,23 @@ module RbfSom
 
     def entrenamiento
       iter = 1
-      #p @neuronas
-
-      # ORDENAMIENTO GLOBAL O TOPOLÓGICO
-      # An grande (aproximadamente medio mapa
-      # nu = grande (entre 0.7 y 0.9)
-      # duracion entre 500 y 1000 épocas
-
-      @epocas[0].times do
+      graficar_puntos("Inicio")
+      @epocas.times do
         @patrones.each_index do |i|
-          entrenar(i)
+          aux = @patrones[i].clone
+          aux = aux[0...-1]
+          index = buscar_ganadora(aux)
+          vecinos = buscar_vecinos(index)
+          vecinos << index
+          vecinos.uniq!
+          actualizar_pesos(vecinos, i)
         end
 
-        # Se actualizan los coeficicientes
-        # nu y @coefVecinos quedan constantes, la sgtes líneas no van
-        # @nu = @nu * (1.0 - iter.to_f / @epocas[0].to_f)
-        # @coefVecinos = @coefVecinos * (1.0 - iter.to_f/@epocas[0].to_f)
+        @nu = @nu - @nu * (iter.to_f / @epocas.to_f) + 0.01
+        @coefVecinos = @coefVecinos - @coefVecinos * (iter.to_f / @epocas.to_f) + 0.01
         iter += 1
       end
-
-      # TRANSICIÓN
-      # An  se reduce linealmente hasta 1
-      # nu = se reduce linealmente o exponencialmene a 1
-      # duracion 1000 épocas aprox
-      #
-      it = 1
-
-      @epocas[1].times do
-        @patrones.each_index do |i|
-          entrenar(i)
-        end
-
-        # Se actualizan los coeficicientes
-        @nu = @nu * (1.0 - it.to_f / @epocas[1].to_f)
-        @coefVecinos = @coefVecinos * (1.0 - it.to_f/@epocas[1].to_f)
-        iter += 1
-        it += 1
-      end
-
-      # AJUSTE FINO  O CONVERGENCIA
-      # An = 0  solo se actualiza la ganadora
-      # nu = cte - entre 0.1 y 0.01
-      # duracion hasta convergencia (3000  épocas)
-      @nu = 0.05
-      @coefVecinos = 0
-
-      @epocas[2].times do
-        @patrones.each_index do |i|
-          entrenar(i)
-        end
-
-        # Se actualizan los coeficicientes
-        iter += 1
-      end
-    end
-
-    def entrenar(i)
-      graficar_puntos(i) if @contador == 0
-      aux = @patrones[i].clone
-      aux.delete_at(aux.last)
-      index = busca_ganadora(aux) # te retorna la neurona ganadora
-      vecinos= buscar_vecinos(index)
-      vecinos << index # coloco las neuronas a actualizar, asi tengo todas en un vector
-      actualizar_pesos(vecinos, i)
-      @contador += 1
+      graficar_puntos("Fin")
     end
 
     def distEuclidea(x1,x2)
@@ -116,9 +69,10 @@ module RbfSom
       return Math.sqrt(suma)
     end
 
-    def busca_ganadora(patron)
+    def buscar_ganadora(patron)
      #recorrer todas las neuronas
-     min = 100
+     min = distEuclidea(patron, @neuronas[0][:pesos])
+     index = 0
      for i in 0...@cantNeuronas do
        m = distEuclidea(patron, @neuronas[i][:pesos])
        if (m < min)
@@ -158,17 +112,17 @@ module RbfSom
         Gnuplot::Plot.new( gp ) do |plot|
           plot.xrange "[-1:1]"
           plot.yrange "[-1:1]"
+          plot.title "interacion #{i}"
           plot.ylabel "y"
           plot.xlabel "x"
 
           pesos = []
           @neuronas.each do |neurona|
-            p neurona
             pesos << neurona[:pesos]
           end
           plot.data = [
             Gnuplot::DataSet.new([pesos]) do |ds|
-              ds.with = "points"
+              ds.with = "lines"
               ds.linewidth = 2
             end
           ]

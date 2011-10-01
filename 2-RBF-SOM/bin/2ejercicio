@@ -20,9 +20,8 @@ for i in 0..cantidad
   end
 end
 
-epocas = 1
-p patrones
+epocas = 5
 
-som = RbfSom::Som.new(patrones, 4 ,4 ,0.9 , epocas)
+som = RbfSom::Som.new(patrones, 10, 10, 0.3 , epocas)
 som.entrenamiento
 
