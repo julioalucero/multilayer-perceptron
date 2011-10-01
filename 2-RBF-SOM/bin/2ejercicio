@@ -5,18 +5,20 @@ require 'rbfSom'
 
 #prueba 2D
 
-cantidad = 10.0
+cantidad = 1000
 
 paso = 2.0 / cantidad
 aux = []
-i = 0
+contador = 0
 
 patrones = []
-for i in 0..cantidad
-  x = -1 +  i * paso
-  for k in 0..cantidad
-    y = 1 - k * paso
+
+while contador < 1000
+  x = 2.0 * rand - 1.0
+  y = 2.0 * rand - 1.0
+  if (Math.sqrt(x**2.0 + y**2.0)) < 1.0
     patrones << [x, y, rand > 0.5 ? 1 : -1]
+    contador += 1
   end
 end
 
