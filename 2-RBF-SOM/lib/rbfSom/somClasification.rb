@@ -147,8 +147,8 @@ module RbfSom
     def graficar_puntos(i)
       Gnuplot.open do |gp|
         Gnuplot::Plot.new( gp ) do |plot|
-          plot.xrange "[-2:2]"
-          plot.yrange "[-2:2]"
+          plot.xrange "[-3:3]"
+          plot.yrange "[-3:3]"
           plot.title "interacion #{i}"
           plot.ylabel "y"
           plot.xlabel "x"
@@ -191,7 +191,7 @@ module RbfSom
           pesos2.each do | pesos |
             dataSet = Gnuplot::DataSet.new([pesos]) do |ds|
                        ds.with = "lines lt 3"
-                       ds.linewidth = 2
+                       ds.linewidth = 1
                      end
             plot.data << dataSet
           end
