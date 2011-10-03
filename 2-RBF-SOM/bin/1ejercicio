@@ -5,6 +5,7 @@ require 'rbfSom'
 
 puts "\n" + "*" * 80  + "\n" +
      " " * 20 + "Ejercicio 1" + " " * 20 + "\n" +
+     " " * 20 + "    X-OR   " + " " * 20 + "\n" +
      "*" * 80 + "\n"
 
 xor_path = 'xor.csv'
@@ -29,10 +30,12 @@ rbfXor.entrenar
 
 rbfXor.test(csv_xor.matrix)
 
-p rbfXor.pesosSalida
 
 #  iris   #
 
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Iris" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
 
 iris = 'iris.csv'
 iris = RbfSom::Csv.new(iris)
