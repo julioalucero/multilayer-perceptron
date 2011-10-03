@@ -19,7 +19,7 @@ matrixPrueba3 = RbfSom::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil
 matrixPrueba4 = RbfSom::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , 1)
 
 patrones = matrixPrueba3.matrix +  matrixPrueba2.matrix +
-                matrixPrueba1.matrix +  matrixPrueba4.matrix 
+           matrixPrueba1.matrix +  matrixPrueba4.matrix
 
 patrones.shuffle!
 

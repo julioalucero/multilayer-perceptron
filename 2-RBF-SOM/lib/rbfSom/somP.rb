@@ -1,7 +1,7 @@
 require "gnuplot"
 
 module RbfSom
-  class SomClasification
+  class SomP
     attr_accessor :neuronas, :patrones, :sizeX ,:sizeY, :nu, :epocas
     attr_accessor :salida ,:cantNeuronas ,:coefVecinos, :tamEntrada, :errores
 

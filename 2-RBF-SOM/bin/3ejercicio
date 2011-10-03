@@ -51,7 +51,7 @@ end
 
 som1 = RbfSom::SomClasification.new(matrixEntrenamiento3,2,2,0.5,10)
 som2 = RbfSom::SomClasification.new(matrixEntrenamiento1,4,4,0.5,10)
-som3 = RbfSom::SomClasification.new(matrixEntrenamiento2,4,4,0.5,10)
+som3 = RbfSom::SomP.new(matrixEntrenamiento2,4,4,0.5,100)
 
 #Entrenamiento
 som1.entrenamiento
