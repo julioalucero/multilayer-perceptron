@@ -147,8 +147,8 @@ module RbfSom
     def graficar_puntos(i)
       Gnuplot.open do |gp|
         Gnuplot::Plot.new( gp ) do |plot|
-          plot.xrange "[-1:1]"
-          plot.yrange "[-1:1]"
+          plot.xrange "[-2:2]"
+          plot.yrange "[-2:2]"
           plot.title "interacion #{i}"
           plot.ylabel "y"
           plot.xlabel "x"
@@ -158,7 +158,7 @@ module RbfSom
           puntos=[]
           for i in 0...@sizeX
             for j in 0...@sizeY
-              if ( (i!=@sizeX-1) && (j != @sizeY=-1)) # si no esta en ninguna frontera
+              if ( (i != @sizeX-1) && (j != @sizeY - 1)) # si no esta en ninguna frontera
                 puntos << [[i,j],[i,j+1]]
                 puntos << [[i,j],[i+1,j]]
               elsif ((i==@sizeX-1) && (j!=@sizeY-1))
@@ -169,41 +169,57 @@ module RbfSom
             end
           end
 
+          #p puntos
+          #p "*" * 39
           # aca hay q recuperar las coordenadas de cadas neuronas y graficar las lineas
           # inventate algo
           # a mi se me ocurrio recorrer el vector con las conexiones y recuperar las
           # coordenadas de las dos neuronas y graficar una linea entre
           # las dos neuronas,,,, fijate vos padre..
-          pesos2=[]
-          puntos.each do |cordx, cordy|
-            pesos2 = recuperarindice(cordx,cordy)
-            graficar(pesos2)
+          pesos2 = []
+          puntos.each do |punto|
+            pesos2 << recuperar_pesos(punto[0], punto[1])
           end
+
 
           # esto ya estaba es para recuperar los pesos para meterlos
           # en un vector y graficar los puntos
-          pesos = []
-          @neuronas.each do |neurona|
-            pesos << neurona[:pesos]
+         # pesos = []
+         # @neuronas.each do |neurona|
+         #   pesos << neurona[:pesos]
+         # end
+          pesos2.each do | pesos |
+            dataSet = Gnuplot::DataSet.new([pesos]) do |ds|
+                       ds.with = "lines lt 3"
+                       ds.linewidth = 2
+                     end
+            plot.data << dataSet
           end
-
-          plot.data = [
-            Gnuplot::DataSet.new([pesos]) do |ds|
-              ds.with = "lines"
-              ds.linewidth = 2
-            end
-          ]
         end
       end
     end
 
-    def recuperarindice(x,y)
-      @neuronas.each_index do |i|
-        if (@neuronas[i][:coord]==[x,y])
-          return @neuronas[i][:coord][:pesos]
-          break
+    def recuperar_pesos(x,y)
+      aux = []
+      @neuronas.each do | neuron |
+        if neuron[:coord] == x
+          aux << neuron[:pesos]
         end
       end
+      @neuronas.each do | neuron |
+        if neuron[:coord] == y
+          aux << neuron[:pesos]
+        end
+      end
+      aux
+    end
+
+    def graficar(pesos)
+      aux = []
+      pesos.each do |peso|
+        aux << peso[:coord]
+      end
+      aux
     end
   end
 end
