@@ -110,8 +110,8 @@ module RbfSom
     def graficar_puntos(i)
       Gnuplot.open do |gp|
         Gnuplot::Plot.new( gp ) do |plot|
-          plot.xrange "[-1:1]"
-          plot.yrange "[-1:1]"
+          plot.xrange "[-3:3]"
+          plot.yrange "[-3:3]"
           plot.title "interacion #{i}"
           plot.ylabel "y"
           plot.xlabel "x"
