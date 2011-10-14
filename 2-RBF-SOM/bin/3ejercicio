@@ -49,24 +49,24 @@ end
 
 #crear SOM y dps etiquetarlo...
 
-som1 = RbfSom::SomClasification.new(matrixEntrenamiento3,2,2,0.5,10)
-som2 = RbfSom::SomClasification.new(matrixEntrenamiento1,4,4,0.5,10)
+som1 = RbfSom::Som.new(matrixEntrenamiento3,2,2,0.5,100)
+som2 = RbfSom::Som.new(matrixEntrenamiento1[0...500],4,4,0.5,100)
 som3 = RbfSom::SomP.new(matrixEntrenamiento2,4,4,0.5,100)
 
 #Entrenamiento
 som1.entrenamiento
 som2.entrenamiento
-som3.entrenamiento
+#som3.entrenamiento
 #Etiquetado de neuronas
 
 som1.etiquetarNeuronas(2)
 som2.etiquetarNeuronas(2)
-som3.etiquetarNeuronas(2)
+#som3.etiquetarNeuronas(2)
 
 #Prueba
 som1.test(matrixTest3)
 som2.test(matrixTest1)
-som3.test(matrixTest2)
+#som3.test(matrixTest2)
 
 #Calculo del error y resultados finales
 

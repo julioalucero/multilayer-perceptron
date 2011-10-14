@@ -3,7 +3,7 @@ require "gnuplot"
 module RbfSom
   class Som
     attr_accessor :neuronas, :patrones, :sizeX ,:sizeY, :nu, :epocas
-    attr_accessor :salida ,:cantNeuronas ,:coefVecinos, :tamEntrada
+    attr_accessor :salida ,:cantNeuronas ,:coefVecinos, :tamEntrada, :errores
 
     # reduccion del coeficiente @nu linealmente (PODRIA SER EXPONENCIALMENTE o dejarlos fijo. ver opciones)
     # reduccion del coeficiente @coefVecinos linealmente
@@ -21,16 +21,18 @@ module RbfSom
       @cantNeuronas = @sizeY * @sizeX
       @neuronas = Array.new
       @tamEntrada = @patrones[0].count - 1
-      @coefVecinos = 0.1
+      @coefVecinos = 2
       initializePesos
       @contador = 0
+      @errores = []
     end
 
     def initializePesos
       for i in 0...@sizeX
         aux = []
         for j in 0...@sizeY # -2 porque la ultima es la deseada...
-          @neuronas << {:coord => [i,j], :pesos => 0}
+          #@neuronas << {:coord => [i,j], :pesos => 0}
+          @neuronas << {:coord => [i,j], :pesos => 0,:class=>nil}
         end
       end
       @neuronas.each do | neurona |
@@ -44,7 +46,7 @@ module RbfSom
 
     def entrenamiento
       iter = 1
-      graficar_puntos("Inicio")
+     # graficar_puntos("Inicio")
       @epocas.times do
         @patrones.each_index do |i|
           aux = @patrones[i].clone
@@ -55,12 +57,12 @@ module RbfSom
           vecinos.uniq!
           actualizar_pesos(vecinos, i)
         end
-
-        @nu = @nu - @nu * (iter.to_f / @epocas.to_f) + 0.01
-        @coefVecinos = @coefVecinos - @coefVecinos * (iter.to_f / @epocas.to_f) + 0.01
+      #  graficar_puntos("Epocas") if iter % 10 == 0
+        @nu = @nu - @nu * (iter.to_f / @epocas.to_f) 
+        @coefVecinos = @coefVecinos - @coefVecinos * (iter.to_f / @epocas.to_f)
         iter += 1
       end
-      graficar_puntos("Fin")
+     # graficar_puntos("Fin")
     end
 
     def distEuclidea(x1,x2)
@@ -85,13 +87,36 @@ module RbfSom
 
     def buscar_vecinos(index)
       vecinos = []
+
       @neuronas.each_index do |i|
-        if (distEuclidea( @neuronas[index][:pesos], neuronas[i][:pesos]) < @coefVecinos)
-         vecinos << i
+        if(pertenece(i,index))
+           vecinos << i
         end
       end
+
+  #        puntos = recuperar_vecinos(1,2)
+  #      @coefVecinos
+  #      if (distEuclidea( @neuronas[index][:coord], @neuronas[i][:coord]) < @coefVecinos)
+  #        vecinos << i
+  #      end
+  #    end
       vecinos
     end
+
+
+      def pertenece(indiceneu, indiceg)
+
+        x1=@neuronas[indiceneu][:coord][0]
+       y1=@neuronas[indiceneu][:coord][1]
+       x2=@neuronas[indiceg][:coord][0]
+       y2=@neuronas[indiceg][:coord][1]
+      if (((x2-x1).abs <= @coefVecinos)    &&  ((y2-y1).abs <= @coefVecinos))
+        true
+      else
+        false
+      end
+      end
+
 
     # p es el número de iteración y hace referencia al número de patron ya que TODO ...
     def actualizar_pesos(vecinos, p)
@@ -127,6 +152,43 @@ module RbfSom
             end
           ]
         end
+      end
+    end
+
+    def etiquetarNeuronas(cantClases)
+      clasesxneurona=[] #el indice nos dice la neurona y el valor nos dice la clase
+      vectorClases=[] 
+      for i in 0...@cantNeuronas
+        aux =[]
+        for k in 0...cantClases
+          aux << 0
+        end
+        vectorClases << aux
+      end
+
+      @patrones.each do |patron|
+        deseada = patron.last.to_i
+        index=buscar_ganadora(patron[0...-1])
+        vectorClases[index][deseada] = vectorClases[index][deseada] + 1
+      end
+
+      contador=0
+      vectorClases.each do |vector|
+        indiceMax=vector.index(vector.max)
+        @neuronas[contador][:class]=indiceMax
+        contador+=1
+      end
+    end
+
+
+
+    def test(patrones)
+      patrones.each_index  do |i|
+        deseada = patrones[i].last
+        aux = patrones[i].clone
+        aux.delete(aux.last)
+        index = buscar_ganadora(aux)
+        @errores << (deseada.to_int - @neuronas[index][:class])
       end
     end
   end

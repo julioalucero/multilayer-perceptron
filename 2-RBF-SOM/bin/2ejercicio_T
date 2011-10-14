@@ -33,7 +33,9 @@ for i in 0..cantidad_x
     patrones << [x, y, rand > 0.5 ? 1 : -1]
   end
 end
-epocas = 100
+epocas = 3000
+
+patrones.shuffle!
 
 som = RbfSom::Som.new(patrones, 10, 10, 0.3 , epocas)
 som.entrenamiento

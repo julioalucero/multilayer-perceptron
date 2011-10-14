@@ -23,12 +23,27 @@ patrones = matrixPrueba3.matrix +  matrixPrueba2.matrix +
 
 patrones.shuffle!
 
+
+desviacion = 0.2
+cantidad = 20
+matrixTest1 = RbfSom::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
+matrixTest2 = RbfSom::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, nil,  -1)
+matrixTest3 = RbfSom::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil,  -1)
+matrixTest4 = RbfSom::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , 1)
+
+test = matrixTest1.matrix +  matrixTest2.matrix +
+           matrixTest4.matrix +  matrixTest3.matrix
+
+test.shuffle!
+
 k = 4
-rbfXor = RbfSom::Rbf.new(k, patrones, [4,1], 0.5)
+rbfXor = RbfSom::Rbf.new(k, patrones, [k,1], 0.5)
 rbfXor.calcular_centroides
 rbfXor.entrenar
+rbfXor.test(test)
 
-rbfXor.test(csv_xor.matrix)
+puts "Xor Test: "
+puts "El porcentaje de error es de #{rbfXor.errores}%."
 
 
 #  iris   #
@@ -41,10 +56,16 @@ iris = 'iris.csv'
 iris = RbfSom::Csv.new(iris)
 
 patrones = iris.matrix.shuffle!
+entrenamiento = patrones[0..80]
+test = patrones[80..150]
 
 kIris = 3
-iris = RbfSom::Rbf.new(3, patrones, [3,1], 0.5)
+iris = RbfSom::Rbf.new(kIris, entrenamiento, [kIris, 1], 0.5)
 iris.calcular_centroides
 iris.entrenar
+iris.test(test)
 
-p iris.pesosSalida
+puts "Iris Test: "
+puts "El porcentaje de error es de #{iris.errores * test.count / 100}%."
+
+#p iris.pesosSalida

@@ -2,6 +2,7 @@ module RbfSom
   class Rbf
     attr_accessor :k, :patrones, :centroides, :desviacion, :reasignaciones, :first
     attr_accessor :pesosSalida, :salidaOculta, :salida, :neuronas ,:umbrales, :nu
+    attr_accessor :errores
 
     def initialize(k, patrones, neuronas, nu)
       @k = k
@@ -14,6 +15,7 @@ module RbfSom
       @pesosSalida = []
       @umbrales = []
       inicializarConjuntos(patrones)
+      @errores = 0
       inicializar_pesos
     end
 
@@ -79,8 +81,9 @@ module RbfSom
       patrones.each do | patron |
         calcular_salida_intermedias(patron[0...-1])
         calcular_salida
-        p "para el patron     #{patron}"
-        p "la salida  es:    #{@salida}"
+        if ( @salida[0].round(0) - patron.last > 0)
+          @errores += 1
+        end
       end
     end
 
