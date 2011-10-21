@@ -5,10 +5,10 @@ module Fam
     attr_accessor :tempExt, :tempInt,:voltaje, :amperes
     attr_accessor :conjuntoEntrada
 
-    #entradas es un vector de temperaturas que varia de 10 a 12º como para empezar
-    #tiempo es en segundos
-    #el amperaje da calor
-    #el voltaje refresca la vida
+    # entradas es un vector de temperaturas que varia de 10 a 12º como para empezar
+    # tiempo es en segundos
+    # el amperaje da calor
+    # el voltaje refresca la vida
 
 
     # conjuntoEntrada es una matriz donde cada fila representa las temperaturas
@@ -29,17 +29,15 @@ module Fam
 
     def resolver
       @tiempo.times do |t|
-        if((t % 10 == 0)&&(t!=0))      #cada 10 segundos una iteracion
+        if (t % 10 == 0) && (t != 0) # cada 10 segundos una iteracion
           @deltaTemp = @tempExt[t] - @tempInt.last
           intensidad = calcularIntensidad
-          if(intensidad >=0.0)
-            @voltaje =0.0
+          if intensidad >= 0.0
+            @voltaje = 0.0
             @amperes = intensidad
-          else
-            if(intensidad< 0.0)
-              @amperes = 0.0
-              @voltaje = -intensidad
-            end
+          elsif intensidad < 0.0
+            @amperes = 0.0
+            @voltaje = -intensidad
           end
           if t % 360 == 0 then
             @puertaAbierta = true
@@ -50,8 +48,7 @@ module Fam
       end
     end
 
- ##aca aplicamos logica difusa
-
+    # aca aplicamos logica difusa
     def calcularIntensidad
       grados = fuzzyfication
       intensidad = defuzzyfication(grados)
@@ -60,16 +57,16 @@ module Fam
 
     def crear_temperaturaExterna
       @tempExt = []
-      t1=Array.new(600,20)
-      t2=Array.new(600,15)
+      t1 = Array.new(600,20)
+      t2 = Array.new(600,15)
       @tempExt << t1 << t2 << t1 << t2 << t1 << t2
       @tempExt.flatten
     end
 
     def crear_temperatura_referencia
-      t1=Array.new(600,20)
-      t2=Array.new(600,22)
-      @tempRef =[]
+      t1 = Array.new(600,20)
+      t2 = Array.new(600,22)
+      @tempRef = []
       @tempRef << t1 << t2 << t1 << t2 << t1 << t2
       @tempRef.flatten
     end
@@ -93,10 +90,10 @@ module Fam
 
     def defuzzyfication(grados)
       sumaSup = 0.0
-      @conjuntoSalida.each_index{|i| sumaSup += @conjuntoSalida[i][2]*grados[i]*areaT(i)}
+      @conjuntoSalida.each_index{ |i| sumaSup += @conjuntoSalida[i][2] * grados[i] * areaT(i) }
       sumaInf = 0.0
       @conjuntoSalida.each_index{|i| sumaInf+= grados[i]*areaT(i)}
-      sumaSup/sumaInf
+      sumaSup / sumaInf
     end
 
     def pertenencia(a, b, c, x)
@@ -124,16 +121,19 @@ module Fam
 
           plot.data = [
             Gnuplot::DataSet.new( @tempRef ) { |ds|
-              ds.with = "lines"
+              ds.with      = "lines"
               ds.linewidth = 2
+              ds.title     = "deseada"
             },
             Gnuplot::DataSet.new( @tempInt ) { |ds|
-              ds.with = "lines"
+              ds.with      = "lines"
               ds.linewidth = 3
+              ds.title     = "interna"
             },
             Gnuplot::DataSet.new( @tempExt ) { |ds|
-              ds.with = "lines"
-              ds.linewidth = 2 
+              ds.with      = "lines"
+              ds.linewidth = 2
+              ds.title     = "externa"
             }
           ]
         end
