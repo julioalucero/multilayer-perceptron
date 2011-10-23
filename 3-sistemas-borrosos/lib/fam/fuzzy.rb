@@ -21,29 +21,29 @@ module Fam
       @tempExt = crear_temperaturaExterna
       @voltaje = 0.0
       @amperes = 0.0
-      @tempInt = [17]
-      @conjuntoEntrada = [[-15.0, -3.0, -8.5],[-4.0, 0.0, -2.0], [-1.0,1.0,0.0], [0.0, 4.0, 2.0], [3.0, 15.0, 0.0]]
-      @conjuntoSalida  = [[-8.0, -2.0, -5.0],[-3.0, 0.0, -1.5], [-1.0,1.0,0.0],[0.0, 2.0, 1.0], [1.0, 3.0, 1.5]]
+      @tempInt = [22]
+      @conjuntoEntrada = [[-10.0, -1.0, -4.5],[-3.0, 0.0, -1.5], [-1.5,1.5,0.0], [0.0, 3.0, 1.5], [1.0, 10.0, 4.5]]
+      @conjuntoSalida  = [[-100.0, -30.0,-65.0],[-50.0,0.0,-25.0],[-0.20,0.20,0.0], [0.0, 3.2, 1.6], [1.5, 3.8, 2.65]] 
       @deltaTemp = 0.0
     end
 
     def resolver
       @tiempo.times do |t|
-        if (t % 10 == 0) && (t != 0) # cada 10 segundos una iteracion
-          @deltaTemp = @tempExt[t] - @tempInt.last
+        if ( t%10 == 0)      #cada 10 segundos una iteracion
+          @deltaTemp = @tempRef[t] - @tempInt.last
           intensidad = calcularIntensidad
-          if intensidad >= 0.0
-            @voltaje = 0.0
-            @amperes = intensidad
-          elsif intensidad < 0.0
+          if (intensidad >=0.0)
+            @voltaje =0.0
+            @amperes =  intensidad
+          elsif (intensidad< 0.0)
             @amperes = 0.0
             @voltaje = -intensidad
           end
-          if t % 360 == 0 then
+          if (rand < 1.0 / 360.0) then
             @puertaAbierta = true
           end
+          tempInterior(t) # guardamos la temperatura interior
         end
-        tempInterior(t)   #guardamos la temperatura interior
         @puertaAbierta = false
       end
     end
@@ -57,15 +57,15 @@ module Fam
 
     def crear_temperaturaExterna
       @tempExt = []
-      t1 = Array.new(600,20)
-      t2 = Array.new(600,15)
+      t1 = Array.new(600, 20.0)
+      t2 = Array.new(600, 15.0)
       @tempExt << t1 << t2 << t1 << t2 << t1 << t2
       @tempExt.flatten
     end
 
     def crear_temperatura_referencia
-      t1 = Array.new(600,20)
-      t2 = Array.new(600,22)
+      t1 = Array.new(600, 18.0)
+      t2 = Array.new(600, 22.0)
       @tempRef = []
       @tempRef << t1 << t2 << t1 << t2 << t1 << t2
       @tempRef.flatten
@@ -73,9 +73,9 @@ module Fam
 
     def tempInterior(t)
       if(@puertaAbierta)
-        @tempInt << 0.169 * @tempInt[t-1] + 0.831 * @tempExt[t] + 0.112 * (@amperes**2.0) - 0.002*@voltaje
+        @tempInt << 0.169 * @tempInt.last + 0.831 * @tempExt[t] + 0.112 * (@amperes**2.0) - 0.002*@voltaje
       else
-        @tempInt << 0.912 * @tempInt[t-1] + 0.088 * @tempExt[t] + 0.604 * (@amperes**2.0) - 0.0121*@voltaje
+        @tempInt << 0.912 * @tempInt.last + 0.088 * @tempExt[t] + 0.604 * (@amperes**2.0) - 0.0121*@voltaje
       end
     end
 
@@ -107,7 +107,7 @@ module Fam
     end
 
     def areaT(index)
-      area = (@conjuntoSalida[index][0] - @conjuntoSalida[index][1]) / 2.0   #la altura es 1
+      area = ( (@conjuntoSalida[index][0] - @conjuntoSalida[index][1])) / 2.0 # la altura es 1
       area
     end
 
@@ -119,13 +119,21 @@ module Fam
           plot.ylabel "Temperatura"
           plot.xlabel "Tiempo"
 
+          #creamos el vector incongnitas para la tempInterior pq se muestrea cada 10s
+          aux = []
+          i = 0
+          360.times do
+            aux << i + 10
+            i += 10
+          end
+
           plot.data = [
             Gnuplot::DataSet.new( @tempRef ) { |ds|
               ds.with      = "lines"
               ds.linewidth = 2
               ds.title     = "deseada"
             },
-            Gnuplot::DataSet.new( @tempInt ) { |ds|
+            Gnuplot::DataSet.new([aux, @tempInt] ) { |ds|
               ds.with      = "lines"
               ds.linewidth = 3
               ds.title     = "interna"
