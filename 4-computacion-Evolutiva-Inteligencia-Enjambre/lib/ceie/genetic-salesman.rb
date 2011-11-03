@@ -31,7 +31,7 @@ module Ceie
 
    def resolver
     contador = 0
-    cantidad = 20
+    cantidad-padres = @cantidad/2
     porcentajeMutacion = 10
     evaluarPoblacion
 
@@ -40,12 +40,15 @@ module Ceie
      indiceMin = @fitness.index(@fitness.min)
      @cromosomaMin = @poblacion[indiceMin].clone #guardo el mejor
 
-     indicesPadres = seleccionarPoblacionRuleta(cantidad)
+     indicesPadres = seleccionarPoblacionRuleta(cantidad-padres)
 
      cruza(indicesPadres)
 
-     p @poblacion.count
-     #mutacion(porcentajeMutacion)
+     p "para #{contador}, el fitness mejor es #{@cromosomaMin}"
+     p "con distancia #{@fitness.min}"
+
+
+     mutacion(porcentajeMutacion)
 
      #recupero el mejor y lo cambio por el peor
      indiceMax = @fitness.index(@fitness.max)
@@ -56,6 +59,7 @@ module Ceie
      evaluarPoblacion
      contador+=1
     end
+    
     p index = @fitness.min
     indice = @fitness.index(index)
     p "punto x de la funcion"
@@ -209,16 +213,22 @@ module Ceie
 
   def mutacion(porcentaje)
     @poblacion.each_index do |i|
-     if(rand < porcentaje/100.0)
-      indice = rand(@poblacion[i].count)
-      if(@poblacion[i][indice]==0)
-       @poblacion[i][indice]=1
-       else
-       @poblacion[i][indice]=0
-       end
-     end
+      if rand < porcentaje/100.0
+        indice_1 = rand(@poblacion[i].count)
+        indice_2 = rand(@poblacion[i].count)
+
+        # compruebo que no sean iguales
+        while indice_1 == indice_2 do
+          indice_2 = rand(@poblacion[i].count)
+        end
+
+        # intercambio
+        aux = @poblacion[i][indice_1]
+        @poblacion[i][indice_1] = @poblacion[i][indice_2]
+        @poblacion[i][indice_2] = aux
+      end
     end
-   end
+  end
 
   #devuelve la suma de los cant componentes del vector
   def sumarCant(cant,vector)
