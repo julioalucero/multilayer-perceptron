@@ -1,6 +1,6 @@
 require "gnuplot"
 module Ceie
-  class Genetic
+  class GeneticSalesman
     attr_accessor :poblacion, :cantidad, :tamanioCromosoma, :fitness, :cromosomaMin, :funcion 
     attr_accessor :tamanioNumero, :probabilidad, :qsubm, :epocas, :fitnessReq, :tamanioNumero, :aceptaNegativo
     attr_accessor :costos, :cantidad_ciudades
