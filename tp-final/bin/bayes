@@ -8,16 +8,24 @@ puts "\n" + "*" * 80  + "\n" +
      "*" * 80 + "\n"
 
 
+email = IO.read("spamTrain.label")
+lines = email.split("\n")
+lines.collect! { |l| l.split }
+SPAM_HASH = Hash.new
+lines.each do |line|
+  SPAM_HASH[line[1]] = line[0]
+end
+
 emails = [
-['hola', 'hola', 'hola', 'todo', 'bien'],
-['guido', 'solo', 'comer', 'alto', 'nalgas'],
-['leti', 'hola', 'jamon', 'jamon', 'clima']
+  ['hola', 'hola', 'hola', 'todo', 'bien'],
+  ['guido', 'solo', 'comer', 'alto', 'nalgas'],
+  ['leti', 'hola', 'jamon', 'jamon', 'clima']
 ]
 
 spam = [
-['hola', 'como', 'andas', 'todo', 'bien'],
-['guido', 'solo', 'comer', 'alto', 'nalgas'],
-['leti', 'hola', 'jamon', 'tontuelo', 'clima']
+  ['hola', 'como', 'andas', 'todo', 'bien'],
+  ['guido', 'solo', 'comer', 'alto', 'nalgas'],
+  ['leti', 'hola', 'jamon', 'tontuelo', 'clima']
 ]
 
 #Aca leer todos los mailss"
@@ -25,10 +33,14 @@ spam = [
 txt_file = 'nospam/mail2.txt' 
 file1 = Bayes::MailConverter.new(txt_file)
 mail1 = file1.vectorMail
+
 ###########################
-eml_file = 'prueba.eml'
+#
+eml_file = 'TRAIN_00000.eml'
 emlfile = Bayes::Email.new(eml_file)
-p emlfile.body
+email = emlfile.get_hash
+p email
+
 
 
 dataBase = Bayes::BayesTraining.new(emails,spam)
