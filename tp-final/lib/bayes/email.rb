@@ -27,7 +27,7 @@ module Bayes
     def filter(body)
       content = []
       body.each do |word|
-        content << word if word.length >= 4 and word.lenth <= 12
+        content << word if word.length >= 4 and word.length <= 12
       end
       content
     end
