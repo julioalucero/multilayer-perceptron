@@ -1,10 +1,14 @@
+# encoding: ISO-8859-15
+
 module Bayes
   class Email
-    attr_accessor :name, :from, :to, :subject, :body, :spam
+    attr_accessor :id, :name, :from, :to, :subject, :body, :spam
 
-    def initialize(p)
-      @name = p
+    def initialize(p, id=nil)
+      @id = id
+      @name = File.basename(p)
       fc = IO.read(p)
+      fc = fc.force_encoding("ISO-8859-15")
       hdr = fc.split(/^\s*$/)[0]
       body = fc.sub(".{" + hdr.size.to_s + ",}",'')
       @from = /^From: (.+$)/.match(hdr).to_a[0]
@@ -38,21 +42,28 @@ module Bayes
     end
 
     def show
-      puts @name      + "\n\t" +
-           @to        +  "\n\t" +
-           @from      +  "\n\t" +
-           @subject   +  "\n\t" +
-           @body.to_s + "\n\t" +
-           @spam      + "\n\t"
+      # puts @name      + "\n\t" +
+      #      @to        +  "\n\t" +
+      #      @from      +  "\n\t" +
+      #      @subject   +  "\n\t" +
+      #      @body.to_s + "\n\t" +
+      #      @spam      + "\n\t"
+      puts [name, to, from, subject, body.to_s, spam].join("\n\t") + "\n\t"
     end
 
     def get_hash
       email = {
-        :to      => self.to,
-        :from    => self.from,
-        :subject => self.subject,
-        :body    => self.body,
-        :spam    => self.spam
+        # :to      => self.to,
+        # :from    => self.from,
+        # :subject => self.subject,
+        # :body    => self.body,
+        # :spam    => self.spam
+        # id:      id,
+        to:      to,
+        from:    from,
+        subject: subject,
+        body:    body,
+        spam:    spam
       }
     end
   end
@@ -63,4 +74,3 @@ module Bayes
 #    e.Show
 #}
 end
-

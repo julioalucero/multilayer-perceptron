@@ -35,13 +35,12 @@ file1 = Bayes::MailConverter.new(txt_file)
 mail1 = file1.vectorMail
 
 ###########################
-#
-eml_file = 'TRAIN_00000.eml'
-emlfile = Bayes::Email.new(eml_file)
-email = emlfile.get_hash
-p email
 
+emails = Dir['emails/*.eml'].sort.map do |path|
+  Bayes::Email.new(path).get_hash
+end
 
+p emails.size
 
 dataBase = Bayes::BayesTraining.new(emails,spam)
 clasification = Bayes::BayesSpam.new(mail1,dataBase)
