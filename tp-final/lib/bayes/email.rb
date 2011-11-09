@@ -42,23 +42,11 @@ module Bayes
     end
 
     def show
-      # puts @name      + "\n\t" +
-      #      @to        +  "\n\t" +
-      #      @from      +  "\n\t" +
-      #      @subject   +  "\n\t" +
-      #      @body.to_s + "\n\t" +
-      #      @spam      + "\n\t"
       puts [name, to, from, subject, body.to_s, spam].join("\n\t") + "\n\t"
     end
 
     def get_hash
       email = {
-        # :to      => self.to,
-        # :from    => self.from,
-        # :subject => self.subject,
-        # :body    => self.body,
-        # :spam    => self.spam
-        # id:      id,
         to:      to,
         from:    from,
         subject: subject,
