@@ -31,9 +31,16 @@ module Bayes
     def filter(body)
       content = []
       body.each do |word|
-        content << word if word.length >= 4 and word.length <= 12
+#        content << word if word.length >= 4 and word.length <= 12
+        content << word.downcase if permited?(word.downcase)
       end
       content
+    end
+
+    def permited?(word)
+      return false if word.length <= 4 or word.length >= 12
+      return false if !!word.match(/.[^a-z]/)
+      true
     end
 
     def spam?
