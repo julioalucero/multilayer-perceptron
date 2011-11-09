@@ -13,7 +13,7 @@ module Bayes
       body = fc.sub(".{" + hdr.size.to_s + ",}",'')
       @from = /^From: (.+$)/.match(hdr).to_a[0]
       @to = /^To: (.+$)/.match(hdr).to_a[0]
-      @subject = /^Subject: (.+$)/.match(hdr).to_a[0]
+      @subject = /^[Subject: ](.*)/.match(hdr).to_a[0].split
       @body = filter(get_body(body.split, '(UTC)'))
       @spam = spam?
     end
@@ -53,6 +53,8 @@ module Bayes
     end
 
     def get_hash
+      p @subject
+      @subject = filter(@subject)
       email = {
         to:      to,
         from:    from,
@@ -62,7 +64,6 @@ module Bayes
       }
     end
   end
-
 #Dir['*.eml'].each{|p|
 #
 #    e = Email.new(p)
