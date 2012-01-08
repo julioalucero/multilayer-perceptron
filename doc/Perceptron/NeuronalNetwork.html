@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Perceptron::NeuronalNetwork</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/perceptron/neuronalNetwork_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/perceptron/neuronalNetwork.rb">lib/perceptron/neuronalNetwork.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-backPropagation">#backPropagation</a></li>
+					
+					<li><a href="#method-i-forwardPropagation">#forwardPropagation</a></li>
+					
+					<li><a href="#method-i-initializeIndex">#initializeIndex</a></li>
+					
+					<li><a href="#method-i-initializeRed">#initializeRed</a></li>
+					
+					<li><a href="#method-i-test">#test</a></li>
+					
+					<li><a href="#method-i-trainingNetwork">#trainingNetwork</a></li>
+					
+					<li><a href="#method-i-updateWeights">#updateWeights</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../Gemfile.html">Gemfile</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Perceptor.html">Perceptor</a></li>
+				
+					<li><a href="../Perceptor/Csv.html">Perceptor::Csv</a></li>
+				
+					<li><a href="../Perceptor/Neuron.html">Perceptor::Neuron</a></li>
+				
+					<li><a href="../Perceptor/RandomCustomize.html">Perceptor::RandomCustomize</a></li>
+				
+					<li><a href="../Perceptron.html">Perceptron</a></li>
+				
+					<li><a href="../Perceptron/Layer.html">Perceptron::Layer</a></li>
+				
+					<li><a href="../Perceptron/NeuronalNetwork.html">Perceptron::NeuronalNetwork</a></li>
+				
+					<li><a href="../PerceptorSimple.html">PerceptorSimple</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Perceptron::NeuronalNetwork</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="capas-attribute-method" class="method-detail">
+				<a name="capas"></a>
+				
+				<a name="capas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">capas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="entradas-attribute-method" class="method-detail">
+				<a name="entradas"></a>
+				
+				<a name="entradas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">entradas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="num-euronas-attribute-method" class="method-detail">
+				<a name="numNeuronas"></a>
+				
+				<a name="numNeuronas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">numNeuronas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="salidas-attribute-method" class="method-detail">
+				<a name="salidas"></a>
+				
+				<a name="salidas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">salidas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="vector-apas-attribute-method" class="method-detail">
+				<a name="vectorCapas"></a>
+				
+				<a name="vectorCapas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">vectorCapas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="indice-ntradas-attribute-method" class="method-detail">
+				<a name="indiceEntradas"></a>
+				
+				<a name="indiceEntradas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">indiceEntradas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="delta-attribute-method" class="method-detail">
+				<a name="delta"></a>
+				
+				<a name="delta="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">delta</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="nu-attribute-method" class="method-detail">
+				<a name="nu"></a>
+				
+				<a name="nu="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">nu</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="momento-attribute-method" class="method-detail">
+				<a name="momento"></a>
+				
+				<a name="momento="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">momento</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(capas, entradas, numNeuronas, iteraciones, nu, momento)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+@capas = numero de capas (contando todas) @entradas = Contiene las entradas
+principales, vector.Ej. x = [x1, x2, x3, y] @numNeuron = Contiene vector
+con la cant de neuronas x capa. Ej [3,2,1]. @cantIter = Punto de corte,
+cantidad de entrenamientos. @indiceEntradas = Cantidad de entradas en cada
+capa. Ej. [2, 3, 2]. @vectorCapas =  contiene el array con cada objeto <a
+href="Layer.html">Layer</a> a utilizar
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 11</span>
+11:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">capas</span>, <span class="ruby-identifier">entradas</span>, <span class="ruby-identifier">numNeuronas</span>, <span class="ruby-identifier">iteraciones</span>, <span class="ruby-identifier">nu</span>, <span class="ruby-identifier">momento</span>)
+12:       <span class="ruby-ivar">@capas</span> = <span class="ruby-identifier">capas</span>
+13:       <span class="ruby-ivar">@entradas</span> = <span class="ruby-identifier">entradas</span>
+14:       <span class="ruby-ivar">@numNeuron</span> = <span class="ruby-identifier">numNeuronas</span>
+15:       <span class="ruby-ivar">@cantIter</span> = <span class="ruby-identifier">iteraciones</span>
+16:       <span class="ruby-ivar">@indiceEntradas</span> = <span class="ruby-identifier">initializeIndex</span>
+17:       <span class="ruby-ivar">@vectorCapas</span> = <span class="ruby-identifier">initializeRed</span>
+18:       <span class="ruby-ivar">@nu</span> = <span class="ruby-identifier">nu</span>
+19:       <span class="ruby-ivar">@momento</span> = <span class="ruby-identifier">momento</span>
+20:       <span class="ruby-ivar">@delta</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+21:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@numNeuron</span>.<span class="ruby-identifier">last</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+22:         <span class="ruby-ivar">@delta</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">0</span>
+23:       <span class="ruby-keyword kw">end</span>
+24:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="back-ropagation-method" class="method-detail ">
+				<a name="method-i-backPropagation"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">backPropagation</span><span
+						class="method-args">(q)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="back-ropagation-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 70</span>
+70:    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">backPropagation</span>(<span class="ruby-identifier">q</span>)
+71:   <span class="ruby-comment cmt">#   @cantIter += 1</span>
+72:      <span class="ruby-identifier">error</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+73:      <span class="ruby-comment cmt"># la idea es recorrer cada capa y calcular su oooomegaaa osea error</span>
+74:      <span class="ruby-comment cmt"># @entradas es una matriz con todas las entradas,</span>
+75:      <span class="ruby-comment cmt"># hay q ponerle un indice para llamar a la ultima de la fila</span>
+76: 
+77:      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@numNeuron</span>.<span class="ruby-identifier">last</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+78:        <span class="ruby-ivar">@delta</span>[<span class="ruby-identifier">i</span>] = (<span class="ruby-ivar">@entradas</span>[<span class="ruby-identifier">q</span>].<span class="ruby-identifier">last</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@salidas</span>[<span class="ruby-identifier">i</span>]) * (<span class="ruby-ivar">@salidas</span>[<span class="ruby-identifier">i</span>] * (<span class="ruby-value">1.0</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@salidas</span>[<span class="ruby-identifier">i</span>]))
+79:      <span class="ruby-keyword kw">end</span>
+80: 
+81:      <span class="ruby-identifier">aux</span> = <span class="ruby-ivar">@capas</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+82: 
+83:      <span class="ruby-identifier">error</span> = <span class="ruby-ivar">@delta</span>.<span class="ruby-identifier">clone</span>
+84:      <span class="ruby-comment cmt"># @vectorCapas[aux].deltas = error</span>
+85:      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">aux</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+86:        <span class="ruby-comment cmt"># nota...</span>
+87:        <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">aux</span>].<span class="ruby-identifier">initializeDeltas</span>(<span class="ruby-identifier">error</span>, <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">aux</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">numNeuronas</span>, <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">aux</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">salidas</span>)
+88:        <span class="ruby-comment cmt">#error = @vectorCapas[aux].deltas</span>
+89:        <span class="ruby-identifier">aux</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+90:      <span class="ruby-keyword kw">end</span>
+91:    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="forward-ropagation-method" class="method-detail ">
+				<a name="method-i-forwardPropagation"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">forwardPropagation</span><span
+						class="method-args">(q)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+recorrer el vector capas y calcular la salida y guarda las entradas
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="forward-ropagation-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 57</span>
+57:    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">forwardPropagation</span>(<span class="ruby-identifier">q</span>)
+58:      <span class="ruby-identifier">entradaAux</span> = <span class="ruby-ivar">@entradas</span>[<span class="ruby-identifier">q</span>].<span class="ruby-identifier">clone</span>
+59:      <span class="ruby-identifier">entradaAux</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">entradaAux</span>.<span class="ruby-identifier">last</span>) <span class="ruby-comment cmt"># Se elimina la última xq es la deseada</span>
+60:      <span class="ruby-identifier">y</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+61:      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-ivar">@vectorCapas</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+62:        <span class="ruby-identifier">y</span> = <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">calculateOutput</span>(<span class="ruby-identifier">entradaAux</span>)
+63:        <span class="ruby-identifier">entradaAux</span>=<span class="ruby-identifier">y</span>
+64:      <span class="ruby-keyword kw">end</span>
+65:      <span class="ruby-comment cmt">#error=@entradas(i).last - y</span>
+66:      <span class="ruby-comment cmt">#calcular el error si se satisface parar...</span>
+67:      <span class="ruby-ivar">@salidas</span> = <span class="ruby-identifier">y</span>
+68:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="initialize-ndex-method" class="method-detail ">
+				<a name="method-i-initializeIndex"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">initializeIndex</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+recorre cada capa y guarda la cantidad de entradas que posee.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="initialize-ndex-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 27</span>
+27:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initializeIndex</span>
+28:       <span class="ruby-identifier">indiceEntradas</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+29:       <span class="ruby-identifier">indiceEntradas</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@entradas</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-comment cmt">#La ultima entrada es el valor esperado</span>
+30:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-ivar">@capas</span><span class="ruby-operator">-</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">do</span> <span class="ruby-comment cmt">#identificar cual es la capa 0 o la 1</span>
+31:         <span class="ruby-identifier">indiceEntradas</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@numNeuron</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+32:       <span class="ruby-keyword kw">end</span>
+33:       <span class="ruby-identifier">indiceEntradas</span>
+34:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="initialize-ed-method" class="method-detail ">
+				<a name="method-i-initializeRed"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">initializeRed</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Crea los objetos <a href="Layer.html">Layer</a> necesarios Ej. [ Layer1,
+Layer2, Layer3 ]
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="initialize-ed-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 38</span>
+38:    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initializeRed</span>
+39:      <span class="ruby-identifier">vectorCapas</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+40:      <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@capas</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+41:        <span class="ruby-identifier">vectorCapas</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Layer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@numNeuron</span>[<span class="ruby-identifier">i</span>], <span class="ruby-ivar">@indiceEntradas</span>[<span class="ruby-identifier">i</span>])
+42:      <span class="ruby-keyword kw">end</span>
+43:      <span class="ruby-identifier">vectorCapas</span>
+44:    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-method" class="method-detail ">
+				<a name="method-i-test"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test</span><span
+						class="method-args">(matrix)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 109</span>
+109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test</span>(<span class="ruby-identifier">matrix</span>)
+110:       <span class="ruby-ivar">@entradas</span> = <span class="ruby-identifier">matrix</span>
+111:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">q</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-ivar">@entradas</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>
+112:         <span class="ruby-identifier">forwardPropagation</span>(<span class="ruby-identifier">q</span>)
+113:         <span class="ruby-identifier">p</span> <span class="ruby-ivar">@salidas</span>
+114:      <span class="ruby-keyword kw">end</span>
+115:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="training-etwork-method" class="method-detail ">
+				<a name="method-i-trainingNetwork"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trainingNetwork</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="training-etwork-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 46</span>
+46:    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trainingNetwork</span>
+47:      <span class="ruby-ivar">@cantIter</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+48:        <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">q</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-ivar">@entradas</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+49:          <span class="ruby-identifier">forwardPropagation</span>(<span class="ruby-identifier">q</span>)
+50:          <span class="ruby-identifier">backPropagation</span>(<span class="ruby-identifier">q</span>)
+51:          <span class="ruby-identifier">updateWeights</span>(<span class="ruby-ivar">@momento</span>)
+52:        <span class="ruby-keyword kw">end</span>
+53:      <span class="ruby-keyword kw">end</span>
+54:    <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="update-eights-method" class="method-detail ">
+				<a name="method-i-updateWeights"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">updateWeights</span><span
+						class="method-args">(m)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="update-eights-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/perceptron/neuronalNetwork.rb, line 93</span>
+ 93:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">updateWeights</span>(<span class="ruby-identifier">m</span>)
+ 94:       <span class="ruby-comment cmt">#actualizar dps la ultima capa con el delta que se calcula aca</span>
+ 95:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span> <span class="ruby-keyword kw">then</span>
+ 96:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-ivar">@capas</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>)
+ 97:           <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">updateWeigtWithMomentum</span>(<span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">deltas</span>, <span class="ruby-ivar">@nu</span>, <span class="ruby-value">0.5</span>)
+ 98:         <span class="ruby-keyword kw">end</span>
+ 99:         <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-ivar">@capas</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">updateWeigtWithMomentum</span>(<span class="ruby-ivar">@delta</span>, <span class="ruby-ivar">@nu</span>, <span class="ruby-value">0.5</span>)
+100:       <span class="ruby-keyword kw">else</span>
+101:         <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-ivar">@capas</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>)
+102:           <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">updateWeigt</span>(<span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">deltas</span>, <span class="ruby-ivar">@nu</span>)
+103:         <span class="ruby-keyword kw">end</span>
+104:         <span class="ruby-ivar">@vectorCapas</span>[<span class="ruby-ivar">@capas</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">updateWeigt</span>(<span class="ruby-ivar">@delta</span>, <span class="ruby-ivar">@nu</span>)
+105:       <span class="ruby-keyword kw">end</span>
+106: 
+107:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

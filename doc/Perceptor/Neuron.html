@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Perceptor::Neuron</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/perceptron/neuron_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/perceptron/neuron.rb">lib/perceptron/neuron.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-calculate">#calculate</a></li>
+					
+					<li><a href="#method-i-constantProduct">#constantProduct</a></li>
+					
+					<li><a href="#method-i-dot_product">#dot_product</a></li>
+					
+					<li><a href="#method-i-graficar">#graficar</a></li>
+					
+					<li><a href="#method-i-initializeRandom">#initializeRandom</a></li>
+					
+					<li><a href="#method-i-sigmoide">#sigmoide</a></li>
+					
+					<li><a href="#method-i-subtractArray">#subtractArray</a></li>
+					
+					<li><a href="#method-i-test">#test</a></li>
+					
+					<li><a href="#method-i-training">#training</a></li>
+					
+					<li><a href="#method-i-trainingWithIndices">#trainingWithIndices</a></li>
+					
+					<li><a href="#method-i-update">#update</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../Gemfile.html">Gemfile</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Perceptor.html">Perceptor</a></li>
+				
+					<li><a href="../Perceptor/Csv.html">Perceptor::Csv</a></li>
+				
+					<li><a href="../Perceptor/Neuron.html">Perceptor::Neuron</a></li>
+				
+					<li><a href="../Perceptor/RandomCustomize.html">Perceptor::RandomCustomize</a></li>
+				
+					<li><a href="../Perceptron.html">Perceptron</a></li>
+				
+					<li><a href="../Perceptron/Layer.html">Perceptron::Layer</a></li>
+				
+					<li><a href="../Perceptron/NeuronalNetwork.html">Perceptron::NeuronalNetwork</a></li>
+				
+					<li><a href="../PerceptorSimple.html">PerceptorSimple</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Perceptor::Neuron</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="n-nputs-attribute-method" class="method-detail">
+				<a name="nInputs"></a>
+				
+				<a name="nInputs="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">nInputs</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="w-attribute-method" class="method-detail">
+				<a name="w"></a>
+				
+				<a name="w="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">w</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="nu-attribute-method" class="method-detail">
+				<a name="nu"></a>
+				
+				<a name="nu="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">nu</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="umbral-attribute-method" class="method-detail">
+				<a name="umbral"></a>
+				
+				<a name="umbral="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">umbral</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="epocas-attribute-method" class="method-detail">
+				<a name="epocas"></a>
+				
+				<a name="epocas="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">epocas</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="error-attribute-method" class="method-detail">
+				<a name="error"></a>
+				
+				<a name="error="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">error</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(nInputs, nu, epocas)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 7</span>
+ 7:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">nInputs</span>, <span class="ruby-identifier">nu</span>, <span class="ruby-identifier">epocas</span>)
+ 8:       <span class="ruby-ivar">@nInputs</span> = <span class="ruby-identifier">nInputs</span>
+ 9:       <span class="ruby-ivar">@nu</span> = <span class="ruby-identifier">nu</span>
+10:       <span class="ruby-ivar">@umbral</span> = <span class="ruby-value">2</span> * <span class="ruby-value">0.5</span> * <span class="ruby-identifier">rand</span> <span class="ruby-operator">-</span> <span class="ruby-value">0.5</span>
+11:       <span class="ruby-ivar">@epocas</span> = <span class="ruby-identifier">epocas</span>
+12:       <span class="ruby-ivar">@w</span> = <span class="ruby-identifier">initializeRandom</span>
+13:       <span class="ruby-ivar">@error</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+14:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="calculate-method" class="method-detail ">
+				<a name="method-i-calculate"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">calculate</span><span
+						class="method-args">(training)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="calculate-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 75</span>
+75:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">calculate</span>(<span class="ruby-identifier">training</span>)
+76:       <span class="ruby-identifier">y</span> = <span class="ruby-identifier">dot_product</span>(<span class="ruby-identifier">training</span>)
+77:       <span class="ruby-identifier">y</span> = <span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@umbral</span>
+78:       <span class="ruby-identifier">y</span> = <span class="ruby-identifier">sigmoide</span>(<span class="ruby-identifier">y</span>,<span class="ruby-value">1</span>)
+79:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="constant-roduct-method" class="method-detail ">
+				<a name="method-i-constantProduct"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">constantProduct</span><span
+						class="method-args">(training, y)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+umbral/2 [yd - y(n)] * x(n)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="constant-roduct-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 98</span>
+ 98:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">constantProduct</span>(<span class="ruby-identifier">training</span>, <span class="ruby-identifier">y</span>)
+ 99:       <span class="ruby-identifier">shift</span> = []
+100:       <span class="ruby-identifier">constant</span> = <span class="ruby-ivar">@nu</span><span class="ruby-operator">/</span><span class="ruby-value">2</span> * (<span class="ruby-identifier">training</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">y</span>)
+101:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-ivar">@nInputs</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
+102:         <span class="ruby-identifier">shift</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">training</span>[<span class="ruby-identifier">i</span>] * <span class="ruby-identifier">constant</span>
+103:       <span class="ruby-keyword kw">end</span>
+104:       <span class="ruby-ivar">@umbral</span> = <span class="ruby-ivar">@umbral</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">constant</span>
+105:       <span class="ruby-identifier">shift</span>
+106:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="dot-product-method" class="method-detail ">
+				<a name="method-i-dot_product"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dot_product</span><span
+						class="method-args">(training)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="dot-product-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 91</span>
+91:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dot_product</span>(<span class="ruby-identifier">training</span>)
+92:       <span class="ruby-identifier">sum</span> = <span class="ruby-value">0</span>
+93:       <span class="ruby-ivar">@w</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">training</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">a</span> * <span class="ruby-identifier">b</span> }
+94:       <span class="ruby-identifier">sum</span>
+95:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="graficar-method" class="method-detail ">
+				<a name="method-i-graficar"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">graficar</span><span
+						class="method-args">(k, ejercicio)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="graficar-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 50</span>
+50:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">graficar</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">ejercicio</span>)
+51:       <span class="ruby-identifier">w1</span> =  <span class="ruby-ivar">@w</span>.<span class="ruby-identifier">first</span>
+52:       <span class="ruby-identifier">w2</span> =  <span class="ruby-ivar">@w</span>.<span class="ruby-identifier">last</span>
+53:       <span class="ruby-identifier">pendiente</span> = <span class="ruby-identifier">w1</span><span class="ruby-operator">/</span><span class="ruby-identifier">w2</span>
+54:       <span class="ruby-identifier">ordenada</span>  = <span class="ruby-ivar">@umbral</span><span class="ruby-operator">/</span><span class="ruby-identifier">w2</span>
+55: 
+56:       <span class="ruby-identifier">g</span> = <span class="ruby-constant">Gruff</span><span class="ruby-operator">::</span><span class="ruby-constant">Line</span>.<span class="ruby-identifier">new</span>
+57:       <span class="ruby-identifier">extra</span> = <span class="ruby-identifier">rand</span>(<span class="ruby-value">10</span>)
+58:       <span class="ruby-identifier">title</span> = <span class="ruby-value str">&quot;Graph&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extra</span>.<span class="ruby-identifier">to_s</span>
+59:       <span class="ruby-identifier">g</span>.<span class="ruby-identifier">title</span> = <span class="ruby-identifier">title</span>
+60:       <span class="ruby-identifier">p</span> <span class="ruby-identifier">title</span>
+61: 
+62:       <span class="ruby-identifier">g</span>.<span class="ruby-identifier">labels</span> = {<span class="ruby-value">0</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'-2'</span>, <span class="ruby-value">1</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'-1'</span>, <span class="ruby-value">2</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'0'</span>, <span class="ruby-value">3</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'1'</span>, <span class="ruby-value">4</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'2'</span>}
+63: 
+64:       <span class="ruby-identifier">y</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+65:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">4</span> <span class="ruby-keyword kw">do</span>
+66:         <span class="ruby-identifier">y</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">ordenada</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">pendiente</span> * (<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-value">2</span>))
+67:       <span class="ruby-keyword kw">end</span>
+68: 
+69:       <span class="ruby-identifier">g</span>.<span class="ruby-identifier">data</span>(<span class="ruby-value str">&quot;ordenada&quot;</span>, [<span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value">0</span>,<span class="ruby-value">0</span>])
+70:       <span class="ruby-identifier">g</span>.<span class="ruby-identifier">data</span>(<span class="ruby-value str">&quot;entrenamiento&quot;</span>, <span class="ruby-identifier">y</span>)
+71:       <span class="ruby-identifier">nombre</span> = <span class="ruby-node">&quot;prueba-#{k}.png&quot;</span>
+72:       <span class="ruby-identifier">g</span>.<span class="ruby-identifier">write</span>(<span class="ruby-node">&quot;images/ejercicio1/#{nombre}&quot;</span>)
+73:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="initialize-andom-method" class="method-detail ">
+				<a name="method-i-initializeRandom"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">initializeRandom</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="initialize-andom-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initializeRandom</span>
+17:       <span class="ruby-ivar">@w</span>=<span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+18:       <span class="ruby-ivar">@nInputs</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+19:          <span class="ruby-ivar">@w</span>.<span class="ruby-identifier">push</span>(<span class="ruby-value">2</span> * <span class="ruby-value">0.5</span> * <span class="ruby-identifier">rand</span> <span class="ruby-operator">-</span> <span class="ruby-value">0.5</span>)
+20:       <span class="ruby-keyword kw">end</span>
+21:       <span class="ruby-ivar">@w</span>
+22:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="sigmoide-method" class="method-detail ">
+				<a name="method-i-sigmoide"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sigmoide</span><span
+						class="method-args">(y,a)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="sigmoide-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 81</span>
+81:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sigmoide</span>(<span class="ruby-identifier">y</span>,<span class="ruby-identifier">a</span>)
+82:       <span class="ruby-identifier">y</span>= (<span class="ruby-value">1</span> <span class="ruby-operator">-</span><span class="ruby-constant">Math</span>.<span class="ruby-identifier">exp</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">a</span>*<span class="ruby-identifier">y</span>)) <span class="ruby-operator">/</span> (<span class="ruby-value">1</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Math</span>.<span class="ruby-identifier">exp</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">a</span>*<span class="ruby-identifier">y</span>))
+83:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="subtract-rray-method" class="method-detail ">
+				<a name="method-i-subtractArray"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">subtractArray</span><span
+						class="method-args">(shift)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+w(n) - constantProduct
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="subtract-rray-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 109</span>
+109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subtractArray</span>(<span class="ruby-identifier">shift</span>)
+110:       <span class="ruby-identifier">wUpdate</span> = []
+111:       <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-ivar">@nInputs</span> <span class="ruby-operator">-</span><span class="ruby-value">1</span>)
+112:         <span class="ruby-identifier">wUpdate</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@w</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">shift</span>[<span class="ruby-identifier">i</span>]
+113:       <span class="ruby-keyword kw">end</span>
+114:       <span class="ruby-identifier">wUpdate</span>
+115:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-method" class="method-detail ">
+				<a name="method-i-test"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test</span><span
+						class="method-args">(matrix, indices)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 117</span>
+117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test</span>(<span class="ruby-identifier">matrix</span>, <span class="ruby-identifier">indices</span>)
+118:       <span class="ruby-identifier">contador</span> = <span class="ruby-value">0</span>
+119:       <span class="ruby-ivar">@error</span> = <span class="ruby-value">0</span>
+120:       <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">contador</span> <span class="ruby-operator">!=</span> <span class="ruby-value">199</span>
+121:         <span class="ruby-identifier">indice</span> = <span class="ruby-identifier">indices</span>[<span class="ruby-identifier">contador</span>]
+122:         <span class="ruby-identifier">y</span> = <span class="ruby-identifier">dot_product</span>(<span class="ruby-identifier">matrix</span>[<span class="ruby-identifier">indice</span>])
+123:         <span class="ruby-identifier">y</span> = <span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@umbral</span>
+124:         <span class="ruby-identifier">yd</span> = <span class="ruby-identifier">matrix</span>[<span class="ruby-identifier">indice</span>].<span class="ruby-identifier">last</span>
+125:         <span class="ruby-identifier">y</span> = <span class="ruby-identifier">sigmoide</span>(<span class="ruby-identifier">y</span>, <span class="ruby-value">1</span>)
+126:         <span class="ruby-identifier">y</span> = <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">y</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">else</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">end</span>
+127:         <span class="ruby-ivar">@error</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">yd</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">y</span>
+128:         <span class="ruby-identifier">contador</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+129:       <span class="ruby-keyword kw">end</span>
+130:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="training-method" class="method-detail ">
+				<a name="method-i-training"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">training</span><span
+						class="method-args">(matrix)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+recibe el array de entrenamiento. entrena y actualiza los pesos
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="training-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 26</span>
+26:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">training</span>(<span class="ruby-identifier">matrix</span>)
+27:       <span class="ruby-ivar">@epocas</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+28:         <span class="ruby-identifier">contador</span> = <span class="ruby-value">0</span>
+29:         <span class="ruby-identifier">matrix</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">training</span><span class="ruby-operator">|</span>
+30:           <span class="ruby-identifier">contador</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+31:           <span class="ruby-identifier">y</span> = <span class="ruby-identifier">calculate</span>(<span class="ruby-identifier">training</span>)
+32:           <span class="ruby-identifier">update</span>(<span class="ruby-identifier">training</span>, <span class="ruby-identifier">y</span>)
+33:           <span class="ruby-identifier">graficar</span>(<span class="ruby-identifier">contador</span>, <span class="ruby-value str">&quot;ejercicio1&quot;</span>) <span class="ruby-keyword kw">if</span>  <span class="ruby-identifier">contador</span>.<span class="ruby-identifier">modulo</span>(<span class="ruby-value">10</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+34:         <span class="ruby-keyword kw">end</span>
+35:       <span class="ruby-keyword kw">end</span>
+36:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="training-ith-ndices-method" class="method-detail ">
+				<a name="method-i-trainingWithIndices"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trainingWithIndices</span><span
+						class="method-args">(matrix, indices)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="training-ith-ndices-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 38</span>
+38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trainingWithIndices</span>(<span class="ruby-identifier">matrix</span>, <span class="ruby-identifier">indices</span>)
+39:       <span class="ruby-ivar">@epocas</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span>
+40:         <span class="ruby-identifier">contador</span> = <span class="ruby-value">0</span>
+41:         <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">contador</span> <span class="ruby-operator">!=</span> <span class="ruby-value">799</span>
+42:           <span class="ruby-identifier">indice</span> = <span class="ruby-identifier">indices</span>[<span class="ruby-identifier">contador</span>]
+43:           <span class="ruby-identifier">y</span> = <span class="ruby-identifier">calculate</span>(<span class="ruby-identifier">matrix</span>[<span class="ruby-identifier">indice</span>])
+44:           <span class="ruby-identifier">update</span>(<span class="ruby-identifier">matrix</span>[<span class="ruby-identifier">indice</span>], <span class="ruby-identifier">y</span>)
+45:           <span class="ruby-identifier">contador</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+46:         <span class="ruby-keyword kw">end</span>
+47:       <span class="ruby-keyword kw">end</span>
+48:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="update-method" class="method-detail ">
+				<a name="method-i-update"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">update</span><span
+						class="method-args">(training, y)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+w(n+1) = w(n) - umbral*x(n)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="update-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/perceptron/neuron.rb, line 86</span>
+86:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span>(<span class="ruby-identifier">training</span>, <span class="ruby-identifier">y</span>)
+87:       <span class="ruby-identifier">shift</span> = <span class="ruby-identifier">constantProduct</span>(<span class="ruby-identifier">training</span>, <span class="ruby-identifier">y</span>)
+88:       <span class="ruby-ivar">@w</span> = <span class="ruby-identifier">subtractArray</span>(<span class="ruby-identifier">shift</span>)
+89:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

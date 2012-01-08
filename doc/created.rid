@@ -1,0 +1,16 @@
+Mon, 12 Sep 2011 13:12:54 -0300
+./Gemfile	Fri, 02 Sep 2011 07:19:03 -0300
+./spec/perceptronSimple/csv_spec.rb	Fri, 19 Aug 2011 18:19:16 -0300
+./spec/spec_helper.rb	Fri, 19 Aug 2011 00:19:27 -0300
+./bin/3runnerB	Mon, 12 Sep 2011 10:48:14 -0300
+./bin/2runnerA	Mon, 12 Sep 2011 07:16:15 -0300
+./bin/4runner	Mon, 12 Sep 2011 11:59:42 -0300
+./bin/3runner	Mon, 12 Sep 2011 13:11:51 -0300
+./bin/2runnerB	Mon, 12 Sep 2011 07:16:15 -0300
+./bin/runner	Mon, 12 Sep 2011 07:16:15 -0300
+./lib/perceptron.rb	Wed, 07 Sep 2011 11:02:50 -0300
+./lib/perceptron/neuronalNetwork.rb	Mon, 12 Sep 2011 11:49:27 -0300
+./lib/perceptron/csv.rb	Mon, 12 Sep 2011 07:16:15 -0300
+./lib/perceptron/layer.rb	Mon, 12 Sep 2011 12:12:06 -0300
+./lib/perceptron/randomCustomize.rb	Mon, 05 Sep 2011 11:01:41 -0300
+./lib/perceptron/neuron.rb	Mon, 12 Sep 2011 07:16:15 -0300
