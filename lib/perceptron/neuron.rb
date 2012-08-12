@@ -1,16 +1,17 @@
-require 'gruff'
+require 'gnuplot'
 
 module Perceptor
   class Neuron
-    attr_accessor :nInputs, :w, :nu, :umbral, :epocas, :error
+    attr_accessor :nInputs, :w, :nu, :umbral, :epocas, :error, :bool
 
-    def initialize(nInputs, nu, epocas)
+    def initialize(nInputs, nu, epocas,bool)
       @nInputs = nInputs
       @nu = nu
       @umbral = 2 * 0.5 * rand - 0.5
       @epocas = epocas
       @w = initializeRandom
       @error = Array.new
+			@bool = bool
     end
 
     def initializeRandom
@@ -30,7 +31,7 @@ module Perceptor
           contador += 1
           y = calculate(training)
           update(training, y)
-          graficar(contador, "ejercicio1") if  contador.modulo(10) == 0
+          graficar if (contador % 5  == 0)
         end
       end
     end
@@ -47,30 +48,47 @@ module Perceptor
       end
     end
 
-    def graficar(k, ejercicio)
-      w1 =  @w.first
-      w2 =  @w.last
-      pendiente = w1/w2
-      ordenada  = @umbral/w2
+    def graficar
+     Gnuplot.open do |gp|
+      Gnuplot::Plot.new( gp ) do |plot|
+       plot.title  "Ejercicio-1"
+       plot.ylabel "y"
+       plot.xlabel "x"
+	   	 plot.xrange "[-2.0:2.0]"
+	   	 plot.yrange "[-2.0:2.0]"
+			 if (bool == true)
+			  x1 = [1.0,-1.0,1.0]
+			  y1 = [1.0,1.0,-1.0]
+			  x2 = [-1.0]
+			  y2 = [-1.0]
+			  else
+			  x1 = [1.0,-1.0]
+			  y1 = [1.0,-1.0]
+			  x2 = [-1.0,1.0]
+			  y2 = [1.0,-1.0]
+			 end
 
-      g = Gruff::Line.new
-      extra = rand(10)
-      title = "Graph" + k.to_s + extra.to_s
-      g.title = title
-      p title
+			 a = -1.0*(@w.first / @w.last)
+			 b = @umbral / @w.last
+	     plot.data = [
+        Gnuplot::DataSet.new("#{a}*x + #{b}") { |ds|
+          ds.with = "lines"
+          ds.linewidth = 2
+	     		},
+					
+        Gnuplot::DataSet.new([x1,y1]) { |ds|
+          ds.with = "points"
+          ds.linewidth = 4
+	     		},
 
-      g.labels = {0 => '-2', 1 => '-1', 2 => '0', 3 => '1', 4 => '2'}
-
-      y = Array.new
-      for i in 0..4 do
-        y[i] = ordenada - (pendiente * (i-2))
-      end
-
-      g.data("ordenada", [0,0,0,0,0])
-      g.data("entrenamiento", y)
-      nombre = "prueba-#{k}.png"
-      g.write("images/ejercicio1/#{nombre}")
-    end
+        Gnuplot::DataSet.new([x2,y2]) { |ds|
+          ds.with = "points"
+          ds.linewidth = 4
+	     		},
+					]
+	   	end
+     end
+		end
 
     def calculate(training)
       y = dot_product(training)

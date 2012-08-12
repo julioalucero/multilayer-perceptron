@@ -1,6 +1,6 @@
 require "gnuplot"
 module Perceptron
-  class NeuronalNetwork
+  class NeuronalNetwork2
     attr_accessor  :capas, :entradas, :numNeuronas, :salidas, :vectorCapas, :indiceEntradas, :nu, :momento, :error, :maxIter
 
     # @capas = numero de capas (contando todas)
@@ -53,16 +53,18 @@ module Perceptron
          prom = promErrores
          @error.clear
    	  cantIter+=1
-      p "Error" 
-      p prom
-      p "Cantidad de iteraciones"
-      p cantIter     
       end
   end
 
 
    def promErrores
-     @error.inject(0) { |accum, error| accum + error } / @error.length
+	   err = 0.0
+		 @error.each do |linea|
+		 ac = 0.0
+		 	linea.each {|val| ac+=val}
+			err += ac/3.0
+		 end
+		 err/@error.length
    end
 
    #recorrer el vector capas y calcular la salida y guarda las entradas
@@ -76,18 +78,42 @@ module Perceptron
        entradaAux=y
      end
      @salidas = y
-		 @error << (((@entradas[q].last-y.first)**2)/2.0)
-   end
+		 #codificacion 1 0 0   0
+		 #             0 1 0   1
+		 #             0 0 1   2 
+		 if (@entradas[q].last == 0 )
+		 	deseada = [1,0,0]
+			else
+		  if (@entradas[q].last == 1 )
+		 	deseada = [0,1,0]
+			else
+		 	deseada = [0,0,1]
+			end
+		 end
+			@error <<  [((deseada[0]-@salidas[0])**2.0)/2.0, ((deseada[1]-@salidas[1])**2.0)/2.0,((deseada[2]-@salidas[2])**2.0)/2.0]
+	 end
 
    def backPropagation(q)
      #los deltas van a vivir en cada layer
      #actualizamos los deltas de la ultima capa
      contador=(@vectorCapas.length-1)  
      aux=Array.new
-     for i in 0..(@numNeuron.last-1)
-	    aux <<   (@entradas[q].last-@salidas[i])*(@salidas[i]*(1-@salidas[i]))
-     end
-     @vectorCapas[contador].deltas=aux
+		  if(@entradas[q].last == 0)
+		  deseada = [1,0,0]
+		  else
+		  if (@entradas[q].last == 1)
+		  deseada = [0,1,0]
+		  else
+		  deseada = [0,0,1]
+		  end
+		  end
+			aux1 =  (deseada[0]-@salidas[0])*(@salidas[0]*(1-@salidas[0]))
+			aux2 =  (deseada[1]-@salidas[1])*(@salidas[1]*(1-@salidas[1]))
+			aux3 =  (deseada[2]-@salidas[2])*(@salidas[2]*(1-@salidas[2]))
+			aux << aux1
+			aux << aux2
+			aux << aux3
+		 @vectorCapas[contador].deltas=aux
      #actualizamos los deltas de las capas inferiores
      while(contador >0)	 
       delta =@vectorCapas[contador].deltas	
@@ -115,50 +141,24 @@ module Perceptron
       vectorSalidas=Array.new	
       for q in 0..@entradas.length-1
         forwardPropagation(q)
-	      vectorSalidas << @salidas
+				if (@entradas[q].last == 0)
+				deseada = [1.0,0.0,0.0]
+				else
+				if (@entradas[q].last == 1)
+				deseada = [0.0,1.0,0.0]
+				else
+				deseada = [0.0,0.0,1.0]
+				end
+				end
+
+				vectorSalidas << ((@salidas[0]-deseada[0])**2.0/2.0 + (@salidas[1]-deseada[2])**2.0/2.0 + (@salidas[2]-deseada[2])**2.0/2.0)/3.0 
       end
-        puntosXY = []      
-        @entradas.each do |e|        
-        puntosXY << e[0..-2]      
-       end
-      #separamos las dos clases asi es  mas facil graficar
-      clase1=Array.new
-      clase2=Array.new
-      for i in 0..(vectorSalidas.length-1)
-	     if vectorSalidas[i].first >= 0.5
-		   clase1 << puntosXY[i]
-	     else
-		   clase2 << puntosXY[i]
-	     end
-	    end
-      graficarPuntos(clase1,clase2)
-    end
-
-    def graficarPuntos(clase1,clase2)
-
-     Gnuplot.open do |gp|
-     Gnuplot::Plot.new( gp ) do |plot|
-      plot.xrange "[0:2]"
-      plot.title  "Ejercicio-3"
-      plot.ylabel "y"
-      plot.xlabel "x"
-      x1 = clase1.collect { |fila| fila.first}
-      y1 = clase1.collect { |fila| fila.last }
-      x2 = clase2.collect { |fila| fila.first}
-      y2 = clase2.collect { |fila| fila.last }
-
-      plot.data = [
-      Gnuplot::DataSet.new( [x1,y1] ) { |ds|
-        ds.with = "dots"
-        ds.linewidth = 4
-      },
-
-      Gnuplot::DataSet.new( [x2, y2] ) { |ds|
-        ds.with = "point"
-        ds.linewidth = 4  } ]
-      end
-    end
-   end
+        err = 0.0
+				vectorSalidas.each do |linea|
+					err+=linea
+				end
+				err/@entradas.count
+		end 
 end
 end
 
