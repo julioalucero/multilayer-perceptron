@@ -3,6 +3,8 @@ GEM
   specs:
     diff-lcs (1.1.2)
     gnuplot (2.3.6)
+    gruff (0.3.6)
+    rmagick (2.13.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -18,5 +20,7 @@ PLATFORMS
 
 DEPENDENCIES
   gnuplot
+  gruff
+  rmagick
   rspec
   watchr
