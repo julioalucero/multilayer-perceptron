@@ -1,8 +1,0 @@
-Intelligence Computational
-
-1 - Perceptron Simple
-
-Para ver los ejercicio ver el archivo: gtp1_2010.pdf
-
-para correr el programa:
-  - correr el comando  > ruby -I lib/ bin/runner
