@@ -3,14 +3,18 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptron'
 
-# Ejercicio 1
+# Ejercicio 1a
 
-or_path = 'or.csv'
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Ejercicio 1 a XOR" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
+
+or_path = 'xor.csv'
 csv_or = Perceptor::Csv.new(or_path)
 
 desviacion = 0.05
 cantidad = 20
-matrixPrueba1 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
+matrixPrueba1 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, -1)
 matrixPrueba2 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, nil,  1)
 matrixPrueba3 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil,  1)
 matrixPrueba4 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , -1)
@@ -22,7 +26,7 @@ matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
 matrix.shuffle!
 
 
-neurona = Perceptor::Neuron.new(2, 0.5, 1)
+neurona = Perceptor::Neuron.new(2, 0.5, 1,false)
 neurona.training(matrix)
 
 
