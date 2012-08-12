@@ -5,6 +5,13 @@ require 'perceptron'
 
 # Ejercicio 1a
 
+
+puts "\n" + "*" * 80  + "\n" +
+     " " * 20 + "Ejercicio 1 a OR" + " " * 20 + "\n" +
+     "*" * 80 + "\n"
+
+
+
 or_path = 'or.csv'
 csv_or = Perceptor::Csv.new(or_path)
 
@@ -22,7 +29,7 @@ matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
 matrix.shuffle!
 
 
-neurona = Perceptor::Neuron.new(2, 0.5, 1)
+neurona = Perceptor::Neuron.new(2, 0.5, 1,true)
 neurona.training(matrix)
 
 
