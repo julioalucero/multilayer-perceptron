@@ -23,8 +23,8 @@ matrixPrueba3 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, 
 matrixPrueba4 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , -1)
 
 matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
-                matrixPrueba1.matrix +  matrixPrueba4.matrix +
-                csv_or.matrix
+         matrixPrueba1.matrix +  matrixPrueba4.matrix +
+         csv_or.matrix
 
 matrix.shuffle!
 

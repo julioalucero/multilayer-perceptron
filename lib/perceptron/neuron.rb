@@ -4,20 +4,20 @@ module Perceptor
   class Neuron
     attr_accessor :nInputs, :w, :nu, :umbral, :epocas, :error, :bool
 
-    def initialize(nInputs, nu, epocas,bool)
+    def initialize(nInputs, nu, epocas, bandera)
       @nInputs = nInputs
       @nu = nu
       @umbral = 2 * 0.5 * rand - 0.5
       @epocas = epocas
       @w = initializeRandom
-      @error = Array.new
-			@bool = bool
+      @error = []
+      @bool = bandera
     end
 
     def initializeRandom
-      @w=Array.new
+      @w = []
       @nInputs.times do
-         @w.push(2 * 0.5 * rand - 0.5)
+         @w << (2 * 0.5 * rand - 0.5)
       end
       @w
     end
@@ -54,41 +54,39 @@ module Perceptor
        plot.title  "Ejercicio-1"
        plot.ylabel "y"
        plot.xlabel "x"
-	   	 plot.xrange "[-2.0:2.0]"
-	   	 plot.yrange "[-2.0:2.0]"
-			 if (bool == true)
-			  x1 = [1.0,-1.0,1.0]
-			  y1 = [1.0,1.0,-1.0]
-			  x2 = [-1.0]
-			  y2 = [-1.0]
-			  else
-			  x1 = [1.0,-1.0]
-			  y1 = [1.0,-1.0]
-			  x2 = [-1.0,1.0]
-			  y2 = [1.0,-1.0]
-			 end
+       plot.xrange "[-2.0:2.0]"
+       plot.yrange "[-2.0:2.0]"
+       if (bool == true)
+        x1 = [1.0,-1.0,1.0]
+        y1 = [1.0,1.0,-1.0]
+        x2 = [-1.0]
+        y2 = [-1.0]
+        else
+        x1 = [1.0,-1.0]
+        y1 = [1.0,-1.0]
+        x2 = [-1.0,1.0]
+        y2 = [1.0,-1.0]
+      end
 
-			 a = -1.0*(@w.first / @w.last)
-			 b = @umbral / @w.last
-	     plot.data = [
+      a = -1.0*(@w.first / @w.last)
+      b = @umbral / @w.last
+      plot.data = [
         Gnuplot::DataSet.new("#{a}*x + #{b}") { |ds|
           ds.with = "lines"
           ds.linewidth = 2
-	     		},
-					
+        },
         Gnuplot::DataSet.new([x1,y1]) { |ds|
           ds.with = "points"
           ds.linewidth = 4
-	     		},
-
+         },
         Gnuplot::DataSet.new([x2,y2]) { |ds|
           ds.with = "points"
           ds.linewidth = 4
-	     		},
-					]
-	   	end
-     end
-		end
+        }, 
+      ]
+    end
+  end
+end
 
     def calculate(training)
       y = dot_product(training)

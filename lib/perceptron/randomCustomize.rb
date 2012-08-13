@@ -3,7 +3,6 @@ module Perceptor
     attr_accessor :matrix
 
     # Selecciona la cantidad de puntos a utilizar
-
     def initialize(desviacion, cantidad, xpos, ypos, zpos, yd)
       if zpos == nil
         initialize2d(desviacion, cantidad, xpos, ypos, yd)
@@ -14,7 +13,6 @@ module Perceptor
 
     # generar pares de numeros con una desviacion dada alrededor de una posicion
     # dada por xpos e ypos
-
     def initialize2d(desviacion, cantidad, xpos, ypos, yd)
       @matrix = Array.new
       cantidad.times do
@@ -24,7 +22,6 @@ module Perceptor
 
     # generar pares de numeros con una desviacion dada alrededor de una posicion
     # dada por xpos, ypox y zpos.
-
     def initalize3d(desviacion, cantidad, xpos, ypos, zpos, yd)
       @matrix = Array.new
       cantidad.times do
