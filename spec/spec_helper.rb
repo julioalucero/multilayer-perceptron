@@ -1,1 +1,1 @@
-require 'perceptronSimple'
+require 'my_random'
