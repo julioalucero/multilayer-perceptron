@@ -2,7 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptron'
-require 'myRandom'
+require 'my_random'
 
 puts "\n" + "*" * 80  + "\n" +
      " " * 20 + "Ejercicio 2 a" + " " * 20 + "\n" +
