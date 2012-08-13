@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptron'
+require 'myRandom'
 
 # Ejercicio 1a
 
@@ -17,10 +18,10 @@ csv_or = Perceptor::Csv.new(or_path)
 
 desviacion = 0.05
 cantidad = 20
-matrixPrueba1 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
-matrixPrueba2 = Perceptor::RandomCustomize.new(desviacion, cantidad, 1.0, -1.0, nil,  1)
-matrixPrueba3 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, 1.0, nil,  1)
-matrixPrueba4 = Perceptor::RandomCustomize.new(desviacion, cantidad, -1.0, -1.0,nil , -1)
+matrixPrueba1 = MyRandom::SpecialsRandom.new(desviacion, cantidad, 1.0, 1.0,  nil, 1)
+matrixPrueba2 = MyRandom::SpecialsRandom.new(desviacion, cantidad, 1.0, -1.0, nil,  1)
+matrixPrueba3 = MyRandom::SpecialsRandom.new(desviacion, cantidad, -1.0, 1.0, nil,  1)
+matrixPrueba4 = MyRandom::SpecialsRandom.new(desviacion, cantidad, -1.0, -1.0,nil , -1)
 
 matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
          matrixPrueba1.matrix +  matrixPrueba4.matrix +
@@ -28,10 +29,8 @@ matrix = matrixPrueba3.matrix +  matrixPrueba2.matrix +
 
 matrix.shuffle!
 
-
 neurona = Perceptor::Neuron.new(2, 0.5, 1,true)
 neurona.training(matrix)
-
 
 pesos = neurona.w
 w1 =    neurona.w.first
