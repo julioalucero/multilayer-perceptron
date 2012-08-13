@@ -4,3 +4,5 @@ gem 'watchr'
 gem 'gnuplot'
 gem 'gruff'
 gem 'rmagick'
+
+gem 'zentest"

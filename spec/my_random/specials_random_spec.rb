@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module MyRandom
   describe SpecialsRandom do
-    describe "#initialize2d" do
+    describe "#initialize_2d" do
       it "should create correct range numbers" do
         desviation = 0.2
         quantity = 2
@@ -34,7 +34,7 @@ module MyRandom
       end
     end
 
-    describe "#initialize3d" do
+    describe "#initialize_3d" do
       it "should create correct range numbers" do
         desviation = 0.2
         quantity = 2
