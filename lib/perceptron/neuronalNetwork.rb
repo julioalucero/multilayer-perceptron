@@ -14,16 +14,16 @@ module Perceptron
       @entradas = entradas
       @numNeuron = numNeuronas
       @maxIter = maxiteraciones
-      @indiceEntradas = initializeIndex
-      @vectorCapas = initializeRed
+      @indiceEntradas = initialize_index
+      @vectorCapas = initialize_red
       @nu = nu
       @momento = momento
       @error = Array.new
     end
 
     # recorre cada capa y guarruda la cantidad de entradas que posee.
-    def initializeIndex
-      indiceEntradas = Array.new
+    def initialize_index
+      indiceEntradas = []
       indiceEntradas << @entradas[0].length - 1 #La ultima entrada es el valor esperado
       for i in 1..@capas-1 do 
         indiceEntradas << @numNeuron[i-1]
@@ -31,73 +31,71 @@ module Perceptron
       indiceEntradas
     end
 
-   # Crea los objetos Layer necesarios
-   # Ej. [ Layer1, Layer2, Layer3 ]
-   def initializeRed
-     vectorCapas = Array.new
-     for i in 0..@capas-1
-       vectorCapas << Layer.new(@numNeuron[i], @indiceEntradas[i])
-     end
-     vectorCapas
-   end
-
-   def trainingNetwork
-    prom = 100
-    cantIter=1
-      while((prom>0.05) && (cantIter<@maxIter))	
-	       for q in 0..(@entradas.length-1) 
-          forwardPropagation(q)
-	        backPropagation(q)
-          updateWeights(@momento)
-         end 
-         prom = promErrores
-         @error.clear
-   	  cantIter+=1
-      p "Error" 
-      p prom
-      p "Cantidad de iteraciones"
-      p cantIter     
+    # Crea los objetos Layer necesarios
+    # Ej. [ Layer1, Layer2, Layer3 ]
+    def initialize_red
+      vectorCapas = Array.new
+      for i in 0..@capas-1
+        vectorCapas << Layer.new(@numNeuron[i], @indiceEntradas[i])
       end
-  end
+      vectorCapas
+    end
 
+    def trainingNetwork
+      prom = 100
+      cantIter=1
+      while((prom>0.05) && (cantIter<@maxIter))
+        for q in 0..(@entradas.length-1)
+          forward_propagation(q)
+          back_propagation(q)
+          update_weights(@momento)
+        end
+        prom = prom_errores
+        @error.clear
+        cantIter+=1
+        p "Error"
+        p prom
+        p "Cantidad de iteraciones"
+        p cantIter
+      end
+    end
 
-   def promErrores
+   def prom_errores
      @error.inject(0) { |accum, error| accum + error } / @error.length
    end
 
    #recorrer el vector capas y calcular la salida y guarda las entradas
-
-   def forwardPropagation(q)
+   def forward_propagation(q)
      entradaAux = @entradas[q].clone
      entradaAux.delete(entradaAux.last) # Se elimina la última xq es la deseada
-     y = Array.new
+     y = []
      for i in 0..(@vectorCapas.length-1)
        y = @vectorCapas[i].calculateOutput(entradaAux)
        entradaAux=y
      end
      @salidas = y
-		 @error << (((@entradas[q].last-y.first)**2)/2.0)
+     @error << (((@entradas[q].last-y.first)**2)/2.0)
    end
 
-   def backPropagation(q)
+   def back_propagation(q)
      #los deltas van a vivir en cada layer
      #actualizamos los deltas de la ultima capa
      contador=(@vectorCapas.length-1)  
-     aux=Array.new
+     aux = []
      for i in 0..(@numNeuron.last-1)
-	    aux <<   (@entradas[q].last-@salidas[i])*(@salidas[i]*(1-@salidas[i]))
+       aux <<  (@entradas[q].last-@salidas[i])*(@salidas[i]*(1-@salidas[i]))
      end
-     @vectorCapas[contador].deltas=aux
+     @vectorCapas[contador].deltas = aux
      #actualizamos los deltas de las capas inferiores
-     while(contador >0)	 
-      delta =@vectorCapas[contador].deltas	
-      pesos = @vectorCapas[contador].matrixWeights	
+     while(contador >0)
+      delta =@vectorCapas[contador].deltas
+      pesos = @vectorCapas[contador].matrixWeights
       @vectorCapas[contador-1].initializeDeltas(delta,pesos)
-      contador-=1      
+      contador -= 1
      end
    end
 
-    def updateWeights(m)
+    def update_weights(m)
       #actualizar dps la ultima capa con el delta que se calcula aca
       if m then
         for i in 0..(@capas-1)
@@ -112,53 +110,54 @@ module Perceptron
 
     def test(matrix)
       @entradas = matrix
-      vectorSalidas=Array.new	
+      vectorSalidas = []
       for q in 0..@entradas.length-1
-        forwardPropagation(q)
-	      vectorSalidas << @salidas
+        forward_propagation(q)
+        vectorSalidas << @salidas
       end
-        puntosXY = []      
-        @entradas.each do |e|        
-        puntosXY << e[0..-2]      
-       end
+      puntosXY = []
+      @entradas.each do |e|
+        puntosXY << e[0..-2]
+      end
+
       #separamos las dos clases asi es  mas facil graficar
-      clase1=Array.new
-      clase2=Array.new
+      clase1 = []
+      clase2 = []
       for i in 0..(vectorSalidas.length-1)
-	     if vectorSalidas[i].first >= 0.5
-		   clase1 << puntosXY[i]
-	     else
-		   clase2 << puntosXY[i]
-	     end
-	    end
-      graficarPuntos(clase1,clase2)
+        if vectorSalidas[i].first >= 0.5
+          clase1 << puntosXY[i]
+        else
+          clase2 << puntosXY[i]
+        end
+      end
+      graficar_puntos(clase1,clase2)
     end
 
-    def graficarPuntos(clase1,clase2)
+    def graficar_puntos(clase1,clase2)
+      Gnuplot.open do |gp|
+        Gnuplot::Plot.new( gp ) do |plot|
+          plot.xrange "[0:2]"
+          plot.title  "Ejercicio-3"
+          plot.ylabel "y"
+          plot.xlabel "x"
+          x1 = clase1.collect { |fila| fila.first}
+          y1 = clase1.collect { |fila| fila.last }
+          x2 = clase2.collect { |fila| fila.first}
+          y2 = clase2.collect { |fila| fila.last }
 
-     Gnuplot.open do |gp|
-     Gnuplot::Plot.new( gp ) do |plot|
-      plot.xrange "[0:2]"
-      plot.title  "Ejercicio-3"
-      plot.ylabel "y"
-      plot.xlabel "x"
-      x1 = clase1.collect { |fila| fila.first}
-      y1 = clase1.collect { |fila| fila.last }
-      x2 = clase2.collect { |fila| fila.first}
-      y2 = clase2.collect { |fila| fila.last }
-
-      plot.data = [
-      Gnuplot::DataSet.new( [x1,y1] ) { |ds|
-        ds.with = "dots"
-        ds.linewidth = 4
-      },
-
-      Gnuplot::DataSet.new( [x2, y2] ) { |ds|
-        ds.with = "point"
-        ds.linewidth = 2  } ]
+          plot.data = [
+            Gnuplot::DataSet.new( [x1,y1] ) { |ds|
+              ds.with = "dots"
+              ds.linewidth = 4
+            },
+            Gnuplot::DataSet.new( [x2, y2] ) { |ds|
+              ds.with = "point"
+              ds.linewidth = 4
+            }
+          ]
+        end
       end
     end
-   end
-end
+  end
 end
 
