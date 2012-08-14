@@ -60,40 +60,40 @@ module Perceptron
       end
     end
 
-   def prom_errores
-     @error.inject(0) { |accum, error| accum + error } / @error.length
-   end
+    def prom_errores
+      @error.inject(0) { |accum, error| accum + error } / @error.length
+    end
 
-   #recorrer el vector capas y calcular la salida y guarda las entradas
-   def forward_propagation(q)
-     entradaAux = @entradas[q].clone
-     entradaAux.delete(entradaAux.last) # Se elimina la última xq es la deseada
-     y = []
-     for i in 0..(@vectorCapas.length-1)
-       y = @vectorCapas[i].calculateOutput(entradaAux)
-       entradaAux=y
-     end
-     @salidas = y
-     @error << (((@entradas[q].last-y.first)**2)/2.0)
-   end
+    #recorrer el vector capas y calcular la salida y guarda las entradas
+    def forward_propagation(q)
+      entradaAux = @entradas[q].clone
+      entradaAux.delete(entradaAux.last) # Se elimina la última xq es la deseada
+      y = []
+      for i in 0..(@vectorCapas.length-1)
+        y = @vectorCapas[i].calculateOutput(entradaAux)
+        entradaAux=y
+      end
+      @salidas = y
+      @error << (((@entradas[q].last-y.first)**2)/2.0)
+    end
 
-   def back_propagation(q)
-     #los deltas van a vivir en cada layer
-     #actualizamos los deltas de la ultima capa
-     contador=(@vectorCapas.length-1)  
-     aux = []
-     for i in 0..(@numNeuron.last-1)
-       aux <<  (@entradas[q].last-@salidas[i])*(@salidas[i]*(1-@salidas[i]))
-     end
-     @vectorCapas[contador].deltas = aux
-     #actualizamos los deltas de las capas inferiores
-     while(contador >0)
-      delta =@vectorCapas[contador].deltas
-      pesos = @vectorCapas[contador].matrixWeights
-      @vectorCapas[contador-1].initializeDeltas(delta,pesos)
-      contador -= 1
-     end
-   end
+    def back_propagation(q)
+      #los deltas van a vivir en cada layer
+      #actualizamos los deltas de la ultima capa
+      contador=(@vectorCapas.length-1)  
+      aux = []
+      for i in 0..(@numNeuron.last-1)
+        aux <<  (@entradas[q].last-@salidas[i])*(@salidas[i]*(1-@salidas[i]))
+      end
+      @vectorCapas[contador].deltas = aux
+      #actualizamos los deltas de las capas inferiores
+      while(contador >0)
+       delta =@vectorCapas[contador].deltas
+       pesos = @vectorCapas[contador].matrixWeights
+       @vectorCapas[contador-1].initializeDeltas(delta,pesos)
+       contador -= 1
+      end
+    end
 
     def update_weights(m)
       #actualizar dps la ultima capa con el delta que se calcula aca
