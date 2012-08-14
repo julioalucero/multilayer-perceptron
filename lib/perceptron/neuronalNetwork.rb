@@ -155,7 +155,7 @@ module Perceptron
 
       Gnuplot::DataSet.new( [x2, y2] ) { |ds|
         ds.with = "point"
-        ds.linewidth = 4  } ]
+        ds.linewidth = 2  } ]
       end
     end
    end

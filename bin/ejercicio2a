@@ -47,7 +47,7 @@ csv_tabla2.createIndices(porcentaje, cantidadParticiones)
 
 # Creo una array para guardar los resultados
 
-particiones = Array.new
+particiones = []
 for i in 0..4 do
   neurona = Perceptron::Neuron.new(3, 0.2, 1,true)
   neurona.trainingWithIndices(csv_tabla2.matrix, csv_tabla2.trainingIndices[i])

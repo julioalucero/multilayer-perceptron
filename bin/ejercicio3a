@@ -19,17 +19,32 @@ csv_tabla2.createIndices(porcentaje, cantidadParticiones)
 # random de la matrix
 csv_tabla2.matrix.shuffle!
 
-# guardamos los primeros 80%
-matrixEntrenamiento = Array.new
+# guardamos los primeros 80% de entrenamiento
+matrixEntrenamiento = []
 for i in 0..1999
   matrixEntrenamiento << csv_tabla2.matrix[i]
 end
-matrixTest = Array.new
+
+# guardamos los otros 20% para test
+matrixTest = []
 for i in 2000..2499
   matrixTest << csv_tabla2.matrix[i]
 end
 
-neuronalNetwork = Perceptron::NeuronalNetwork.new(3, matrixEntrenamiento, [7, 4, 1], 200, 0.5, false)
+capas              = 3
+neuronas_por_capa  = [7, 4, 1]
+iteraciones_maxima = 200
+nu                 = 0.5
+momento            = false
+
+neuronalNetwork = Perceptron::NeuronalNetwork.new(
+  capas,
+  matrixEntrenamiento,
+  neuronas_por_capa,
+  iteraciones_maxima,
+  nu,
+  momento
+)
 
 neuronalNetwork.trainingNetwork
 puts "*" * 70

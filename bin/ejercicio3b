@@ -29,7 +29,20 @@ for i in 2000..2499
   matrixTest << csv_tabla2.matrix[i]
 end
 
-neuronalNetwork = Perceptron::NeuronalNetwork.new(3, matrixEntrenamiento, [4, 2, 1], 200, 0.1, true)
+capas              = 3
+neuronas_por_capa  = [4, 2, 1]
+iteraciones_maxima = 200
+nu                 = 0.1
+momento            = true
+
+neuronalNetwork = Perceptron::NeuronalNetwork.new(
+  capas,
+  matrixEntrenamiento,
+  neuronas_por_capa,
+  iteraciones_maxima,
+  nu,
+  momento
+)
 
 neuronalNetwork.trainingNetwork
 puts "*" * 70
