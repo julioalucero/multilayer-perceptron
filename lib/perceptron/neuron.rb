@@ -1,6 +1,6 @@
 require 'gnuplot'
 
-module Perceptor
+module Perceptron
   class Neuron
     attr_accessor :nInputs, :w, :nu, :umbral, :epocas, :error, :bool
 
@@ -9,12 +9,13 @@ module Perceptor
       @nu = nu
       @umbral = 2 * 0.5 * rand - 0.5
       @epocas = epocas
-      @w = initializeRandom
+      @w = initialize_random
       @error = []
       @bool = bandera
     end
 
-    def initializeRandom
+    # Initialize all the values for the w (weigths) between [-0.5, 0.5]
+    def initialize_random
       @w = []
       @nInputs.times do
          @w << (2 * 0.5 * rand - 0.5)
@@ -49,44 +50,44 @@ module Perceptor
     end
 
     def graficar
-     Gnuplot.open do |gp|
-      Gnuplot::Plot.new( gp ) do |plot|
-       plot.title  "Ejercicio-1"
-       plot.ylabel "y"
-       plot.xlabel "x"
-       plot.xrange "[-2.0:2.0]"
-       plot.yrange "[-2.0:2.0]"
-       if (bool == true)
-        x1 = [1.0,-1.0,1.0]
-        y1 = [1.0,1.0,-1.0]
-        x2 = [-1.0]
-        y2 = [-1.0]
-        else
-        x1 = [1.0,-1.0]
-        y1 = [1.0,-1.0]
-        x2 = [-1.0,1.0]
-        y2 = [1.0,-1.0]
-      end
+      Gnuplot.open do |gp|
+        Gnuplot::Plot.new( gp ) do |plot|
+          plot.title  "Ejercicio-1"
+          plot.ylabel "y"
+          plot.xlabel "x"
+          plot.xrange "[-2.0:2.0]"
+          plot.yrange "[-2.0:2.0]"
+          if (bool == true)
+           x1 = [1.0,-1.0,1.0]
+           y1 = [1.0,1.0,-1.0]
+           x2 = [-1.0]
+           y2 = [-1.0]
+           else
+           x1 = [1.0,-1.0]
+           y1 = [1.0,-1.0]
+           x2 = [-1.0,1.0]
+           y2 = [1.0,-1.0]
+        end
 
-      a = -1.0*(@w.first / @w.last)
-      b = @umbral / @w.last
-      plot.data = [
-        Gnuplot::DataSet.new("#{a}*x + #{b}") { |ds|
-          ds.with = "lines"
-          ds.linewidth = 2
-        },
-        Gnuplot::DataSet.new([x1,y1]) { |ds|
-          ds.with = "points"
-          ds.linewidth = 4
-         },
-        Gnuplot::DataSet.new([x2,y2]) { |ds|
-          ds.with = "points"
-          ds.linewidth = 4
-        }, 
-      ]
+        a = -1.0*(@w.first / @w.last)
+        b = @umbral / @w.last
+        plot.data = [
+          Gnuplot::DataSet.new("#{a}*x + #{b}") { |ds|
+            ds.with = "lines"
+            ds.linewidth = 2
+          },
+          Gnuplot::DataSet.new([x1,y1]) { |ds|
+            ds.with = "points"
+            ds.linewidth = 4
+          },
+          Gnuplot::DataSet.new([x2,y2]) { |ds|
+            ds.with = "points"
+            ds.linewidth = 4
+          }, 
+        ]
+      end
     end
   end
-end
 
     def calculate(training)
       y = dot_product(training)
