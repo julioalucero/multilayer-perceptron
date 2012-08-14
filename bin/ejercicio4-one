@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptron'
+require 'my_csv'
 
 puts "\n" + "*" * 80  + "\n" +
      " " * 20 + "Bienvenido al Ejercicio 4" + " " * 20 + "\n" +
@@ -9,7 +10,7 @@ puts "\n" + "*" * 80  + "\n" +
      "*" * 80 + "\n"
 
 or_path = 'iris.csv'
-csv_iris = Perceptor::Csv.new(or_path)
+csv_iris = MyCsv::SpecialsCsv.new(or_path)
 matrix = csv_iris.matrix
 
 matrix.shuffle!
@@ -25,7 +26,7 @@ err = []
 particiones.times do |i|
   entrenamiento =  matrix[0...(k*i)] + matrix[(k*(i+1))..tamanio]
 	test = matrix[(k*i)...(k*(i+1))]
-	iris = Perceptron::NeuronalNetwork2.new(3, entrenamiento, [4,3,3], 2000, 0.3, false)
+	iris = Perceptron::NeuronalNetwork2.new(3, entrenamiento, [4,3,3], 2, 0.3, false)
 	iris.trainingNetwork
 	err << iris.test(test)
 	errProm += err.last

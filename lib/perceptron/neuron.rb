@@ -31,7 +31,7 @@ module Perceptor
           contador += 1
           y = calculate(training)
           update(training, y)
-          graficar if (contador % 5  == 0)
+          graficar if (contador % 10  == 0)
         end
       end
     end

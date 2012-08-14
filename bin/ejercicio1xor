@@ -2,8 +2,8 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptron'
-require 'myRandom'
 require 'my_random'
+require 'my_csv'
 
 # Ejercicio 1a
 
@@ -12,7 +12,7 @@ puts "\n" + "*" * 80  + "\n" +
      "*" * 80 + "\n"
 
 or_path = 'xor.csv'
-csv_or = Perceptor::Csv.new(or_path)
+csv_or = MyCsv::SpecialsCsv.new(or_path)
 
 desviacion = 0.05
 cantidad = 20

@@ -2,6 +2,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'perceptron'
+require 'my_csv'
 
 puts "\n" + "*" * 80  + "\n" +
      " " * 20 + "Bienvenido al Ejercicio 3" + " " * 20 + "\n" +
@@ -9,7 +10,7 @@ puts "\n" + "*" * 80  + "\n" +
      "*" * 80 + "\n"
 
 or_path = 'concent.csv'
-csv_tabla2 = Perceptor::Csv.new(or_path)
+csv_tabla2 = MyCsv::SpecialsCsv.new(or_path)
 
 porcentaje = 80
 cantidadParticiones = 1
