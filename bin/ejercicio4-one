@@ -25,12 +25,12 @@ errProm = 0.0
 err = []
 particiones.times do |i|
   entrenamiento =  matrix[0...(k*i)] + matrix[(k*(i+1))..tamanio]
-	test = matrix[(k*i)...(k*(i+1))]
-	iris = Perceptron::NeuronalNetwork2.new(3, entrenamiento, [4,3,3], 2, 0.3, false)
-	iris.trainingNetwork
-	err << iris.test(test)
-	errProm += err.last
-	p "Iteracion numero #{i} "
+  test = matrix[(k*i)...(k*(i+1))]
+  iris = Perceptron::NeuronalNetwork2.new(3, entrenamiento, [4,3,3], 2, 0.3, false)
+  iris.trainingNetwork
+  err << iris.test(test)
+  errProm += err.last
+  p "Iteracion numero #{i} "
 end
 
 mean = 0.0
