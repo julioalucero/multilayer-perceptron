@@ -39,7 +39,7 @@ csv_tabla2.matrix = matrixPruebas
 # respectivamente, indices al azar. Los guarda en arrays
 # Ej. [ [...] [...]  ....  [...]
 porcentaje = 80
-cantidadParticiones = 5
+cantidadParticiones = 9
 csv_tabla2.createIndices(porcentaje, cantidadParticiones)
 
 #p csv_tabla2.matrix[csv_tabla2.trainingIndices.first.first]
@@ -48,7 +48,7 @@ csv_tabla2.createIndices(porcentaje, cantidadParticiones)
 # Creo una array para guardar los resultados
 
 particiones = []
-for i in 0..4 do
+for i in 0..cantidadParticiones-1 do
   neurona = Perceptron::Neuron.new(3, 0.2, 1,true)
   neurona.trainingWithIndices(csv_tabla2.matrix, csv_tabla2.trainingIndices[i])
   neurona.test(csv_tabla2.matrix, csv_tabla2.testIndices[i])
@@ -57,9 +57,11 @@ end
 
 sumaErrores = 0
 
+j = 0
 particiones.each do |epoca|
-  puts "Error: #{epoca.error.to_f / 200 * 100} %"
+  puts "Particion #{j}: - Error: #{epoca.error.to_f / 200 * 100} %"
   sumaErrores += epoca.error
+  j += 1
 end
 puts "\n"
 puts "El promedio de error es: #{sumaErrores * 100 / 1000.0} %"
