@@ -18,14 +18,14 @@ module Perceptron
       @vectorCapas = initialize_red
       @nu = nu
       @momento = momento
-      @error = Array.new
+      @error = []
     end
 
-    # recorre cada capa y guarruda la cantidad de entradas que posee.
+    # recorre cada capa y guarda la cantidad de entradas que posee.
     def initialize_index
       indiceEntradas = []
-      indiceEntradas << @entradas[0].length - 1 #La ultima entrada es el valor esperado
-      for i in 1..@capas-1 do 
+      indiceEntradas << @entradas[0].length - 1 # La ultima entrada es el valor esperado (y)
+      for i in 1..@capas-1 do
         indiceEntradas << @numNeuron[i-1]
       end
       indiceEntradas
@@ -34,7 +34,7 @@ module Perceptron
     # Crea los objetos Layer necesarios
     # Ej. [ Layer1, Layer2, Layer3 ]
     def initialize_red
-      vectorCapas = Array.new
+      vectorCapas = []
       for i in 0..@capas-1
         vectorCapas << Layer.new(@numNeuron[i], @indiceEntradas[i])
       end
@@ -42,53 +42,54 @@ module Perceptron
     end
 
     def trainingNetwork
-      prom = 100
-      cantIter=1
-      while((prom>0.05) && (cantIter<@maxIter))
+      error = 100 # initialize the error with a big number
+      cantIter = 1
+      while((error > 0.05) && (cantIter < @maxIter))
         for q in 0..(@entradas.length-1)
           forward_propagation(q)
           back_propagation(q)
           update_weights(@momento)
         end
-        prom = prom_errores
+        error = prom_errores
         @error.clear
         cantIter+=1
         p "Error"
-        p prom
+        p error
         p "Cantidad de iteraciones"
         p cantIter
       end
     end
 
+    # calcule the measure error
     def prom_errores
       @error.inject(0) { |accum, error| accum + error } / @error.length
     end
 
-    #recorrer el vector capas y calcular la salida y guarda las entradas
+    # recorrer el vector capas y calcular la salida y guarda las entradas
     def forward_propagation(q)
-      entradaAux = @entradas[q].clone
+      entradaAux = @entradas[q].clone # to keep the object saved
       entradaAux.delete(entradaAux.last) # Se elimina la última xq es la deseada
       y = []
       for i in 0..(@vectorCapas.length-1)
         y = @vectorCapas[i].calculateOutput(entradaAux)
-        entradaAux=y
+        entradaAux = y
       end
       @salidas = y
       @error << (((@entradas[q].last-y.first)**2)/2.0)
     end
 
+    # los deltas van a vivir en cada layer
     def back_propagation(q)
-      #los deltas van a vivir en cada layer
-      #actualizamos los deltas de la ultima capa
-      contador=(@vectorCapas.length-1)  
+      # actualizamos los deltas de la ultima capa
+      contador = (@vectorCapas.length-1)
       aux = []
       for i in 0..(@numNeuron.last-1)
-        aux <<  (@entradas[q].last-@salidas[i])*(@salidas[i]*(1-@salidas[i]))
+        aux <<  (@entradas[q].last - @salidas[i]) * ( @salidas[i] * (1-@salidas[i]))
       end
       @vectorCapas[contador].deltas = aux
       #actualizamos los deltas de las capas inferiores
-      while(contador >0)
-       delta =@vectorCapas[contador].deltas
+      while(contador > 0)
+       delta = @vectorCapas[contador].deltas
        pesos = @vectorCapas[contador].matrixWeights
        @vectorCapas[contador-1].initializeDeltas(delta,pesos)
        contador -= 1
