@@ -7,12 +7,7 @@ require 'my_csv'
 
 # Ejercicio 1a
 
-
-puts "\n" + "*" * 80  + "\n" +
-     " " * 20 + "Ejercicio 1 a OR" + " " * 20 + "\n" +
-     "*" * 80 + "\n"
-
-
+puts  " \n\n ******************** Ejercicio 1 a OR ********************* \n\n"
 
 or_path = 'or.csv'
 csv_or = MyCsv::SpecialsCsv.new(or_path)
@@ -39,3 +34,5 @@ w2 =    neurona.w.last
 
 puts "la pendiente es: #{w1/w2}"
 puts "la otra var. es: #{neurona.umbral/w2}"
+
+puts  " \n\n *************************+********************* \n\n"

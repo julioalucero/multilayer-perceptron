@@ -106,9 +106,9 @@ module Perceptron
           deseada = [0,0,1]
         end
       end
-      aux1 =  (deseada[0]-@salidas[0])*(@salidas[0]*(1-@salidas[0]))
-      aux2 =  (deseada[1]-@salidas[1])*(@salidas[1]*(1-@salidas[1]))
-      aux3 =  (deseada[2]-@salidas[2])*(@salidas[2]*(1-@salidas[2]))
+      aux1 =  (deseada[0] -@salidas[0]) * (@salidas[0] * (1-@salidas[0]))
+      aux2 =  (deseada[1]- @salidas[1]) * (@salidas[1] * (1-@salidas[1]))
+      aux3 =  (deseada[2]- @salidas[2]) * (@salidas[2] * (1-@salidas[2]))
       aux << aux1
       aux << aux2
       aux << aux3

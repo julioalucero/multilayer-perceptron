@@ -21,6 +21,49 @@ module Perceptron
       @error = []
     end
 
+    def trainingNetwork
+      error = 100 # initialize the error with a big number
+      cantIter = 1
+      while((error > 0.05) && (cantIter < @maxIter))
+        for q in 0..(@entradas.length-1)
+          forward_propagation(q)
+          back_propagation(q)
+          update_weights(@momento)
+        end
+        error = prom_errores
+        @error.clear
+        cantIter += 1
+        p "Iteracion: #{cantIter} - Error: #{error}"
+      end
+    end
+
+    def test(matrix)
+      @entradas = matrix
+      vectorSalidas = []
+      for q in 0..@entradas.length-1
+        forward_propagation(q)
+        vectorSalidas << @salidas
+      end
+      puntosXY = []
+      @entradas.each do |e|
+        puntosXY << e[0..-2]
+      end
+
+      #separamos las dos clases asi es  mas facil graficar
+      clase1 = []
+      clase2 = []
+      for i in 0..(vectorSalidas.length-1)
+        if vectorSalidas[i].first >= 0.5
+          clase1 << puntosXY[i]
+        else
+          clase2 << puntosXY[i]
+        end
+      end
+      graficar_puntos(clase1,clase2)
+    end
+
+    private
+
     # recorre cada capa y guarda la cantidad de entradas que posee.
     def initialize_index
       indiceEntradas = []
@@ -39,25 +82,6 @@ module Perceptron
         vectorCapas << Layer.new(@numNeuron[i], @indiceEntradas[i])
       end
       vectorCapas
-    end
-
-    def trainingNetwork
-      error = 100 # initialize the error with a big number
-      cantIter = 1
-      while((error > 0.05) && (cantIter < @maxIter))
-        for q in 0..(@entradas.length-1)
-          forward_propagation(q)
-          back_propagation(q)
-          update_weights(@momento)
-        end
-        error = prom_errores
-        @error.clear
-        cantIter+=1
-        p "Error"
-        p error
-        p "Cantidad de iteraciones"
-        p cantIter
-      end
     end
 
     # calcule the measure error
@@ -107,31 +131,6 @@ module Perceptron
           @vectorCapas[i].updateWeigt(@nu)	
         end
       end
-    end
-
-    def test(matrix)
-      @entradas = matrix
-      vectorSalidas = []
-      for q in 0..@entradas.length-1
-        forward_propagation(q)
-        vectorSalidas << @salidas
-      end
-      puntosXY = []
-      @entradas.each do |e|
-        puntosXY << e[0..-2]
-      end
-
-      #separamos las dos clases asi es  mas facil graficar
-      clase1 = []
-      clase2 = []
-      for i in 0..(vectorSalidas.length-1)
-        if vectorSalidas[i].first >= 0.5
-          clase1 << puntosXY[i]
-        else
-          clase2 << puntosXY[i]
-        end
-      end
-      graficar_puntos(clase1,clase2)
     end
 
     def graficar_puntos(clase1,clase2)
