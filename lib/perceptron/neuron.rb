@@ -23,7 +23,7 @@ module Perceptron
           contador += 1
           y = calculate(pattern)
           update(pattern, y)
-        #  graficar if (contador % 20  == 0)
+          #graficar if (contador % 20  == 0)
         end
       end
     end
@@ -71,14 +71,14 @@ module Perceptron
     def calculate(pattern)
       y = dot_product(pattern) # < @w, pattern >
       y = y - @umbral
-      y = sigmoide(y,1)
+      y = sigmoide(y, 1)
     end
 
     def sigmoide(y, a)
-      y= (1 -Math.exp(-a*y)) / (1 + Math.exp(-a*y))
+      y = (1 -Math.exp(-a*y)) / (1 + Math.exp(-a*y))
     end
 
-    # w(n+1) = w(n) - umbral*x(n)
+    # w(n+1) = w(n) - umbral * x(n)
     def update(training, y)
       shift = constantProduct(training, y)
       @w = subtractArray(shift)
@@ -90,10 +90,10 @@ module Perceptron
       sum
     end
 
-    # umbral/2 [yd - y(n)] * x(n)
+    # (@nu / 2) . [yd - y(n)] . x(n)
     def constantProduct(training, y)
       shift = []
-      constant = @nu/2 * (training.last - y)
+      constant = (@nu / 2) * (training.last - y)
       for i in 0..(@nInputs - 1)
         shift << training[i] * constant
       end
